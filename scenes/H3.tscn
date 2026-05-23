@@ -2411,7 +2411,7 @@ _data = {
 transform = Transform3D(0.2, 0, 0, 0, 0.1999817, 0.002705187, 0, -0.002705187, 0.1999817, 0, -0.44443733, -0.006921053)
 shape = SubResource("HeightMapShape3D_t38e0")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=772816212]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=772816212 groups=["boss"]]
 transform = Transform3D(98.999886, 0, 0, 0, 98.14255, -13.025252, 0, 13.025252, 98.14255, 0, 0.15695164, 0.0342741)
 shape = SubResource("CapsuleShape3D_g4u2p")
 

@@ -4908,10 +4908,10 @@ _data = {
 [node name="H1" type="CharacterBody3D" unique_id=1039648812]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=101597490]
-transform = Transform3D(0.2, 0, 0, 0, 0.1999817, 0.002705187, 0, -0.002705187, 0.1999817, 0, -0.46022645, -0.006921053)
+transform = Transform3D(0.2, 0, 0, 0, 0.1999817, 0.002705187, 0, -0.002705187, 0.1999817, 0, -0.48338643, -0.006921053)
 shape = SubResource("HeightMapShape3D_atbu0")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=830175929]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=830175929 groups=["boss"]]
 transform = Transform3D(98.999886, 0, 0, 0, 98.14255, -13.025252, 0, 13.025252, 98.14255, 0, 0.15695164, 0.08800298)
 shape = SubResource("CapsuleShape3D_jdote")
 

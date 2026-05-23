@@ -2090,10 +2090,10 @@ _data = {
 [node name="P1" type="CharacterBody3D" unique_id=1070610618]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=995378136]
-transform = Transform3D(0.2, 0, 0, 0, 0.1999817, 0.002705187, 0, -0.002705187, 0.1999817, 0, -0.42707694, -0.006921053)
+transform = Transform3D(0.2, 0, 0, 0, 0.1999817, 0.002705187, 0, -0.002705187, 0.1999817, 0, -0.4631774, -0.006921053)
 shape = SubResource("HeightMapShape3D_ukyud")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1041439718]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1041439718 groups=["players"]]
 transform = Transform3D(98.999886, 0, 0, 0, 98.14255, -13.025252, 0, 13.025252, 98.14255, 0, 0.13572457, 0.08518577)
 shape = SubResource("CapsuleShape3D_50au5")
 

@@ -19,6 +19,12 @@ config/icon="res://icon.svg"
 
 SessionManager="*uid://ienp7p63i5q6"
 
+[global_group]
+
+players=""
+boss=""
+Characters=""
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
