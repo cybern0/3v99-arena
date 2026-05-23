@@ -211,7 +211,7 @@ func _play_default_animation(node: Node) -> void:
 	if anim_player:
 		var animations : Array = anim_player.get_animation_list()
 		if animations.size() > 0:
-			var animation_name : String = animations[0]
+			var animation_name : String = "idle"
 			var animation : Animation = anim_player.get_animation(animation_name)
 			if animation:
 				animation.loop = true
