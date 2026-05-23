@@ -1,10 +1,13 @@
 extends Node
 
-var characters := Node;
+var characters: Array[CharacterBody3D] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var chars = get_tree().get_nodes_in_group("Characters")
-	characters = [c as CharacterBody3D for c in chars]
+	characters.clear()
+	for c in chars:
+		if c is CharacterBody3D:
+			characters.append(c)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
