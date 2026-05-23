@@ -1,1 +1,56 @@
-Nothing should be ignored based on the provided file changes. The only modified file is a source code file (.gd) which should not be added to .gitignore.
+```
+# Godot-specific ignores
+*.import
+*.remap
+.project
+.user
+.sln
+.csproj
+.vs/
+
+# Compiled and build artifacts
+*.so
+*.dylib
+*.dll
+*.exe
+*.o
+*.obj
+*.a
+*.lib
+*.out
+
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+dist/
+build/
+target/
+.gradle/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*.~*
+
+# Environment
+.env
+.env.local
+.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+```
