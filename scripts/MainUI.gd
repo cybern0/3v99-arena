@@ -30,6 +30,7 @@ const MODEL_SCENES := {
 }
 
 @onready var char_node    : Node3D          = $AvatarScreen/AvatarViewportContainer/AvatarViewport/CharNode
+@onready var avatar_cam   : Camera3D         = $AvatarScreen/AvatarViewportContainer/AvatarViewport/AvatarCamera
 @onready var rot_timer    : Timer           = $AvatarScreen/AvatarViewportContainer/AvatarViewport/AvatarRotateTimer
 @onready var name_edit    : LineEdit        = $AvatarScreen/AvatarControls/NameEdit
 @onready var stat_vie     : ProgressBar     = $AvatarScreen/AvatarControls/StatsGrid/BarVie
@@ -44,9 +45,17 @@ const MODEL_SCENES := {
 @onready var prev_diff    : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevDiffVal
 @onready var prev_cam     : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevCamVal
 
+# Map vers scene
+const MAP_SCENES := {
+	"Foret Profonde": "res://scenes/w_1.tscn",
+	"Desert Aride":   "res://scenes/w_2.tscn",
+	"Montagne Glace": "res://scenes/w_3.tscn",
+}
+
 # ── Etat interne ───────────────────────────────────────────────────────────────
 var _rot_dir       : float  = 1.0
 var _current_class : String = "Guerrier"
+var _selected_model: String = "Model 1"
 var _solo_config   : Dictionary = {
 	"map":    "Foret Profonde",
 	"time":   "Jour",
@@ -189,6 +198,7 @@ func _save_avatar() -> void:
 func _select_model(name: String) -> void:
 	if not MODEL_SCENES.has(name):
 		return
+	_selected_model = name
 	# Vider le conteneur existant
 	for child in char_node.get_children():
 		child.queue_free()
@@ -199,10 +209,18 @@ func _select_model(name: String) -> void:
 		char_node.add_child(inst)
 		inst.transform = Transform3D.IDENTITY
 		_play_default_animation(inst)
+		# Attacher la camera au modele selectionne
+		_attach_camera_to_model(inst)
 	# Assurer que seul le bouton selectionne reste presse
 	for btn in $AvatarScreen/AvatarControls/ModelRow.get_children():
 		if btn is Button:
 			btn.set_pressed(btn.text == name)
+
+func _attach_camera_to_model(model: Node3D) -> void:
+	# Positionner la camera pour une vue TPS derriere le modele
+	var cam_offset := Vector3(0, 1.2, 2.5)
+	avatar_cam.transform.origin = model.to_global(cam_offset)
+	avatar_cam.look_at(model.global_transform.origin + Vector3(0, 0.8, 0))
 
 func _play_default_animation(node: Node) -> void:
 	var anim_player := node.get_node_or_null("AnimationPlayer")
@@ -231,9 +249,16 @@ func _update_cam_preview() -> void:
 func _launch_solo() -> void:
 	# Passe la configuration a la scene de jeu via un Autoload ou des meta
 	if has_node("/root/SessionManager"):
-		get_node("/root/SessionManager").solo_config = _solo_config.duplicate()
+		var sm = get_node("/root/SessionManager")
+		sm.solo_config = _solo_config.duplicate()
+		sm.selected_model = _selected_model
 	print("[Solo] Lancement avec config : ", _solo_config)
-	get_tree().change_scene_to_file("res://scenes/SoloGame.tscn")
+	print("[Solo] Modele selectionne : ", _selected_model)
+	# Determiner la scene a charger selon la map choisie
+	var map_name: String = _solo_config["map"]
+	var scene_path: String = MAP_SCENES.get(map_name, "res://scenes/w_1.tscn")
+	print("[Solo] Scene cible : ", scene_path)
+	get_tree().change_scene_to_file(scene_path)
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Battle Royal — Joindre

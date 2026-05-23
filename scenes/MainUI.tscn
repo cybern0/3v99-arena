@@ -201,26 +201,30 @@ theme_override_constants/separation = 16
 [node name="BtnAvatar" type="Button" parent="MainMenuScreen/MenuButtons" unique_id=964884771]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 17
-text = "  Personnaliser Avatar"
+text = "✨ Personnaliser Avatar"
 
 [node name="BtnSolo" type="Button" parent="MainMenuScreen/MenuButtons" unique_id=593926528]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 17
-text = "  Mode Solo"
+text = "⚔️ Mode Solo"
 
 [node name="BtnBattleRoyal" type="Button" parent="MainMenuScreen/MenuButtons" unique_id=1932981529]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 17
-text = "  Joindre Room Battle Royal"
+text = "🏆 Joindre Room Battle Royal"
 
 [node name="BtnBossHunt" type="Button" parent="MainMenuScreen/MenuButtons" unique_id=1999929348]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 17
-text = "  Joindre Room Elimination Boss"
+text = "👹 Joindre Room Elimination Boss"
 
 [node name="HintLbl" type="Label" parent="MainMenuScreen" unique_id=187592652]
 layout_mode = 0
@@ -370,18 +374,20 @@ theme_override_constants/separation = 10
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 toggle_mode = true
 button_pressed = true
-text = "Model 1"
+text = "👤 Model 1"
 
 [node name="BtnModel2" type="Button" parent="AvatarScreen/AvatarControls/ModelRow" unique_id=1092837465]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 toggle_mode = true
-text = "Model 2"
+text = "👤 Model 2"
 
 [node name="ClassLbl" type="Label" parent="AvatarScreen/AvatarControls" unique_id=790436052]
 layout_mode = 2
@@ -646,12 +652,13 @@ custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 selected = 0
-item_count = 5
+item_count = 3
 popup/item_0/id = 0
+popup/item_0/text = "Foret Profonde"
 popup/item_1/id = 1
+popup/item_1/text = "Desert Aride"
 popup/item_2/id = 2
-popup/item_3/id = 3
-popup/item_4/id = 4
+popup/item_2/text = "Montagne Glace"
 
 [node name="EnvLbl" type="Label" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=272602569]
 layout_mode = 2
@@ -777,11 +784,12 @@ text = "Difficile"
 [node name="BtnLancer" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=360371191]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "LANCER LA PARTIE  >"
 
 [node name="SoloRightPanel" type="VBoxContainer" parent="SoloScreen/SoloContent" unique_id=517483276]
-custom_minimum_size = Vector2(310, 0)
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 14
@@ -874,6 +882,7 @@ theme_override_constants/separation = 10
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 toggle_mode = true
 button_pressed = true
@@ -883,6 +892,7 @@ text = "TPS — 3e pers."
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 toggle_mode = true
 text = "FPS — 1e pers."

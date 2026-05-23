@@ -10,6 +10,10 @@ var is_logged_in  : bool       = false
 var is_online     : bool       = false
 var user_data     : Dictionary = {}
 
+# Configuration du mode solo
+var solo_config    : Dictionary = {}
+var selected_model : String     = "Model 1"
+
 # ─────────────────────────────────────────────
 #  Appeler depuis MainUI avant d'ouvrir BR/BH
 # ─────────────────────────────────────────────
