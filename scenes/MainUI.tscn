@@ -1,0 +1,1338 @@
+[gd_scene format=3 uid="uid://dx2yv6be7srk4"]
+
+[ext_resource type="Script" uid="uid://ftpay0c0slbn" path="res://scripts/MainUI.gd" id="1_74o4q"]
+
+[sub_resource type="Environment" id="Env_avatar"]
+background_mode = 2
+background_color = Color(0.05, 0.04, 0.14, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.4, 0.35, 0.8, 1)
+ambient_light_energy = 0.6
+
+[sub_resource type="CapsuleMesh" id="Mesh_body"]
+radius = 0.28
+height = 1.3
+
+[sub_resource type="StandardMaterial3D" id="Mat_body"]
+albedo_color = Color(0.25, 0.2, 0.65, 1)
+metallic = 0.5
+roughness = 0.4
+
+[sub_resource type="SphereMesh" id="Mesh_head"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="Mat_head"]
+albedo_color = Color(0.82, 0.72, 0.62, 1)
+roughness = 0.8
+
+[node name="MainUI" type="Control" unique_id=1111211544]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_74o4q")
+
+[node name="Background" type="ColorRect" parent="." unique_id=865467287]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.04, 0.11, 1)
+
+[node name="TitleBar" type="Control" parent="." unique_id=443611059]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 100.0
+
+[node name="TitleLabel" type="Label" parent="TitleBar" unique_id=841433121]
+layout_mode = 0
+offset_top = 18.0
+offset_right = 1280.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 42
+text = "ARENA LEGENDS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Divider" type="ColorRect" parent="TitleBar" unique_id=782939596]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 90.0
+offset_right = 1200.0
+offset_bottom = 93.0
+color = Color(0.95, 0.82, 0.35, 0.3)
+
+[node name="MainMenuScreen" type="Control" parent="." unique_id=306803336]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AvatarCard" type="PanelContainer" parent="MainMenuScreen" unique_id=125982246]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 115.0
+offset_right = 375.0
+offset_bottom = 610.0
+
+[node name="AvatarVBox" type="VBoxContainer" parent="MainMenuScreen/AvatarCard" unique_id=1734308270]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AvatarPreview" type="ColorRect" parent="MainMenuScreen/AvatarCard/AvatarVBox" unique_id=541135484]
+custom_minimum_size = Vector2(288, 200)
+layout_mode = 2
+color = Color(0.1, 0.08, 0.25, 1)
+
+[node name="AvatarHint" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox/AvatarPreview" unique_id=550192806]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.55, 0.5, 0.8, 0.45)
+theme_override_font_sizes/font_size = 12
+text = "[ Vue 3D ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AvatarNameLabel" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox" unique_id=2123370390]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Joueur"
+horizontal_alignment = 1
+
+[node name="AvatarClassLabel" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox" unique_id=366525620]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.65, 0.95, 0.85)
+theme_override_font_sizes/font_size = 13
+text = "Guerrier  |  Niveau 1"
+horizontal_alignment = 1
+
+[node name="XPLbl" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox" unique_id=392658520]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.9)
+theme_override_font_sizes/font_size = 11
+text = "XP   30 / 100"
+horizontal_alignment = 1
+
+[node name="XPBar" type="ProgressBar" parent="MainMenuScreen/AvatarCard/AvatarVBox" unique_id=1528702337]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+value = 30.0
+show_percentage = false
+
+[node name="StatsRow" type="HBoxContainer" parent="MainMenuScreen/AvatarCard/AvatarVBox" unique_id=547289891]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StatW" type="VBoxContainer" parent="MainMenuScreen/AvatarCard/AvatarVBox/StatsRow" unique_id=206653932]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Num" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox/StatsRow/StatW" unique_id=1670080637]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
+
+[node name="Lbl" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox/StatsRow/StatW" unique_id=62536279]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.8)
+theme_override_font_sizes/font_size = 10
+text = "Victoires"
+horizontal_alignment = 1
+
+[node name="StatK" type="VBoxContainer" parent="MainMenuScreen/AvatarCard/AvatarVBox/StatsRow" unique_id=275868078]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Num" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox/StatsRow/StatK" unique_id=773750684]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.42, 0.32, 1)
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
+
+[node name="Lbl" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox/StatsRow/StatK" unique_id=2025731114]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.8)
+theme_override_font_sizes/font_size = 10
+text = "Kills"
+horizontal_alignment = 1
+
+[node name="StatP" type="VBoxContainer" parent="MainMenuScreen/AvatarCard/AvatarVBox/StatsRow" unique_id=814509499]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Num" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox/StatsRow/StatP" unique_id=1750199340]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
+
+[node name="Lbl" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox/StatsRow/StatP" unique_id=1596881243]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.8)
+theme_override_font_sizes/font_size = 10
+text = "Parties"
+horizontal_alignment = 1
+
+[node name="MenuButtons" type="VBoxContainer" parent="MainMenuScreen" unique_id=1495440980]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 145.0
+offset_right = 970.0
+offset_bottom = 625.0
+theme_override_constants/separation = 16
+
+[node name="BtnAvatar" type="Button" parent="MainMenuScreen/MenuButtons" unique_id=964884771]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "  Personnaliser Avatar"
+
+[node name="BtnSolo" type="Button" parent="MainMenuScreen/MenuButtons" unique_id=593926528]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "  Mode Solo"
+
+[node name="BtnBattleRoyal" type="Button" parent="MainMenuScreen/MenuButtons" unique_id=1932981529]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "  Joindre Room Battle Royal"
+
+[node name="BtnBossHunt" type="Button" parent="MainMenuScreen/MenuButtons" unique_id=1999929348]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "  Joindre Room Elimination Boss"
+
+[node name="HintLbl" type="Label" parent="MainMenuScreen" unique_id=187592652]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 636.0
+offset_right = 970.0
+offset_bottom = 656.0
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.7)
+theme_override_font_sizes/font_size = 12
+text = "Choisissez un mode de jeu"
+horizontal_alignment = 1
+
+[node name="AvatarScreen" type="Control" parent="." unique_id=928821844]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AvatarBg" type="ColorRect" parent="AvatarScreen" unique_id=1171963651]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.03, 0.09, 1)
+
+[node name="AvatarHeader" type="Control" parent="AvatarScreen" unique_id=1339515431]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 78.0
+
+[node name="BtnBackAvatar" type="Button" parent="AvatarScreen/AvatarHeader" unique_id=1263674188]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 20.0
+offset_right = 190.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 14
+text = "<  Retour"
+
+[node name="AvatarTitle" type="Label" parent="AvatarScreen/AvatarHeader" unique_id=2101485705]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 1280.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.75, 0.6, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "PERSONNALISATION AVATAR"
+horizontal_alignment = 1
+
+[node name="AvatarTitleDiv" type="ColorRect" parent="AvatarScreen/AvatarHeader" unique_id=2137469948]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 73.0
+offset_right = 1200.0
+offset_bottom = 76.0
+color = Color(0.75, 0.6, 1, 0.22)
+
+[node name="AvatarViewportContainer" type="SubViewportContainer" parent="AvatarScreen" unique_id=391184483]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 88.0
+offset_right = 500.0
+offset_bottom = 680.0
+stretch = true
+
+[node name="AvatarViewport" type="SubViewport" parent="AvatarScreen/AvatarViewportContainer" unique_id=618814193]
+handle_input_locally = false
+size = Vector2i(452, 592)
+render_target_update_mode = 0
+
+[node name="WorldEnv" type="WorldEnvironment" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=2047191588]
+environment = SubResource("Env_avatar")
+
+[node name="KeyLight" type="DirectionalLight3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=2054807929]
+transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 4, 0)
+light_color = Color(1, 0.95, 1, 1)
+light_energy = 1.5
+shadow_enabled = true
+
+[node name="FillLight" type="DirectionalLight3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=656906002]
+transform = Transform3D(-0.866, -0.25, -0.433, 0, 0.866, -0.5, 0.5, -0.433, -0.75, -2, 2, 2)
+light_color = Color(0.55, 0.45, 1, 1)
+light_energy = 0.45
+
+[node name="RimLight" type="DirectionalLight3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=2089474632]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 2, -3)
+light_color = Color(0.6, 0.5, 1, 1)
+light_energy = 0.6
+
+[node name="AvatarCamera" type="Camera3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=383200442]
+transform = Transform3D(1, 0, 0, 0, 0.97, 0.24, 0, -0.24, 0.97, 0, 1.05, 3)
+current = true
+fov = 52.0
+
+[node name="CharNode" type="Node3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=1941656649]
+
+[node name="Body" type="MeshInstance3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport/CharNode" unique_id=1752400348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+mesh = SubResource("Mesh_body")
+surface_material_override/0 = SubResource("Mat_body")
+
+[node name="Head" type="MeshInstance3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport/CharNode" unique_id=2017768599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52, 0)
+mesh = SubResource("Mesh_head")
+surface_material_override/0 = SubResource("Mat_head")
+
+[node name="AvatarRotateTimer" type="Timer" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=417977289]
+wait_time = 0.016
+
+[node name="AvatarControls" type="VBoxContainer" parent="AvatarScreen" unique_id=454804063]
+layout_mode = 0
+offset_left = 530.0
+offset_top = 96.0
+offset_right = 1230.0
+offset_bottom = 680.0
+theme_override_constants/separation = 16
+
+[node name="NameLbl" type="Label" parent="AvatarScreen/AvatarControls" unique_id=774161217]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.6, 1, 0.75)
+theme_override_font_sizes/font_size = 11
+text = "NOM DU PERSONNAGE"
+
+[node name="NameEdit" type="LineEdit" parent="AvatarScreen/AvatarControls" unique_id=94615205]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Joueur"
+placeholder_text = "Entrer votre nom..."
+
+[node name="ModelLbl" type="Label" parent="AvatarScreen/AvatarControls" unique_id=1012345678]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.6, 1, 0.75)
+theme_override_font_sizes/font_size = 11
+text = "CHARACTERE"
+
+[node name="ModelRow" type="HBoxContainer" parent="AvatarScreen/AvatarControls" unique_id=1098765432]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BtnModel1" type="Button" parent="AvatarScreen/AvatarControls/ModelRow" unique_id=1234567890]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+button_pressed = true
+text = "Model 1"
+
+[node name="BtnModel2" type="Button" parent="AvatarScreen/AvatarControls/ModelRow" unique_id=1092837465]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Model 2"
+
+[node name="ClassLbl" type="Label" parent="AvatarScreen/AvatarControls" unique_id=790436052]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.6, 1, 0.75)
+theme_override_font_sizes/font_size = 11
+text = "CLASSE"
+
+[node name="ClassRow" type="HBoxContainer" parent="AvatarScreen/AvatarControls" unique_id=1891138269]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BtnGuerrier" type="Button" parent="AvatarScreen/AvatarControls/ClassRow" unique_id=1225206863]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+button_pressed = true
+text = "Guerrier"
+
+[node name="BtnMage" type="Button" parent="AvatarScreen/AvatarControls/ClassRow" unique_id=2088552323]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Mage"
+
+[node name="BtnArcher" type="Button" parent="AvatarScreen/AvatarControls/ClassRow" unique_id=1875578783]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Archer"
+
+[node name="BtnAssassin" type="Button" parent="AvatarScreen/AvatarControls/ClassRow" unique_id=1679482657]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Assassin"
+
+[node name="ColorLbl" type="Label" parent="AvatarScreen/AvatarControls" unique_id=95222678]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.6, 1, 0.75)
+theme_override_font_sizes/font_size = 11
+text = "COULEUR ARMURE"
+
+[node name="ColorRow" type="HBoxContainer" parent="AvatarScreen/AvatarControls" unique_id=507774198]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ColorViolet" type="Button" parent="AvatarScreen/AvatarControls/ColorRow" unique_id=1443800215]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+button_pressed = true
+text = "Violet"
+
+[node name="ColorBleu" type="Button" parent="AvatarScreen/AvatarControls/ColorRow" unique_id=1292856152]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Bleu"
+
+[node name="ColorRouge" type="Button" parent="AvatarScreen/AvatarControls/ColorRow" unique_id=1564002915]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Rouge"
+
+[node name="ColorOr" type="Button" parent="AvatarScreen/AvatarControls/ColorRow" unique_id=1319160075]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Or"
+
+[node name="RotateLbl" type="Label" parent="AvatarScreen/AvatarControls" unique_id=1388745037]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.6, 1, 0.75)
+theme_override_font_sizes/font_size = 11
+text = "ROTATION"
+
+[node name="RotateRow" type="HBoxContainer" parent="AvatarScreen/AvatarControls" unique_id=93775006]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BtnRotL" type="Button" parent="AvatarScreen/AvatarControls/RotateRow" unique_id=62908665]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "<  Gauche"
+
+[node name="BtnRotAuto" type="Button" parent="AvatarScreen/AvatarControls/RotateRow" unique_id=1720611470]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+button_pressed = true
+text = "Auto"
+
+[node name="BtnRotR" type="Button" parent="AvatarScreen/AvatarControls/RotateRow" unique_id=202311976]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Droite  >"
+
+[node name="StatPreviewLbl" type="Label" parent="AvatarScreen/AvatarControls" unique_id=1793627266]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.6, 1, 0.75)
+theme_override_font_sizes/font_size = 11
+text = "STATISTIQUES DE BASE"
+
+[node name="StatsGrid" type="GridContainer" parent="AvatarScreen/AvatarControls" unique_id=883717557]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 8
+columns = 4
+
+[node name="LblVie" type="Label" parent="AvatarScreen/AvatarControls/StatsGrid" unique_id=1017928324]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "Vie"
+
+[node name="BarVie" type="ProgressBar" parent="AvatarScreen/AvatarControls/StatsGrid" unique_id=592209089]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 80.0
+show_percentage = false
+
+[node name="LblAtq" type="Label" parent="AvatarScreen/AvatarControls/StatsGrid" unique_id=51865635]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "Attaque"
+
+[node name="BarAtq" type="ProgressBar" parent="AvatarScreen/AvatarControls/StatsGrid" unique_id=1668402930]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 70.0
+show_percentage = false
+
+[node name="LblDef" type="Label" parent="AvatarScreen/AvatarControls/StatsGrid" unique_id=1933328477]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "Defense"
+
+[node name="BarDef" type="ProgressBar" parent="AvatarScreen/AvatarControls/StatsGrid" unique_id=28801471]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 75.0
+show_percentage = false
+
+[node name="LblVit" type="Label" parent="AvatarScreen/AvatarControls/StatsGrid" unique_id=1232142300]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "Vitesse"
+
+[node name="BarVit" type="ProgressBar" parent="AvatarScreen/AvatarControls/StatsGrid" unique_id=1257353582]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 60.0
+show_percentage = false
+
+[node name="BtnSaveAvatar" type="Button" parent="AvatarScreen/AvatarControls" unique_id=1442800728]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Sauvegarder l'Avatar"
+
+[node name="SoloScreen" type="Control" parent="." unique_id=2036366189]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SoloBg" type="ColorRect" parent="SoloScreen" unique_id=19970190]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.06, 0.03, 1)
+
+[node name="SoloHeader" type="Control" parent="SoloScreen" unique_id=2132670980]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 78.0
+
+[node name="BtnBackSolo" type="Button" parent="SoloScreen/SoloHeader" unique_id=1513108811]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 20.0
+offset_right = 190.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 14
+text = "<  Retour"
+
+[node name="SoloTitle" type="Label" parent="SoloScreen/SoloHeader" unique_id=213646518]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 1280.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 30
+text = "MODE SOLO  —  CONFIGURATION"
+horizontal_alignment = 1
+
+[node name="SoloDivider" type="ColorRect" parent="SoloScreen/SoloHeader" unique_id=90554205]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 73.0
+offset_right = 1200.0
+offset_bottom = 76.0
+color = Color(0.35, 0.9, 0.55, 0.22)
+
+[node name="SoloContent" type="HBoxContainer" parent="SoloScreen" unique_id=1193812672]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 88.0
+offset_right = 1244.0
+offset_bottom = 690.0
+theme_override_constants/separation = 28
+
+[node name="SoloLeftPanel" type="VBoxContainer" parent="SoloScreen/SoloContent" unique_id=2140089695]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="MapLbl" type="Label" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=542495343]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "CARTE"
+
+[node name="MapOption" type="OptionButton" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=1420279269]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+selected = 0
+item_count = 5
+popup/item_0/id = 0
+popup/item_1/id = 1
+popup/item_2/id = 2
+popup/item_3/id = 3
+popup/item_4/id = 4
+
+[node name="EnvLbl" type="Label" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=272602569]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "HEURE DU JOUR"
+
+[node name="TimeRow" type="HBoxContainer" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=1906903474]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BtnAube" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/TimeRow" unique_id=268191656]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Aube"
+
+[node name="BtnJour" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/TimeRow" unique_id=1757730963]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+button_pressed = true
+text = "Jour"
+
+[node name="BtnCrepuscule" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/TimeRow" unique_id=1001034292]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Crepuscule"
+
+[node name="BtnNuit" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/TimeRow" unique_id=1532528303]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Nuit"
+
+[node name="MeteoLbl" type="Label" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=689133030]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "METEO"
+
+[node name="MeteoRow" type="HBoxContainer" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=1565147898]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BtnEnsoleille" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/MeteoRow" unique_id=485039183]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+button_pressed = true
+text = "Soleil"
+
+[node name="BtnNuageux" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/MeteoRow" unique_id=590336261]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Nuageux"
+
+[node name="BtnPluie" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/MeteoRow" unique_id=427191935]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Pluie"
+
+[node name="BtnOrage" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/MeteoRow" unique_id=391971994]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "Orage"
+
+[node name="DiffLbl" type="Label" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=1006529321]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "DIFFICULTE"
+
+[node name="DiffRow" type="HBoxContainer" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=106636378]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BtnFacile" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/DiffRow" unique_id=1722498204]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+toggle_mode = true
+text = "Facile"
+
+[node name="BtnNormal" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/DiffRow" unique_id=102627452]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+toggle_mode = true
+button_pressed = true
+text = "Normal"
+
+[node name="BtnDifficile" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel/DiffRow" unique_id=1593447154]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+toggle_mode = true
+text = "Difficile"
+
+[node name="BtnLancer" type="Button" parent="SoloScreen/SoloContent/SoloLeftPanel" unique_id=360371191]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "LANCER LA PARTIE  >"
+
+[node name="SoloRightPanel" type="VBoxContainer" parent="SoloScreen/SoloContent" unique_id=517483276]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 14
+
+[node name="PreviewLbl" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel" unique_id=550401166]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "APERCU CONFIGURATION"
+
+[node name="PreviewCard" type="PanelContainer" parent="SoloScreen/SoloContent/SoloRightPanel" unique_id=805014783]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PreviewVBox" type="VBoxContainer" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard" unique_id=435967650]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PrevMapLbl" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox" unique_id=202611721]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.7)
+theme_override_font_sizes/font_size = 11
+text = "CARTE SELECTIONNEE"
+
+[node name="PrevMapVal" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox" unique_id=83730653]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "Foret Profonde"
+
+[node name="PrevTimeLbl" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox" unique_id=1324258120]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.7)
+theme_override_font_sizes/font_size = 11
+text = "HEURE"
+
+[node name="PrevTimeVal" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox" unique_id=1909290996]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 17
+text = "Jour"
+
+[node name="PrevMeteoLbl" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox" unique_id=328421891]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.7)
+theme_override_font_sizes/font_size = 11
+text = "METEO"
+
+[node name="PrevMeteoVal" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox" unique_id=103247952]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "Ensoleille"
+
+[node name="PrevDiffLbl" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox" unique_id=1784512730]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.7)
+theme_override_font_sizes/font_size = 11
+text = "DIFFICULTE"
+
+[node name="PrevDiffVal" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox" unique_id=1639873314]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 17
+text = "Normal"
+
+[node name="PrevCamLbl" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox" unique_id=25924912]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.7)
+theme_override_font_sizes/font_size = 11
+text = "CAMERA"
+
+[node name="PrevCamVal" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox" unique_id=2023828619]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.6, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "TPS — 3e personne"
+
+[node name="CamModeLbl" type="Label" parent="SoloScreen/SoloContent/SoloRightPanel" unique_id=1253566069]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "MODE CAMERA (jeu dedie)"
+
+[node name="CamRow" type="HBoxContainer" parent="SoloScreen/SoloContent/SoloRightPanel" unique_id=416895412]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BtnTPS" type="Button" parent="SoloScreen/SoloContent/SoloRightPanel/CamRow" unique_id=1604529526]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+button_pressed = true
+text = "TPS — 3e pers."
+
+[node name="BtnFPS" type="Button" parent="SoloScreen/SoloContent/SoloRightPanel/CamRow" unique_id=1799205930]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+toggle_mode = true
+text = "FPS — 1e pers."
+
+[node name="BattleRoyalScreen" type="Control" parent="." unique_id=172355830]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BRBg" type="ColorRect" parent="BattleRoyalScreen" unique_id=631522821]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.03, 0.07, 1)
+
+[node name="BRHeader" type="Control" parent="BattleRoyalScreen" unique_id=753921212]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 78.0
+
+[node name="BtnBackBR" type="Button" parent="BattleRoyalScreen/BRHeader" unique_id=2087725460]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 20.0
+offset_right = 190.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 14
+text = "<  Retour"
+
+[node name="BRTitle" type="Label" parent="BattleRoyalScreen/BRHeader" unique_id=946811199]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 1280.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.95, 0.55, 0.2, 1)
+theme_override_font_sizes/font_size = 30
+text = "JOINDRE ROOM  —  BATTLE ROYAL"
+horizontal_alignment = 1
+
+[node name="BRDivider" type="ColorRect" parent="BattleRoyalScreen/BRHeader" unique_id=844318463]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 73.0
+offset_right = 1200.0
+offset_bottom = 76.0
+color = Color(0.95, 0.55, 0.2, 0.22)
+
+[node name="BRContent" type="HBoxContainer" parent="BattleRoyalScreen" unique_id=1576637698]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 88.0
+offset_right = 1244.0
+offset_bottom = 690.0
+theme_override_constants/separation = 28
+
+[node name="BRLeft" type="VBoxContainer" parent="BattleRoyalScreen/BRContent" unique_id=64503632]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="SearchBRLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2023910431]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "RECHERCHER PAR CODE OU NOM"
+
+[node name="SearchBREdit" type="LineEdit" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=592112620]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+placeholder_text = "Code ou nom de room..."
+
+[node name="FilterBRLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=1450999149]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "FILTRER PAR CARTE"
+
+[node name="FilterBROption" type="OptionButton" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=1919989053]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+selected = 0
+item_count = 4
+popup/item_0/id = 0
+popup/item_1/id = 1
+popup/item_2/id = 2
+popup/item_3/id = 3
+
+[node name="RoomsLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=84602317]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "ROOMS DISPONIBLES"
+
+[node name="BRRoomsList" type="ItemList" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=1748306453]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 14
+item_count = 5
+item_0/text = "Room de Alex       14 / 20     Desert Ardent"
+item_1/text = "ShadowKings         8 / 20     Foret Noire"
+item_2/text = "NightFall          19 / 20     Ville en Ruines"
+item_3/text = "Room Publique #42   3 / 20     Desert Ardent"
+item_4/text = "IronStorm          11 / 20     Foret Noire"
+
+[node name="BtnJoinBR" type="Button" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=1043501925]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "Rejoindre la Room"
+
+[node name="BRRight" type="VBoxContainer" parent="BattleRoyalScreen/BRContent" unique_id=195900107]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 12
+
+[node name="InviteBRLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRRight" unique_id=1708534410]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "INVITER DES JOUEURS"
+
+[node name="InviteSearchBR" type="LineEdit" parent="BattleRoyalScreen/BRContent/BRRight" unique_id=1514581708]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Rechercher un joueur..."
+
+[node name="BRPlayerScroll" type="ScrollContainer" parent="BattleRoyalScreen/BRContent/BRRight" unique_id=435446783]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BRPlayerList" type="VBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll" unique_id=279142915]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BRP1" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList" unique_id=1884655250]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP1" unique_id=861666729]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Alex_94"
+
+[node name="Status" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP1" unique_id=594809570]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 12
+text = "En ligne"
+
+[node name="Btn" type="Button" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP1" unique_id=1411763302]
+custom_minimum_size = Vector2(78, 34)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Inviter"
+
+[node name="BRP2" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList" unique_id=350947901]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP2" unique_id=1978812534]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Shadow_Wolf"
+
+[node name="Status" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP2" unique_id=1847406561]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 12
+text = "En ligne"
+
+[node name="Btn" type="Button" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP2" unique_id=715424688]
+custom_minimum_size = Vector2(78, 34)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Inviter"
+
+[node name="BRP3" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList" unique_id=1553424307]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP3" unique_id=398026915]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "NightBlade_X"
+
+[node name="Status" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP3" unique_id=1797522493]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.55, 0.2, 1)
+theme_override_font_sizes/font_size = 12
+text = "En jeu"
+
+[node name="Btn" type="Button" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP3" unique_id=3268301]
+custom_minimum_size = Vector2(78, 34)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Inviter"
+
+[node name="BRP4" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList" unique_id=525419058]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP4" unique_id=1345748799]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "IronFist_99"
+
+[node name="Status" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP4" unique_id=518754789]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 12
+text = "En ligne"
+
+[node name="Btn" type="Button" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP4" unique_id=2062837399]
+custom_minimum_size = Vector2(78, 34)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Inviter"
+
+[node name="BRP5" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList" unique_id=2005980895]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP5" unique_id=177108104]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "StormRider"
+
+[node name="Status" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP5" unique_id=1908961073]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "Hors ligne"
+
+[node name="Btn" type="Button" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP5" unique_id=94530301]
+custom_minimum_size = Vector2(78, 34)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Inviter"
+
+[node name="BossHuntScreen" type="Control" parent="." unique_id=747992695]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BHBg" type="ColorRect" parent="BossHuntScreen" unique_id=1404936661]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06, 0.02, 0.02, 1)
+
+[node name="BHHeader" type="Control" parent="BossHuntScreen" unique_id=1843568328]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 78.0
+
+[node name="BtnBackBH" type="Button" parent="BossHuntScreen/BHHeader" unique_id=1781468912]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 20.0
+offset_right = 190.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 14
+text = "<  Retour"
+
+[node name="BHTitle" type="Label" parent="BossHuntScreen/BHHeader" unique_id=282194019]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 1280.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.9, 0.28, 0.28, 1)
+theme_override_font_sizes/font_size = 30
+text = "JOINDRE ROOM  —  ELIMINATION BOSS"
+horizontal_alignment = 1
+
+[node name="BHDivider" type="ColorRect" parent="BossHuntScreen/BHHeader" unique_id=2044248961]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 73.0
+offset_right = 1200.0
+offset_bottom = 76.0
+color = Color(0.9, 0.28, 0.28, 0.22)
+
+[node name="BHContent" type="HBoxContainer" parent="BossHuntScreen" unique_id=631224612]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 88.0
+offset_right = 1244.0
+offset_bottom = 690.0
+theme_override_constants/separation = 28
+
+[node name="BHLeft" type="VBoxContainer" parent="BossHuntScreen/BHContent" unique_id=112560811]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="SearchBHLbl" type="Label" parent="BossHuntScreen/BHContent/BHLeft" unique_id=456049086]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "RECHERCHER PAR CODE OU NOM"
+
+[node name="SearchBHEdit" type="LineEdit" parent="BossHuntScreen/BHContent/BHLeft" unique_id=1543949061]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+placeholder_text = "Code ou nom de room..."
+
+[node name="FilterBHLbl" type="Label" parent="BossHuntScreen/BHContent/BHLeft" unique_id=919820354]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "FILTRER PAR BOSS"
+
+[node name="FilterBHOption" type="OptionButton" parent="BossHuntScreen/BHContent/BHLeft" unique_id=1612620917]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+selected = 0
+item_count = 5
+popup/item_0/id = 0
+popup/item_1/id = 1
+popup/item_2/id = 2
+popup/item_3/id = 3
+popup/item_4/id = 4
+
+[node name="BHRoomsLbl" type="Label" parent="BossHuntScreen/BHContent/BHLeft" unique_id=2072339858]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "ROOMS DISPONIBLES"
+
+[node name="BHRoomsList" type="ItemList" parent="BossHuntScreen/BHContent/BHLeft" unique_id=1092273711]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 14
+item_count = 4
+item_0/text = "HunterSquad        3 / 4    Dragon de Feu Eternel"
+item_1/text = "LegendSlayers      1 / 6    L'Ancien Dieu"
+item_2/text = "DarkBlades         2 / 4    Ombre du Neant"
+item_3/text = "Room Publique #7   2 / 4    Seigneur des Abysses"
+
+[node name="BtnJoinBH" type="Button" parent="BossHuntScreen/BHContent/BHLeft" unique_id=857909315]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "Rejoindre la Room"
+
+[node name="BHRight" type="VBoxContainer" parent="BossHuntScreen/BHContent" unique_id=88899167]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 12
+
+[node name="InviteBHLbl" type="Label" parent="BossHuntScreen/BHContent/BHRight" unique_id=441903842]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "INVITER DES JOUEURS"
+
+[node name="InviteSearchBH" type="LineEdit" parent="BossHuntScreen/BHContent/BHRight" unique_id=1633484089]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Rechercher un joueur..."
+
+[node name="BHPlayerScroll" type="ScrollContainer" parent="BossHuntScreen/BHContent/BHRight" unique_id=898575327]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BHPlayerList" type="VBoxContainer" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll" unique_id=1165426379]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BHP1" type="HBoxContainer" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList" unique_id=556460683]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList/BHP1" unique_id=1894961660]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Alex_94"
+
+[node name="Status" type="Label" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList/BHP1" unique_id=1051267778]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 12
+text = "En ligne"
+
+[node name="Btn" type="Button" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList/BHP1" unique_id=1318690572]
+custom_minimum_size = Vector2(78, 34)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Inviter"
+
+[node name="BHP2" type="HBoxContainer" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList" unique_id=1661223664]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList/BHP2" unique_id=1587297031]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "IronFist_99"
+
+[node name="Status" type="Label" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList/BHP2" unique_id=334249705]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 12
+text = "En ligne"
+
+[node name="Btn" type="Button" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList/BHP2" unique_id=565714382]
+custom_minimum_size = Vector2(78, 34)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Inviter"
+
+[node name="BHP3" type="HBoxContainer" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList" unique_id=540046865]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList/BHP3" unique_id=418687649]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "StormRider"
+
+[node name="Status" type="Label" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList/BHP3" unique_id=1545695106]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "Hors ligne"
+
+[node name="Btn" type="Button" parent="BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList/BHP3" unique_id=502469638]
+custom_minimum_size = Vector2(78, 34)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Inviter"
