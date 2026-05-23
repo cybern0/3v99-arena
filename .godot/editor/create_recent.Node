@@ -1,0 +1,8 @@
+Camera3D
+Node3D
+RayCast3D
+CharacterBody3D
+CollisionShape3D
+StaticBody3D
+AnimationPlayer
+TextEdit
