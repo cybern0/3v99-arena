@@ -10,4 +10,5 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	for c in characters:
-		c.move_and_..# gravity there
+		c.velocity.y -= 9.8 * delta
+		c.move_and_slide()
