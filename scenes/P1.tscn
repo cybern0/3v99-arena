@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://dhjvjppvmjg8m"]
 
 [ext_resource type="Texture2D" uid="uid://eypvh4oo8ucu" path="res://assets/P1/P1_image0.png" id="1_ukyud"]
-[ext_resource type="Script" uid="uid://dmq36cmxqg012" path="res://scripts/CameraOrbit.gd" id="2_50au5"]
+[ext_resource type="Script" uid="uid://ki63v11fhj6c" path="res://scripts/CameraOrbit.gd" id="2_50au5"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ukyud"]
 height = 0.8157959

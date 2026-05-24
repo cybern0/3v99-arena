@@ -1,4 +1,4 @@
-extends Camera3D
+extends Node3D
 
 # Paramètres de configuration
 @export var look_sensitivity: float = 0.003
