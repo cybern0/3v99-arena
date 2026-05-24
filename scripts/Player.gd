@@ -10,7 +10,7 @@ class_name Player
 @export var acceleration: float = 10.0
 @export var friction: float = 8.0
 @export var jump_velocity: float = 4.5
-@export var gravity: float = 9.8
+# La gravité est gérée par WorldManager.gd
 
 @export_group("Camera")
 @export var camera_sensitivity: float = 0.003
@@ -265,7 +265,7 @@ func _unhandled_input(event: InputEvent) -> void:
 #  Physics Process
 # ─────────────────────────────────────────────
 func _physics_process(delta: float) -> void:
-	_handle_gravity(delta)
+	# La gravité est gérée par WorldManager.gd
 	_handle_movement(delta)
 	_handle_jump()
 	
@@ -276,10 +276,6 @@ func _physics_process(delta: float) -> void:
 	
 	# Émettre le signal de direction pour l'UI
 	move_vector_updated.emit(_input_direction)
-
-func _handle_gravity(delta: float) -> void:
-	if not is_on_floor():
-		velocity.y -= gravity * delta
 
 func _handle_movement(delta: float) -> void:
 	# Récupérer la direction d'entrée (mobile ou clavier)
