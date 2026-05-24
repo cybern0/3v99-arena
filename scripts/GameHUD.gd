@@ -79,7 +79,7 @@ func _update_health_bar() -> void:
 		health_bar.max_value = max_health
 		health_bar.value = current_health
 	if health_label:
-		health_label.text = f"{int(current_health)} / {int(max_health)}"
+		health_label.text = str(int(current_health)) + " / " + str(int(max_health))
 
 func _update_stamina_bar() -> void:
 	if stamina_bar:
@@ -91,17 +91,17 @@ func _update_xp_bar() -> void:
 		xp_bar.max_value = xp_to_level
 		xp_bar.value = current_xp
 	if level_label:
-		level_label.text = f"Niv. {current_level}"
+		level_label.text = "Niv. " + str(current_level)
 
 func _update_score() -> void:
 	if score_label:
-		score_label.text = f"Score: {current_score}"
+		score_label.text = "Score: " + str(current_score)
 
 func _update_timer() -> void:
 	if timer_label:
 		var minutes = int(game_time) / 60
 		var seconds = int(game_time) % 60
-		timer_label.text = f"{minutes:02d}:{seconds:02d}"
+		timer_label.text = str(minutes).pad_zeros(2) + ":" + str(seconds).pad_zeros(2)
 
 # ─────────────────────────────────────────────
 #  Gestion Santé
