@@ -154,7 +154,7 @@ func _create_mobile_buttons() -> void:
 func _setup_mobile_mode() -> void:
 	# Optimisations pour mobile
 	Engine.max_fps = 60
-	RenderingServer.set_default_texture_filter(CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC)
+	RenderingServer.set_default_texture_filter(CanvasItem.TEXTURE_FILTER_LINEAR)
 	print("[Player] Mode mobile activé")
 
 # ─────────────────────────────────────────────
