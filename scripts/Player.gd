@@ -85,20 +85,29 @@ func _create_mobile_controls() -> void:
 			_canvas_layer = canvas_scene.instantiate() as CanvasLayer
 			_canvas_layer.name = "CanvasLayer"
 			add_child(_canvas_layer)
-			_game_hud = _canvas_layer.find_child("GameHUD", true, false) as GameHUD
+			# Le GameHUD est un enfant direct du CanvasLayer
+			_game_hud = _canvas_layer.get_node_or_null("GameHUD") as GameHUD
+			if not _game_hud:
+				_game_hud = _canvas_layer.find_child("GameHUD", true, false) as GameHUD
 			print("[Player] CanvasLayer et GameHUD instancies depuis la scene")
 		else:
 			push_error("[Player] Impossible de charger CanvasLayer.tscn")
 	else:
 		# Récupérer GameHUD existant
-		_game_hud = _canvas_layer.find_child("GameHUD", true, false) as GameHUD
+		_game_hud = _canvas_layer.get_node_or_null("GameHUD") as GameHUD
+		if not _game_hud:
+			_game_hud = _canvas_layer.find_child("GameHUD", true, false) as GameHUD
 	
 	# Connecter les signaux du GameHUD au Player
 	if _game_hud:
-		_game_hud.jump_pressed.connect(_on_jump_pressed)
-		_game_hud.punch_pressed.connect(_on_punch_pressed)
-		_game_hud.kick_pressed.connect(_on_kick_pressed)
-		_game_hud.run_pressed.connect(_on_run_pressed)
+		if not _game_hud.jump_pressed.is_connected(_on_jump_pressed):
+			_game_hud.jump_pressed.connect(_on_jump_pressed)
+		if not _game_hud.punch_pressed.is_connected(_on_punch_pressed):
+			_game_hud.punch_pressed.connect(_on_punch_pressed)
+		if not _game_hud.kick_pressed.is_connected(_on_kick_pressed):
+			_game_hud.kick_pressed.connect(_on_kick_pressed)
+		if not _game_hud.run_pressed.is_connected(_on_run_pressed):
+			_game_hud.run_pressed.connect(_on_run_pressed)
 
 func _create_mobile_buttons() -> void:
 	if not _canvas_layer:
