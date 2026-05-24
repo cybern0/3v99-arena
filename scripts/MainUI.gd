@@ -231,10 +231,13 @@ func _play_default_animation(node: Node) -> void:
 		var animations : Array = anim_player.get_animation_list()
 		if animations.size() > 0:
 			var animation_name : String = "idle"
+			# Vérifier si "idle" existe, sinon prendre la première animation
+			if not animations.has("idle"):
+				animation_name = animations[0]
 			var animation : Animation = anim_player.get_animation(animation_name)
 			if animation:
 				animation.loop = true
-			anim_player.play(animation_name)
+				anim_player.play(animation_name)
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Solo
