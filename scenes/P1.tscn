@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://dhjvjppvmjg8m"]
 
+[ext_resource type="Script" uid="uid://ci6d846ekar5o" path="res://scripts/Player.gd" id="1_8x38n"]
 [ext_resource type="Texture2D" uid="uid://eypvh4oo8ucu" path="res://assets/P1/P1_image0.png" id="1_ukyud"]
 [ext_resource type="Script" uid="uid://ki63v11fhj6c" path="res://scripts/CameraOrbit.gd" id="2_50au5"]
 
@@ -2091,6 +2092,7 @@ _data = {
 }
 
 [node name="P1" type="CharacterBody3D" unique_id=1070610618 groups=["Characters"]]
+script = ExtResource("1_8x38n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=995378136]
 transform = Transform3D(-8.742278e-09, 0.19999997, -8.742276e-09, 0, -8.742276e-09, -0.19999997, -0.2, -8.742276e-09, 3.8213703e-16, 0, -0.39460093, 0.051345292)
@@ -2349,3 +2351,5 @@ transform = Transform3D(-0.999982, 0, 0.0060039717, 0.00034592664, 0.9983388, 0.
 script = ExtResource("2_50au5")
 
 [node name="Camera3D" type="Camera3D" parent="CameraOrbit" unique_id=1876851070]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1783510196]
