@@ -231,6 +231,5 @@ func fade_out(duration: float = 1.0) -> void:
 
 func fade_in(duration: float = 1.0) -> void:
 	visible = true
-	modulate.a = 0.0
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 1.0, duration)
