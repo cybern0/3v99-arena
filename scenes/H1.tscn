@@ -3515,7 +3515,7 @@ bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.12868214, 2.5611851, -0.0467267)
 bones/0/enabled = true
 bones/0/position = Vector3(-0.12868214, 2.5611851, -0.0467267)
-bones/0/rotation = Quaternion(-0.6909658, -0.23365206, 0.22140339, 0.64726627)
+bones/0/rotation = Quaternion(-0.70710677, 0, 0, 0.70710677)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "mixamorig_Spine"
 bones/1/parent = 0
@@ -3805,3 +3805,6 @@ skeleton = NodePath("..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=542389750]
 libraries/ = SubResource("AnimationLibrary_57s55")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1468050570]
+transform = Transform3D(10, 0, 0, 0, -2.1855694e-08, 20, 0, -0.5, -8.742278e-07, -0.010625601, 0.11717898, 0.08834362)
