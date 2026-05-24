@@ -9,7 +9,8 @@ __pycache__/
 *.so
 *.a
 *.out
-
+# always ignore the .godot folder, which contains project-specific settings and should not be shared
+.godot/
 # Dependencies
 .venv/
 venv/
