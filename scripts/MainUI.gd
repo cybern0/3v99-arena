@@ -208,7 +208,8 @@ func _select_model(name: String) -> void:
 	if inst:
 		char_node.add_child(inst)
 		inst.transform = Transform3D.IDENTITY
-		_play_default_animation(inst)
+		# L'animation idle est déjà configurée dans P1.tscn/P2.tscn
+		# Pas besoin de la relancer manuellement
 		# Attacher la camera au modele selectionne
 		_attach_camera_to_model(inst)
 	

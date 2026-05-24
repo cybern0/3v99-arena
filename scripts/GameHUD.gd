@@ -47,6 +47,10 @@ signal xp_changed(new_value: float)
 signal level_up(new_level: int)
 signal game_paused(is_paused: bool)
 signal settings_toggled(is_visible: bool)
+signal jump_pressed
+signal punch_pressed
+signal kick_pressed
+signal run_pressed
 
 # ─────────────────────────────────────────────
 #  Initialisation
@@ -243,27 +247,16 @@ func fade_in(duration: float = 1.0) -> void:
 #  Gestion des boutons mobile
 # ─────────────────────────────────────────────
 func _on_jump_pressed() -> void:
-	var player = get_parent().get_parent() as Player
-	if player and player.has_method("do_jump"):
-		player.do_jump()
+	jump_pressed.emit()
 
 func _on_punch_pressed() -> void:
-	var player = get_parent().get_parent() as Player
-	if player and player.has_method("_perform_attack"):
-		player._perform_attack("punch")
+	punch_pressed.emit()
 
 func _on_kick_pressed() -> void:
-	var player = get_parent().get_parent() as Player
-	if player and player.has_method("_perform_attack"):
-		player._perform_attack("kick")
+	kick_pressed.emit()
 
 func _on_run_pressed() -> void:
-	var run_button = $MobileControls/RunButton as Button
-	if run_button:
-		run_button.button_pressed = !run_button.button_pressed
-		var player = get_parent().get_parent() as Player
-		if player and player.has_method("set_move_input"):
-			player._is_running = run_button.button_pressed
+	run_pressed.emit()
 
 func _on_pause_pressed() -> void:
 	_toggle_pause()
