@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 class_name GameHUD
 
 # ─────────────────────────────────────────────
@@ -9,17 +9,22 @@ class_name GameHUD
 # ─────────────────────────────────────────────
 #  Noeuds UI
 # ─────────────────────────────────────────────
-@onready var health_bar: ProgressBar = $HealthBar
-@onready var health_label: Label = $HealthBar/HealthLabel
-@onready var stamina_bar: ProgressBar = $StaminaBar
-@onready var xp_bar: ProgressBar = $XPBar
-@onready var level_label: Label = $LevelLabel
-@onready var minimap_container: Control = $MinimapContainer
-@onready var minimap_viewport: SubViewport = $MinimapContainer/MinimapViewport
-@onready var score_label: Label = $ScoreLabel
-@onready var timer_label: Label = $TimerLabel
-@onready var pause_button: Button = $PauseButton
-@onready var settings_panel: Control = $SettingsPanel
+@onready var health_bar: ProgressBar = $UI_Container/TopBar/HealthBar
+@onready var health_label: Label = $UI_Container/TopBar/HealthBar/HealthLabel
+@onready var stamina_bar: ProgressBar = $UI_Container/TopBar/StaminaBar
+@onready var xp_bar: ProgressBar = $UI_Container/TopBar/XPBar
+@onready var level_label: Label = $UI_Container/TopBar/XPBar/LevelLabel
+@onready var minimap_container: Control = $UI_Container/MinimapContainer
+@onready var minimap_viewport: SubViewport = $UI_Container/MinimapContainer/MinimapViewport
+@onready var score_label: Label = $UI_Container/TopBar/ScoreLabel
+@onready var timer_label: Label = $UI_Container/TopBar/TimerLabel
+@onready var pause_button: Button = $UI_Container/TopBar/PauseButton
+@onready var settings_panel: Control = $UI_Container/SettingsPanel
+@onready var mobile_controls: Control = $MobileControls
+@onready var jump_button: Button = $MobileControls/JumpButton
+@onready var punch_button: Button = $MobileControls/PunchButton
+@onready var kick_button: Button = $MobileControls/KickButton
+@onready var run_button: Button = $MobileControls/RunButton
 
 # ─────────────────────────────────────────────
 #  État
