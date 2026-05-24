@@ -92,6 +92,13 @@ func _create_mobile_controls() -> void:
 	else:
 		# Récupérer GameHUD existant
 		_game_hud = _canvas_layer.find_child("GameHUD", true, false) as GameHUD
+	
+	# Connecter les signaux du GameHUD au Player
+	if _game_hud:
+		_game_hud.jump_pressed.connect(_on_jump_pressed)
+		_game_hud.punch_pressed.connect(_on_punch_pressed)
+		_game_hud.kick_pressed.connect(_on_kick_pressed)
+		_game_hud.run_pressed.connect(_on_run_pressed)
 
 func _create_mobile_buttons() -> void:
 	if not _canvas_layer:
@@ -140,7 +147,7 @@ func _create_mobile_buttons() -> void:
 	run_btn.position = Vector2(120, 40)
 	run_btn.size = Vector2(70, 50)
 	run_btn.toggle_mode = true
-	run_btn.connect("toggled", _on_run_toggled)
+	run_btn.connect("pressed", _on_run_pressed)
 	actions_container.add_child(run_btn)
 
 func _setup_mobile_mode() -> void:
@@ -195,8 +202,8 @@ func _on_punch_pressed() -> void:
 func _on_kick_pressed() -> void:
 	_perform_attack("kick")
 
-func _on_run_toggled(toggled_on: bool) -> void:
-	_is_running = toggled_on
+func _on_run_pressed() -> void:
+	_is_running = !_is_running
 
 func _perform_attack(attack_type: String) -> void:
 	if not _animation_player:
