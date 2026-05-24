@@ -9,22 +9,22 @@ class_name GameHUD
 # ─────────────────────────────────────────────
 #  Noeuds UI
 # ─────────────────────────────────────────────
-@onready var health_bar: ProgressBar = $UI_Container/TopBar/HealthBar
-@onready var health_label: Label = $UI_Container/TopBar/HealthBar/HealthLabel
-@onready var stamina_bar: ProgressBar = $UI_Container/TopBar/StaminaBar
-@onready var xp_bar: ProgressBar = $UI_Container/TopBar/XPBar
-@onready var level_label: Label = $UI_Container/TopBar/XPBar/LevelLabel
-@onready var minimap_container: Control = $UI_Container/MinimapContainer
-@onready var minimap_viewport: SubViewport = $UI_Container/MinimapContainer/MinimapViewport
-@onready var score_label: Label = $UI_Container/TopBar/ScoreLabel
-@onready var timer_label: Label = $UI_Container/TopBar/TimerLabel
-@onready var pause_button: Button = $UI_Container/TopBar/PauseButton
-@onready var settings_panel: Control = $UI_Container/SettingsPanel
-@onready var mobile_controls: Control = $MobileControls
-@onready var jump_button: Button = $MobileControls/JumpButton
-@onready var punch_button: Button = $MobileControls/PunchButton
-@onready var kick_button: Button = $MobileControls/KickButton
-@onready var run_button: Button = $MobileControls/RunButton
+@onready var health_bar: ProgressBar = $UI_Container/TopBar/HealthBar if has_node("UI_Container/TopBar/HealthBar") else null
+@onready var health_label: Label = $UI_Container/TopBar/HealthBar/HealthLabel if has_node("UI_Container/TopBar/HealthBar/HealthLabel") else null
+@onready var stamina_bar: ProgressBar = $UI_Container/TopBar/StaminaBar if has_node("UI_Container/TopBar/StaminaBar") else null
+@onready var xp_bar: ProgressBar = $UI_Container/TopBar/XPBar if has_node("UI_Container/TopBar/XPBar") else null
+@onready var level_label: Label = $UI_Container/TopBar/XPBar/LevelLabel if has_node("UI_Container/TopBar/XPBar/LevelLabel") else null
+@onready var minimap_container: Control = $UI_Container/MinimapContainer if has_node("UI_Container/MinimapContainer") else null
+@onready var minimap_viewport: SubViewport = $UI_Container/MinimapContainer/MinimapViewport if has_node("UI_Container/MinimapContainer/MinimapViewport") else null
+@onready var score_label: Label = $UI_Container/TopBar/ScoreLabel if has_node("UI_Container/TopBar/ScoreLabel") else null
+@onready var timer_label: Label = $UI_Container/TopBar/TimerLabel if has_node("UI_Container/TopBar/TimerLabel") else null
+@onready var pause_button: Button = $UI_Container/TopBar/PauseButton if has_node("UI_Container/TopBar/PauseButton") else null
+@onready var settings_panel: Control = $UI_Container/SettingsPanel if has_node("UI_Container/SettingsPanel") else null
+@onready var mobile_controls: Control = $MobileControls if has_node("MobileControls") else null
+@onready var jump_button: Button = $MobileControls/JumpButton if has_node("MobileControls/JumpButton") else null
+@onready var punch_button: Button = $MobileControls/PunchButton if has_node("MobileControls/PunchButton") else null
+@onready var kick_button: Button = $MobileControls/KickButton if has_node("MobileControls/KickButton") else null
+@onready var run_button: Button = $MobileControls/RunButton if has_node("MobileControls/RunButton") else null
 
 # ─────────────────────────────────────────────
 #  État
@@ -238,3 +238,32 @@ func fade_in(duration: float = 1.0) -> void:
 	visible = true
 	var tween = create_tween()
 	tween.tween_property(self, "self_modulate:a", 1.0, duration)
+
+# ─────────────────────────────────────────────
+#  Gestion des boutons mobile
+# ─────────────────────────────────────────────
+func _on_jump_pressed() -> void:
+	var player = get_parent().get_parent() as Player
+	if player and player.has_method("do_jump"):
+		player.do_jump()
+
+func _on_punch_pressed() -> void:
+	var player = get_parent().get_parent() as Player
+	if player and player.has_method("_perform_attack"):
+		player._perform_attack("punch")
+
+func _on_kick_pressed() -> void:
+	var player = get_parent().get_parent() as Player
+	if player and player.has_method("_perform_attack"):
+		player._perform_attack("kick")
+
+func _on_run_pressed() -> void:
+	var run_button = $MobileControls/RunButton as Button
+	if run_button:
+		run_button.button_pressed = !run_button.button_pressed
+		var player = get_parent().get_parent() as Player
+		if player and player.has_method("set_move_input"):
+			player._is_running = run_button.button_pressed
+
+func _on_pause_pressed() -> void:
+	_toggle_pause()

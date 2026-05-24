@@ -1,6 +1,25 @@
 ```
-# Godot-specific ignores
+# Godot specific ignores
 *.import
-*.remap
+*.uid
+.project
+.user
+.sconsign.dblite
+*.scn~
+
+# Build artifacts
 export_presets.cfg
+.rpt2_cache/
+.cache/
+
+# Dependencies
+addons/
+*.godot
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
 ```

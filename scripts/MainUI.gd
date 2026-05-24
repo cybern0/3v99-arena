@@ -211,16 +211,6 @@ func _select_model(name: String) -> void:
 		_play_default_animation(inst)
 		# Attacher la camera au modele selectionne
 		_attach_camera_to_model(inst)
-		
-		# Cacher le CanvasLayer du personnage pendant la sélection d'avatar
-		var player_instance = inst as Player
-		if player_instance:
-			player_instance.hide_mobile_controls()
-		else:
-			# Chercher CanvasLayer dans l'instance et le cacher
-			var canvas = inst.find_child("CanvasLayer", true, false)
-			if canvas:
-				canvas.visible = false
 	
 	# Assurer que seul le bouton selectionne reste presse
 	for btn in $AvatarScreen/AvatarControls/ModelRow.get_children():

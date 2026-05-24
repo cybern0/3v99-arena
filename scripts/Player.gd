@@ -79,27 +79,19 @@ func _create_mobile_controls() -> void:
 	_canvas_layer = find_child("CanvasLayer", true, false)
 	
 	if not _canvas_layer:
-		# Créer CanvasLayer
-		_canvas_layer = CanvasLayer.new()
-		_canvas_layer.name = "CanvasLayer"
-		add_child(_canvas_layer)
-		
-		# Créer GameHUD si nécessaire
-		_game_hud = GameHUD.new()
-		_game_hud.name = "GameHUD"
-		_canvas_layer.add_child(_game_hud)
-		
-		# Créer les boutons de contrôle mobile
-		_create_mobile_buttons()
-		
-		print("[Player] CanvasLayer et contrôles mobiles créés")
+		# Charger le CanvasLayer depuis la scene prefabriquee
+		var canvas_scene := preload("res://scenes/CanvasLayer.tscn") as PackedScene
+		if canvas_scene:
+			_canvas_layer = canvas_scene.instantiate() as CanvasLayer
+			_canvas_layer.name = "CanvasLayer"
+			add_child(_canvas_layer)
+			_game_hud = _canvas_layer.find_child("GameHUD", true, false) as GameHUD
+			print("[Player] CanvasLayer et GameHUD instancies depuis la scene")
+		else:
+			push_error("[Player] Impossible de charger CanvasLayer.tscn")
 	else:
 		# Récupérer GameHUD existant
-		_game_hud = _canvas_layer.find_child("GameHUD", true, false)
-		if not _game_hud:
-			_game_hud = GameHUD.new()
-			_game_hud.name = "GameHUD"
-			_canvas_layer.add_child(_game_hud)
+		_game_hud = _canvas_layer.find_child("GameHUD", true, false) as GameHUD
 
 func _create_mobile_buttons() -> void:
 	if not _canvas_layer:
