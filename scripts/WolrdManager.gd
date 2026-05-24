@@ -6,8 +6,14 @@ var camera_tps: Camera3D = null
 var camera_fps: Camera3D = null
 var use_fps: bool = false
 
+# Reference au noeud Spawnable pour le point de spawn
+@onready var spawn_point: Node3D = $Spawnable
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Spawn de l'avatar choisi depuis SessionManager
+	_spawn_selected_avatar()
+	
 	var chars = get_tree().get_nodes_in_group("Characters")
 	characters.clear()
 	for c in chars:
@@ -31,6 +37,39 @@ func _ready() -> void:
 		if sm.solo_config.has("camera"):
 			use_fps = (sm.solo_config["camera"] == "FPS")
 		_setup_camera()
+
+func _spawn_selected_avatar() -> void:
+	# Recupere le modele selectionne depuis SessionManager
+	var sm = get_node_or_null("/root/SessionManager")
+	if not sm:
+		push_warning("[WorldManager] SessionManager non trouve, utilisation du modele par defaut")
+		return
+	
+	var model_name: String = sm.selected_model if sm.selected_model else "Model 1"
+	
+	# Charger la scene du modele
+	var MODEL_SCENES := {
+		"Model 1": preload("res://scenes/P1.tscn"),
+		"Model 2": preload("res://scenes/P2.tscn"),
+	}
+	
+	if not MODEL_SCENES.has(model_name):
+		model_name = "Model 1"
+	
+	var scene: PackedScene = MODEL_SCENES[model_name] as PackedScene
+	if not scene:
+		push_error("[WorldManager] Scene du modele introuvable: " + model_name)
+		return
+	
+	# Instancier l'avatar au point de spawn
+	var avatar: CharacterBody3D = scene.instantiate() as CharacterBody3D
+	if avatar and spawn_point:
+		avatar.global_transform = spawn_point.global_transform
+		add_child(avatar)
+		print("[WorldManager] Avatar '", model_name, "' spawn a la position de Spawnable: ", spawn_point.global_position)
+	elif avatar:
+		add_child(avatar)
+		print("[WorldManager] Avatar '", model_name, "' spawn (point Spawnable non trouve)")
 
 func _setup_camera() -> void:
 	if use_fps and camera_fps:
