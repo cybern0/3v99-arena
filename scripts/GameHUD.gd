@@ -226,10 +226,10 @@ func show_hud(show: bool) -> void:
 
 func fade_out(duration: float = 1.0) -> void:
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, duration)
+	tween.tween_property(self, "self_modulate:a", 0.0, duration)
 	tween.tween_callback(func(): visible = false)
 
 func fade_in(duration: float = 1.0) -> void:
 	visible = true
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 1.0, duration)
+	tween.tween_property(self, "self_modulate:a", 1.0, duration)
