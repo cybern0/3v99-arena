@@ -36,8 +36,10 @@ func login(data: Dictionary, online: bool) -> void:
 	is_online    = online
 
 func logout() -> void:
+	# Supprimer le fichier session
+	var path := ProjectSettings.globalize_path("user://session.cfg")
+	if FileAccess.file_exists("user://session.cfg"):
+		DirAccess.remove_absolute(path)
 	user_data    = {}
 	is_logged_in = false
 	is_online    = false
-	var cfg := ConfigFile.new()
-	cfg.save("user://session.cfg")   # efface en ecrasant vide

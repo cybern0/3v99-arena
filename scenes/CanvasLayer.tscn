@@ -1,148 +1,188 @@
-[gd_scene format=4 uid="uid://bqx8y9z3k4m5n"]
+[gd_scene format=3 uid="uid://bqx80a03k4m5n"]
 
-[ext_resource type="Script" path="res://scripts/GameHUD.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://p27fk2jtkckf" path="res://scripts/GameHUD.gd" id="1_hud"]
 
+; ── Racine ──────────────────────────────────────────────────────────────────────
 [node name="CanvasLayer" type="CanvasLayer"]
 
-[node name="GameHUD" parent="." type="Control"]
+; ── GameHUD : Control plein écran, porte le script ─────────────────────────────
+[node name="GameHUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_hud")
 
-[node name="UI_Container" parent="GameHUD" type="VBoxContainer"]
+; ── TopBar : barre haut, HBox sur toute la largeur ─────────────────────────────
+[node name="TopBar" type="HBoxContainer" parent="GameHUD"]
+layout_mode = 1
+anchor_right = 1.0
+offset_top = 4.0
+offset_bottom = 44.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="HealthBar" type="ProgressBar" parent="GameHUD/TopBar"]
+layout_mode = 2
+custom_minimum_size = Vector2(180, 25)
+size_flags_horizontal = 3
+value = 100.0
+
+[node name="HealthLabel" type="Label" parent="GameHUD/TopBar/HealthBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="TopBar" parent="UI_Container" type="HBoxContainer"]
-layout_mode = 2
-
-[node name="HealthBar" parent="TopBar" type="ProgressBar"]
-custom_minimum_size = Vector2(200, 25)
-layout_mode = 2
-value = 100.0
-
-[node name="HealthLabel" parent="HealthBar" type="Label"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 text = "100 / 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StaminaBar" parent="TopBar" type="ProgressBar"]
-custom_minimum_size = Vector2(200, 25)
+[node name="StaminaBar" type="ProgressBar" parent="GameHUD/TopBar"]
 layout_mode = 2
+custom_minimum_size = Vector2(150, 25)
+size_flags_horizontal = 3
 value = 100.0
 
-[node name="XPBar" parent="TopBar" type="ProgressBar"]
-custom_minimum_size = Vector2(200, 25)
+[node name="XPBar" type="ProgressBar" parent="GameHUD/TopBar"]
 layout_mode = 2
-value = 0.0
+custom_minimum_size = Vector2(150, 25)
+size_flags_horizontal = 3
 
-[node name="LevelLabel" parent="XPBar" type="Label"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Niv. 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ScoreLabel" parent="TopBar" type="Label"]
-layout_mode = 2
-text = "Score: 0"
-
-[node name="TimerLabel" parent="TopBar" type="Label"]
-layout_mode = 2
-text = "00:00"
-
-[node name="PauseButton" parent="TopBar" type="Button"]
-custom_minimum_size = Vector2(60, 30)
-layout_mode = 2
-text = "⏸"
-
-[node name="SettingsPanel" parent="UI_Container" type="PanelContainer"]
-visible = false
-layout_mode = 2
-
-[node name="MinimapContainer" parent="UI_Container" type="MarginContainer"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-
-[node name="MinimapViewport" parent="MinimapContainer" type="SubViewport"]
-size = Vector2(128, 128)
-
-[node name="MobileControls" parent="GameHUD" type="Control"]
+[node name="LevelLabel" type="Label" parent="GameHUD/TopBar/XPBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+text = "Niv. 1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="JumpButton" parent="MobileControls" type="Button"]
-offset_left = -70.0
-offset_top = -70.0
-offset_right = -10.0
-offset_bottom = -10.0
-layout_mode = 0
-anchors_preset = 3
+[node name="ScoreLabel" type="Label" parent="GameHUD/TopBar"]
+layout_mode = 2
+custom_minimum_size = Vector2(90, 0)
+size_flags_horizontal = 0
+text = "Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="GameHUD/TopBar"]
+layout_mode = 2
+custom_minimum_size = Vector2(60, 0)
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseButton" type="Button" parent="GameHUD/TopBar"]
+layout_mode = 2
+custom_minimum_size = Vector2(50, 30)
+text = "⏸"
+
+; ── SettingsPanel : centré, caché ───────────────────────────────────────────────
+[node name="SettingsPanel" type="PanelContainer" parent="GameHUD"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+
+; ── MinimapContainer : coin haut-droit ─────────────────────────────────────────
+[node name="MinimapContainer" type="MarginContainer" parent="GameHUD"]
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -148.0
+offset_top = 52.0
+offset_right = -8.0
+offset_bottom = 192.0
+grow_horizontal = 0
+custom_minimum_size = Vector2(128, 128)
+
+[node name="MinimapViewport" type="SubViewport" parent="GameHUD/MinimapContainer"]
+size = Vector2i(128, 128)
+
+; ── MobileControls : croix d'action, coin bas-droit ────────────────────────────
+;
+;        [ ⬆ Jump  ]
+;  [🦶 Kick]    [👊 Punch]
+;        [ 🏃 Run  ]
+;
+; Ancres toutes à (1,1) = coin bas-droit du parent.
+; Les offsets sont des distances négatives depuis ce coin.
+[node name="MobileControls" type="Control" parent="GameHUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="JumpButton" type="Button" parent="GameHUD/MobileControls"]
+layout_mode = 1
 anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -105.0
+offset_top = -215.0
+offset_right = -25.0
+offset_bottom = -135.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "⬆"
 
-[node name="PunchButton" parent="MobileControls" type="Button"]
-offset_left = -150.0
-offset_top = -70.0
-offset_right = -90.0
-offset_bottom = -10.0
-layout_mode = 0
-anchors_preset = 3
+[node name="PunchButton" type="Button" parent="GameHUD/MobileControls"]
+layout_mode = 1
 anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -135.0
+offset_right = 60.0
+offset_bottom = -55.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "👊"
 
-[node name="KickButton" parent="MobileControls" type="Button"]
-offset_left = -230.0
-offset_top = -70.0
-offset_right = -170.0
-offset_bottom = -10.0
-layout_mode = 0
-anchors_preset = 3
+[node name="KickButton" type="Button" parent="GameHUD/MobileControls"]
+layout_mode = 1
 anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -135.0
+offset_right = -110.0
+offset_bottom = -55.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "🦶"
 
-[node name="RunButton" parent="MobileControls" type="Button"]
-offset_left = -70.0
-offset_top = -150.0
-offset_right = -10.0
-offset_bottom = -90.0
-layout_mode = 0
-anchors_preset = 3
+[node name="RunButton" type="Button" parent="GameHUD/MobileControls"]
+layout_mode = 1
 anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -105.0
+offset_top = -55.0
+offset_right = -25.0
+offset_bottom = 25.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "🏃"
-
-[connection signal="pressed" from="GameHUD/MobileControls/JumpButton" to="../GameHUD" method="_on_jump_pressed"]
-[connection signal="pressed" from="GameHUD/MobileControls/PunchButton" to="../GameHUD" method="_on_punch_pressed"]
-[connection signal="pressed" from="GameHUD/MobileControls/KickButton" to="../GameHUD" method="_on_kick_pressed"]
-[connection signal="pressed" from="GameHUD/MobileControls/RunButton" to="../GameHUD" method="_on_run_pressed"]
-[connection signal="pressed" from="GameHUD/TopBar/PauseButton" to="../GameHUD" method="_on_pause_pressed"]

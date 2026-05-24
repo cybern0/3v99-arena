@@ -208,8 +208,8 @@ func _select_model(name: String) -> void:
 	if inst:
 		char_node.add_child(inst)
 		inst.transform = Transform3D.IDENTITY
-		# L'animation idle est déjà configurée dans P1.tscn/P2.tscn
-		# Pas besoin de la relancer manuellement
+		# Lancer l'animation idle dès que le modèle est ajouté à la scène
+		_play_default_animation(inst)
 		# Attacher la camera au modele selectionne
 		_attach_camera_to_model(inst)
 	
@@ -227,7 +227,7 @@ func _attach_camera_to_model(model: Node3D) -> void:
 func _play_default_animation(node: Node) -> void:
 	var anim_player := node.get_node_or_null("AnimationPlayer")
 	if anim_player == null:
-		anim_player = node.find_node("AnimationPlayer", true, false) as AnimationPlayer
+		anim_player = node.find_child("AnimationPlayer", true, false) as AnimationPlayer
 	if anim_player:
 		var animations : Array = anim_player.get_animation_list()
 		if animations.size() > 0:
@@ -237,7 +237,7 @@ func _play_default_animation(node: Node) -> void:
 				animation_name = animations[0]
 			var animation : Animation = anim_player.get_animation(animation_name)
 			if animation:
-				animation.loop = true
+				animation.loop_mode = Animation.LOOP_LINEAR
 				anim_player.play(animation_name)
 
 # ══════════════════════════════════════════════════════════════════════════════
