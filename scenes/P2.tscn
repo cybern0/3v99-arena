@@ -2,7 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://x3ompjcqkhtc" path="res://assets/P2/P2_image0.png" id="1_18y8a"]
 
-[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_18y8a"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_18y8a"]
+height = 0.8157959
+radius = 0.49169922
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qem3q"]
 radius = 0.001953125
@@ -2357,9 +2359,9 @@ _data = {
 
 [node name="P2" type="CharacterBody3D" unique_id=1358748129 groups=["Characters"]]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1188964833]
-transform = Transform3D(0.2, 0, 0, 0, 0.1999817, 0.002705187, 0, -0.002705187, 0.1999817, 0, -0.4743349, -0.006921053)
-shape = SubResource("HeightMapShape3D_18y8a")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1106180283]
+transform = Transform3D(-8.742278e-09, 0.19999997, -8.742276e-09, 0, -8.742276e-09, -0.19999997, -0.2, -8.742276e-09, 3.8213703e-16, 0, -0.39460093, 0.003359262)
+shape = SubResource("CylinderShape3D_18y8a")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1043919104 groups=["players"]]
 transform = Transform3D(98.999886, 0, 0, 0, 98.14255, -13.025252, 0, 13.025252, 98.14255, 0, 0.13572457, 0.08518577)
