@@ -7,7 +7,7 @@
 .sln
 .csproj
 .vs/
-.godot/
+.godot/*
 # Compiled and build artifacts
 *.so
 *.dylib
