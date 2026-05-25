@@ -1,26 +1,27 @@
-// border_fog.gdshader
-// Appliqué sur un grand mesh plan/cylindre placé en bordure d'arène.
-// UV.x = 0 (côté arène, transparent) → 1 (bordure, opaque)
-// UV.y = 0 (bas) → 1 (haut), utilisé pour le fondu en hauteur.
-//
-// Usage dans le monde : 4 grands quads verticaux autour du terrain
-// ou un CylinderMesh (flip normals) de rayon légèrement > terrain.
-// Orienter de sorte que UV.x augmente vers l'extérieur.
+// half_sphere_dense_fog.gdshader (version continue sans arrêt à l'équateur)
 shader_type spatial;
 render_mode blend_mix, depth_draw_never, cull_disabled, unshaded;
 
-uniform vec4  fog_color        : source_color = vec4(0.75, 0.70, 0.65, 1.0);
-uniform float height_max       : hint_range(0.5, 30.0)  = 10.0;  // hauteur arête supérieure
-uniform float height_fade_band : hint_range(0.1, 1.0)   = 0.25;  // bande de fondu haut
-uniform float density          : hint_range(0.0, 1.0)   = 0.92;
+uniform vec4 fog_color : source_color = vec4(0.75, 0.73, 0.70, 1.0);
+uniform float density : hint_range(0.0, 101.0) = 100.0;           // Densité globale
+uniform float center_density : hint_range(2.0, 11.0) = 10.0;    // Concentration au pôle
+uniform float edge_width : hint_range(0.1, 2.0) = 1.35;         // Largeur du dégradé
+uniform bool top_hemisphere = true; // true = pôle Nord dense, false = pôle Sud dense
 
 void fragment() {
-	// Fondu horizontal : pleinement opaque vers l'extérieur (UV.x → 1)
-	float horiz = smoothstep(0.0, 0.6, UV.x);
-
-	// Fondu vertical : disparaît doucement en haut pour éviter un mur plat
-	float vert  = 1.0 - smoothstep(1.0 - height_fade_band, 1.0, UV.y);
-
-	ALBEDO = fog_color.rgb;
-	ALPHA  = horiz * vert * density * fog_color.a;
+    // Distance depuis le pôle choisi (0 = pôle dense, 1 = pôle opposé)
+    float dist_from_center = top_hemisphere ? UV.y : 1.0 - UV.y;
+    
+    // Profil de densité : très forte au pôle, décroît progressivement
+    float density_shape = pow(1.0 - dist_from_center, center_density);
+    
+    // Dégradé transparent sur les bords (ne devient jamais 0 brusquement)
+    float edge_alpha = 1.0 - pow(dist_from_center, edge_width);
+    edge_alpha = smoothstep(0.0, 1.0, edge_alpha);
+    
+    // Alpha final – la transparence continue de diminuer au-delà de l'équateur
+    float final_alpha = fog_color.a * density * density_shape * edge_alpha;
+    
+    ALBEDO = fog_color.rgb;
+    ALPHA = final_alpha;
 }
