@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://ci6d846ekar5o" path="res://scripts/Player.gd" id="1_8x38n"]
 [ext_resource type="Texture2D" uid="uid://eypvh4oo8ucu" path="res://assets/P1/P1_image0.png" id="1_ukyud"]
 [ext_resource type="Script" uid="uid://ki63v11fhj6c" path="res://scripts/CameraOrbit.gd" id="2_50au5"]
+[ext_resource type="Script" uid="uid://t8x3q2xr1qpx" path="res://scripts/vfx_controller.gd" id="4_7yykq"]
+[ext_resource type="PackedScene" uid="uid://d1nw3rctnll8i" path="res://scenes/particles/p1_leaves.tscn" id="5_a8v6l"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ukyud"]
 height = 0.8157959
@@ -2122,7 +2124,7 @@ bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.1746521, 5.4081583, 5.011094)
 bones/0/enabled = true
 bones/0/position = Vector3(-0.1746521, 5.4081583, 5.011094)
-bones/0/rotation = Quaternion(-0.63795924, -0.21942425, 0.17996, 0.71587396)
+bones/0/rotation = Quaternion(-0.70710677, 0, 0, 0.70710677)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "mixamorig_Spine"
 bones/1/parent = 0
@@ -2359,10 +2361,15 @@ libraries/ = SubResource("AnimationLibrary_7yykq")
 
 [node name="CameraOrbit" type="Node3D" parent="." unique_id=392092789]
 transform = Transform3D(-0.999982, 0, 0.0060039717, 0.00034592664, 0.9983388, 0.057615265, -0.005993998, 0.0576163, -0.9983209, 0, 0.41171265, -1.1352)
-visible = false
 script = ExtResource("2_50au5")
 
 [node name="Camera3D" type="Camera3D" parent="CameraOrbit" unique_id=1876851070]
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=746272509]
 transform = Transform3D(10, 0, 0, 0, -2.1855694e-08, 20, 0, -0.5, -8.742278e-07, -0.010625601, 0.11717898, 0.08834362)
+
+[node name="VFXController" type="Node3D" parent="." unique_id=475653032]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, -0.024319053, 0.05702305)
+script = ExtResource("4_7yykq")
+
+[node name="VFXParticles" parent="VFXController" unique_id=118253165 instance=ExtResource("5_a8v6l")]

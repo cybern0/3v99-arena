@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://x3ompjcqkhtc" path="res://assets/P2/P2_image0.png" id="1_18y8a"]
 [ext_resource type="Script" uid="uid://ci6d846ekar5o" path="res://scripts/Player.gd" id="1_ktg3b"]
 [ext_resource type="Script" uid="uid://ki63v11fhj6c" path="res://scripts/CameraOrbit.gd" id="2_qem3q"]
+[ext_resource type="Script" uid="uid://t8x3q2xr1qpx" path="res://scripts/vfx_controller.gd" id="4_mto72"]
+[ext_resource type="PackedScene" path="res://scenes/particles/p2_dust.tscn" id="5_k44bp"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_18y8a"]
 height = 0.8157959
@@ -2390,7 +2392,7 @@ bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0, 1, 0, -0.9999999, 0, -0.191343, -0.32045183, 6.7309594)
 bones/0/enabled = true
 bones/0/position = Vector3(-0.191343, -0.32045183, 6.7309594)
-bones/0/rotation = Quaternion(-0.5778415, -0.3605594, 0.38121912, 0.62511456)
+bones/0/rotation = Quaternion(-0.70710677, 0, 0, 0.70710677)
 bones/0/scale = Vector3(1, 0.9999999, 1)
 bones/1/name = "mixamorig_Spine"
 bones/1/parent = 0
@@ -2689,3 +2691,10 @@ script = ExtResource("2_qem3q")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=932218771]
 transform = Transform3D(10, 0, 0, 0, -2.1855694e-08, 20, 0, -0.5, -8.742278e-07, -0.010625601, 0.11717898, 0.08834362)
+
+[node name="VFXController" type="Node3D" parent="." unique_id=388166435]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, -0.029377997, 0.053158283)
+script = ExtResource("4_mto72")
+character_type = "p2"
+
+[node name="VFXParticles" parent="VFXController" unique_id=2111414798 instance=ExtResource("5_k44bp")]

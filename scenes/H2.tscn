@@ -1,6 +1,8 @@
 [gd_scene format=4 uid="uid://3x1kw6ub6hvr"]
 
 [ext_resource type="Texture2D" uid="uid://hiwp8774ke2h" path="res://assets/H2/H2_image0.png" id="1_obogf"]
+[ext_resource type="Script" uid="uid://t8x3q2xr1qpx" path="res://scripts/vfx_controller.gd" id="2_0dddp"]
+[ext_resource type="PackedScene" uid="uid://boyhotq285mx5" path="res://scenes/particles/h2_scales.tscn" id="3_3qx68"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_obogf"]
 radius = 0.0014648438
@@ -2873,7 +2875,7 @@ bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0, 1, 0, -0.9999999, 0, -0.04698054, 9.695927, 0.2591503)
 bones/0/enabled = true
 bones/0/position = Vector3(-0.04698054, 9.695927, 0.2591503)
-bones/0/rotation = Quaternion(-0.6093469, 0.506158, -0.45020854, 0.4120833)
+bones/0/rotation = Quaternion(-0.70710677, 0, 0, 0.70710677)
 bones/0/scale = Vector3(1, 0.9999999, 1)
 bones/1/name = "mixamorig_Spine"
 bones/1/parent = 0
@@ -3170,3 +3172,10 @@ shape = SubResource("CylinderShape3D_obogf")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=2061070635]
 transform = Transform3D(10, 0, 0, 0, -2.1855694e-08, 20, 0, -0.5, -8.742278e-07, -0.010625601, 0.11717898, 0.17348522)
+
+[node name="VFXController" type="Node3D" parent="." unique_id=1357096908]
+script = ExtResource("2_0dddp")
+character_type = "h2"
+
+[node name="VFXParticles" parent="VFXController" unique_id=1970498549 instance=ExtResource("3_3qx68")]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, -0.012342066, 0.11930668)

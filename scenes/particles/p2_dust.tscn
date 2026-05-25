@@ -1,0 +1,55 @@
+[gd_scene format=3]
+
+; ── P2 — Particules poussière (très léger) ───────────────────────────────
+; P2 est un perso ordinaire : peu de particules, juste la poussière de sol.
+
+[sub_resource type="ParticleProcessMaterial" id="PPM_run"]
+direction = Vector3(0, 0.3, -1)
+spread = 30.0
+gravity = Vector3(0.0, -3.0, 0.0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+scale_min = 0.04
+scale_max = 0.10
+color = Color(0.70, 0.58, 0.38, 0.6)
+
+[sub_resource type="ParticleProcessMaterial" id="PPM_die"]
+direction = Vector3(0, 1, 0)
+spread = 90.0
+gravity = Vector3(0.0, -2.0, 0.0)
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+scale_min = 0.04
+scale_max = 0.12
+color = Color(0.65, 0.52, 0.35, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="MAT_dust"]
+transparency = 1
+albedo_color = Color(0.72, 0.60, 0.40, 0.65)
+billboard_mode = 3
+shading_mode = 0
+
+[sub_resource type="QuadMesh" id="QUAD_dust"]
+size = Vector2(0.07, 0.07)
+material = SubResource("MAT_dust")
+
+[node name="VFXParticles" type="Node3D"]
+
+; P2 idle = aucune particule (pas de noeud Idle volontairement)
+
+[node name="Action" type="GPUParticles3D" parent="."]
+position = Vector3(0, 0.1, 0)
+amount = 18
+lifetime = 0.6
+one_shot = true
+emitting = false
+process_material = SubResource("PPM_run")
+draw_pass_1 = SubResource("QUAD_dust")
+
+[node name="Die" type="GPUParticles3D" parent="."]
+amount = 40
+lifetime = 1.5
+one_shot = true
+emitting = false
+process_material = SubResource("PPM_die")
+draw_pass_1 = SubResource("QUAD_dust")
