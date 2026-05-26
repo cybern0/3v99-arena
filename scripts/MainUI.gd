@@ -246,17 +246,17 @@ func _select_model(model_name: String) -> void:
 # 	avatar_cam.look_at(model.global_transform.origin + Vector3(0, 0.8, 0))
 
 # func _play_default_animation(node: Node) -> void:
-	var anim_player := node.get_node_or_null("AnimationPlayer")
-	if anim_player == null:
-		anim_player = node.find_child("AnimationPlayer", true, false) as AnimationPlayer
-	if anim_player:
-		var animations: Array = anim_player.get_animation_list()
-		if animations.size() > 0:
-			var animation_name: String = "idle" if animations.has("idle") else animations[0]
-			var animation: Animation = anim_player.get_animation(animation_name)
-			if animation:
-				animation.loop_mode = Animation.LOOP_LINEAR
-				anim_player.play(animation_name)
+# 	var anim_player := node.get_node_or_null("AnimationPlayer")
+# 	if anim_player == null:
+# 		anim_player = node.find_child("AnimationPlayer", true, false) as AnimationPlayer
+# 	if anim_player:
+# 		var animations: Array = anim_player.get_animation_list()
+# 		if animations.size() > 0:
+# 			var animation_name: String = "idle" if animations.has("idle") else animations[0]
+# 			var animation: Animation = anim_player.get_animation(animation_name)
+# 			if animation:
+# 				animation.loop_mode = Animation.LOOP_LINEAR
+# 				anim_player.play(animation_name)
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Solo
