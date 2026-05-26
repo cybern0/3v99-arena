@@ -304,7 +304,7 @@ offset_right = 500.0
 offset_bottom = 680.0
 stretch_mode = 3
 expand_mode = 1
-texture = ExtResource("P1_image0")
+texture = SubResource("P1_image0")
 
 [sub_resource type="Texture2D" id="P1_image0"]
 resource_path = "res://assets/P1/P1_image0.png"
