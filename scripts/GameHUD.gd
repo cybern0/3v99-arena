@@ -106,10 +106,9 @@ func _connect_signals() -> void:
 #  Recherche du Player dans la scène
 # ─────────────────────────────────────────────
 func _find_player() -> void:
-	# Vérifier que get_tree() est valide
-	if not get_tree():
-		push_warning("[GameHUD] get_tree() est null, réessai différé...")
-		await get_tree().process_frame
+	# Vérifier que le node est bien dans l'arbre de scène
+	if not is_inside_tree():
+		await ready
 		_find_player()
 		return
 	
