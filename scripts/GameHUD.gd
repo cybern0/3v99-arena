@@ -106,11 +106,19 @@ func _connect_signals() -> void:
 #  Recherche du Player dans la scène
 # ─────────────────────────────────────────────
 func _find_player() -> void:
+	# Vérifier que get_tree() est valide
+	if not get_tree():
+		push_warning("[GameHUD] get_tree() est null, réessai différé...")
+		await get_tree().process_frame
+		_find_player()
+		return
+	
 	# Priorité 1 : groupe "player"
 	var groupe := get_tree().get_nodes_in_group("player")
 	if groupe.size() > 0:
 		_player = groupe[0]
 		return
+	
 	# Priorité 2 : chercher un nœud nommé "Player" dans la scène
 	var scene_root := get_tree().current_scene
 	if scene_root:
