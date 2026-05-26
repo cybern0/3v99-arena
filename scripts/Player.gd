@@ -75,13 +75,8 @@ func _ready() -> void:
 	
 	# Vérifier si on a besoin du HUD mobile (configuré par MainUI via SessionManager)
 	var sm = get_node_or_null("/root/SessionManager")
-	if sm and sm.has_method("get_needs_mobile_hud"):
-		if sm.needs_mobile_hud:
-			create_mobile_controls()
-	elif has_node("/root/SessionManager"):
-		var sm2 = get_node("/root/SessionManager")
-		if sm2.has_property("needs_mobile_hud") and sm2.needs_mobile_hud:
-			create_mobile_controls()
+	if sm and "needs_mobile_hud" in sm and sm.needs_mobile_hud:
+		create_mobile_controls()
 
 	add_to_group("player")
 	print("[Player] Initialisé — mobile: ", enable_mobile_controls)
