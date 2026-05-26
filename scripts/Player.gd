@@ -68,12 +68,20 @@ func _ready() -> void:
 	if _animation_player:
 		_animation_player.animation_finished.connect(_on_animation_finished)
 
-	# NOTE: _create_mobile_controls() N'est PAS appelé ici.
-	# C'est MainUI.gd qui l'appelle via create_mobile_controls()
-	# au moment du lancement de la partie ("Lancer la partie").
-
+	# NOTE: create_mobile_controls() est maintenant appelé directement ici
+	# si SessionManager indique qu'il faut le HUD mobile
 	if enable_mobile_controls and OS.get_name() in ["Android", "iOS"]:
 		_setup_mobile_mode()
+	
+	# Vérifier si on a besoin du HUD mobile (configuré par MainUI via SessionManager)
+	var sm = get_node_or_null("/root/SessionManager")
+	if sm and sm.has_method("get_needs_mobile_hud"):
+		if sm.needs_mobile_hud:
+			create_mobile_controls()
+	elif has_node("/root/SessionManager"):
+		var sm2 = get_node("/root/SessionManager")
+		if sm2.get("needs_mobile_hud", false):
+			create_mobile_controls()
 
 	add_to_group("player")
 	print("[Player] Initialisé — mobile: ", enable_mobile_controls)

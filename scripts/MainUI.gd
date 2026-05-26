@@ -23,10 +23,16 @@ const CLASS_STATS := {
 @onready var br_scr    : Control = $BattleRoyalScreen   # ← devient "Créer Room Boss"
 @onready var bh_scr    : Control = $BossHuntScreen
 
-# Avatar 3D
+# Avatar 3D → remplacé par images 2D
 const MODEL_SCENES := {
 	"Model 1": preload("res://scenes/P1.tscn"),
 	"Model 2": preload("res://scenes/P2.tscn"),
+}
+
+# Images 2D pour l'aperçu dans l'UI
+const MODEL_IMAGES := {
+	"Model 1": preload("res://assets/P1/P1_image0.png"),
+	"Model 2": preload("res://assets/P2/P2_image0.png"),
 }
 
 @onready var char_node  : Node3D        = $AvatarScreen/AvatarViewportContainer/AvatarViewport/CharNode
@@ -37,6 +43,7 @@ const MODEL_SCENES := {
 @onready var stat_atq   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarAtq
 @onready var stat_def   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarDef
 @onready var stat_vit   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarVit
+@onready var avatar_preview_img : TextureRect = $AvatarScreen/AvatarCard/AvatarVBox/AvatarPreview/AvatarImage
 
 # Solo — aperçu
 @onready var prev_map   : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevMapVal
@@ -214,18 +221,20 @@ func _select_model(model_name: String) -> void:
 	if not MODEL_SCENES.has(model_name):
 		return
 	_selected_model = model_name
-	for child in char_node.get_children():
-		child.queue_free()
-	var scene: PackedScene = MODEL_SCENES[model_name] as PackedScene
-	var inst: Node3D = scene.instantiate() as Node3D
-	if inst:
-		char_node.add_child(inst)
-		inst.transform = Transform3D.IDENTITY
-		_play_default_animation(inst)
-		_attach_camera_to_model(inst)
-		# Stocker la référence si le modèle est un Player
-		if inst.has_method("create_mobile_controls"):
-			_active_player_model = inst
+	
+	# Afficher l'image 2D correspondante
+	if avatar_preview_img and MODEL_IMAGES.has(model_name):
+		avatar_preview_img.texture = MODEL_IMAGES[model_name]
+		avatar_preview_img.visible = true
+	
+	# Masquer le viewport 3D (on garde la logique de chemin mais on ne l'utilise plus visuellement)
+	if char_node:
+		for child in char_node.get_children():
+			child.visible = false
+	
+	# Stocker la référence si le modèle est un Player (pour la logique de création de HUD)
+	_active_player_model = null  # Sera réinstancié dans la scène de jeu
+	
 	for btn in $AvatarScreen/AvatarControls/ModelRow.get_children():
 		if btn is Button:
 			btn.set_pressed(btn.text == model_name)
