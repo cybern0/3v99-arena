@@ -14,6 +14,9 @@ var user_data     : Dictionary = {}
 var solo_config    : Dictionary = {}
 var selected_model : String     = "Model 1"
 
+# Flag pour indiquer si le HUD mobile doit être affiché en mode solo
+var needs_mobile_hud : bool = false
+
 # ─────────────────────────────────────────────
 #  Appeler depuis MainUI avant d'ouvrir BR/BH
 # ─────────────────────────────────────────────
