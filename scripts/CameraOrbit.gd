@@ -44,8 +44,8 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			_mouse_delta = (event as InputEventMouseMotion).relative
+		#if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		_mouse_delta = (event as InputEventMouseMotion).relative
 
 	elif event is InputEventScreenTouch:
 		_is_touching = (event as InputEventScreenTouch).pressed

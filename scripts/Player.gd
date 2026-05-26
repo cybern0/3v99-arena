@@ -158,7 +158,7 @@ func _on_run_down() -> void:
 	_run_held = true
 	# Sur mobile sans joystick, on force le mouvement vers l'avant du joueur
 	if enable_mobile_controls:
-		_input_direction = Vector2(0.0, -1.0)
+		_input_direction = Vector2(0.0, 1.0)
 
 func _on_run_up() -> void:
 	# Bouton Run relâché : arrêter
