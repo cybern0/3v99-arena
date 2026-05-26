@@ -231,6 +231,9 @@ func _select_model(model_name: String) -> void:
 	if avatar_preview_img and MODEL_IMAGES.has(model_name):
 		avatar_preview_img.texture = MODEL_IMAGES[model_name]
 		avatar_preview_img.visible = true
+		# S'assurer que l'image garde ses proportions et s'adapte au container
+		avatar_preview_img.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		avatar_preview_img.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	
 	# Stocker la référence si le modèle est un Player (pour la logique de création de HUD)
 	_active_player_model = null  # Sera réinstancié dans la scène de jeu
