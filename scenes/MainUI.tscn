@@ -21,15 +21,19 @@ grow_vertical = 2
 color = Color(0.04, 0.04, 0.11, 1)
 
 [node name="TitleBar" type="Control" parent="." unique_id=443611059]
+layout_mode = 1
 anchors_preset = 0
-offset_right = 1280.0
+anchor_right = 1.0
 offset_bottom = 100.0
+grow_horizontal = 2
 
 [node name="TitleLabel" type="Label" parent="TitleBar" unique_id=841433121]
-layout_mode = 0
-offset_top = 18.0
-offset_right = 1280.0
-offset_bottom = 82.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
 theme_override_font_sizes/font_size = 42
 text = "ARENA LEGENDS"
@@ -37,11 +41,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Divider" type="ColorRect" parent="TitleBar" unique_id=782939596]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 80.0
-offset_top = 90.0
-offset_right = 1200.0
-offset_bottom = 93.0
+offset_top = -10.0
+offset_right = -80.0
+offset_bottom = -7.0
+grow_horizontal = 2
 color = Color(0.95, 0.82, 0.35, 0.3)
 
 [node name="MainMenuScreen" type="Control" parent="." unique_id=306803336]
@@ -53,11 +62,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AvatarCard" type="PanelContainer" parent="MainMenuScreen" unique_id=125982246]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 1.0
 offset_left = 55.0
 offset_top = 115.0
-offset_right = 375.0
 offset_bottom = 610.0
+grow_horizontal = 2
 
 [node name="AvatarVBox" type="VBoxContainer" parent="MainMenuScreen/AvatarCard" unique_id=1734308270]
 layout_mode = 2
@@ -75,7 +86,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-stretch_mode = 5
+stretch_mode = 6
+expand_mode = 1
 
 [node name="AvatarHint" type="Label" parent="MainMenuScreen/AvatarCard/AvatarVBox/AvatarPreview" unique_id=550192806]
 layout_mode = 1
@@ -176,11 +188,15 @@ text = "Parties"
 horizontal_alignment = 1
 
 [node name="MenuButtons" type="VBoxContainer" parent="MainMenuScreen" unique_id=1495440980]
-layout_mode = 0
-offset_left = 440.0
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -265.0
 offset_top = 145.0
-offset_right = 970.0
+offset_right = 265.0
 offset_bottom = 625.0
+grow_horizontal = 2
 theme_override_constants/separation = 16
 
 [node name="BtnAvatar" type="Button" parent="MainMenuScreen/MenuButtons" unique_id=964884771]
@@ -212,15 +228,21 @@ theme_override_font_sizes/font_size = 17
 text = "👹 Joindre Room Elimination Boss"
 
 [node name="HintLbl" type="Label" parent="MainMenuScreen" unique_id=187592652]
-layout_mode = 0
-offset_left = 440.0
-offset_top = 636.0
-offset_right = 970.0
-offset_bottom = 656.0
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -265.0
+offset_top = -20.0
+offset_right = 265.0
+offset_bottom = -1.0
+grow_horizontal = 2
 theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.7)
 theme_override_font_sizes/font_size = 12
 text = "Choisissez un mode de jeu"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AvatarScreen" type="Control" parent="." unique_id=928821844]
 visible = false
@@ -241,9 +263,11 @@ grow_vertical = 2
 color = Color(0.03, 0.03, 0.09, 1)
 
 [node name="AvatarHeader" type="Control" parent="AvatarScreen" unique_id=1339515431]
+layout_mode = 1
 anchors_preset = 0
-offset_right = 1280.0
+anchor_right = 1.0
 offset_bottom = 100.0
+grow_horizontal = 2
 
 [node name="BtnBackAvatar" type="Button" parent="AvatarScreen/AvatarHeader" unique_id=1263674188]
 layout_mode = 0
@@ -255,30 +279,43 @@ theme_override_font_sizes/font_size = 14
 text = "<  Retour"
 
 [node name="AvatarTitle" type="Label" parent="AvatarScreen/AvatarHeader" unique_id=2101485705]
-layout_mode = 0
-offset_top = 18.0
-offset_right = 1280.0
-offset_bottom = 82.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.75, 0.6, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "PERSONNALISATION AVATAR"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AvatarTitleDiv" type="ColorRect" parent="AvatarScreen/AvatarHeader" unique_id=2137469948]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 80.0
-offset_top = 95.0
-offset_right = 1200.0
-offset_bottom = 98.0
+offset_top = -10.0
+offset_right = -80.0
+offset_bottom = -7.0
+grow_horizontal = 2
 color = Color(0.75, 0.6, 1, 0.22)
 
 [node name="AvatarPreview" type="TextureRect" parent="AvatarScreen" unique_id=391184483]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 1.0
 offset_left = 48.0
 offset_top = 115.0
 offset_right = 500.0
 offset_bottom = 680.0
-stretch_mode = 3
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 6
+expand_mode = 1
 
 [node name="AvatarControls" type="VBoxContainer" parent="AvatarScreen" unique_id=454804063]
 layout_mode = 0
@@ -538,9 +575,11 @@ grow_vertical = 2
 color = Color(0.03, 0.06, 0.03, 1)
 
 [node name="SoloHeader" type="Control" parent="SoloScreen" unique_id=2132670980]
+layout_mode = 1
 anchors_preset = 0
-offset_right = 1280.0
+anchor_right = 1.0
 offset_bottom = 100.0
+grow_horizontal = 2
 
 [node name="BtnBackSolo" type="Button" parent="SoloScreen/SoloHeader" unique_id=1513108811]
 layout_mode = 0
@@ -552,29 +591,42 @@ theme_override_font_sizes/font_size = 14
 text = "<  Retour"
 
 [node name="SoloTitle" type="Label" parent="SoloScreen/SoloHeader" unique_id=213646518]
-layout_mode = 0
-offset_top = 18.0
-offset_right = 1280.0
-offset_bottom = 82.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
 theme_override_font_sizes/font_size = 30
 text = "MODE SOLO  —  CONFIGURATION"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SoloDivider" type="ColorRect" parent="SoloScreen/SoloHeader" unique_id=90554205]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 80.0
-offset_top = 95.0
-offset_right = 1200.0
-offset_bottom = 98.0
+offset_top = -10.0
+offset_right = -80.0
+offset_bottom = -7.0
+grow_horizontal = 2
 color = Color(0.35, 0.9, 0.55, 0.22)
 
 [node name="SoloContent" type="HBoxContainer" parent="SoloScreen" unique_id=1193812672]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 36.0
 offset_top = 115.0
-offset_right = 1244.0
-offset_bottom = 690.0
+offset_right = -36.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 28
 
 [node name="SoloLeftPanel" type="VBoxContainer" parent="SoloScreen/SoloContent" unique_id=2140089695]
@@ -857,9 +909,11 @@ grow_vertical = 2
 color = Color(0.04, 0.03, 0.07, 1)
 
 [node name="BRHeader" type="Control" parent="BattleRoyalScreen" unique_id=753921212]
+layout_mode = 1
 anchors_preset = 0
-offset_right = 1280.0
+anchor_right = 1.0
 offset_bottom = 100.0
+grow_horizontal = 2
 
 [node name="BtnBackBR" type="Button" parent="BattleRoyalScreen/BRHeader" unique_id=2087725460]
 layout_mode = 0
@@ -871,29 +925,42 @@ theme_override_font_sizes/font_size = 14
 text = "<  Retour"
 
 [node name="BRTitle" type="Label" parent="BattleRoyalScreen/BRHeader" unique_id=946811199]
-layout_mode = 0
-offset_top = 18.0
-offset_right = 1280.0
-offset_bottom = 82.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.95, 0.55, 0.2, 1)
 theme_override_font_sizes/font_size = 30
 text = "CRÉER ROOM  —  BOSS HUNT"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BRDivider" type="ColorRect" parent="BattleRoyalScreen/BRHeader" unique_id=844318463]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 80.0
-offset_top = 95.0
-offset_right = 1200.0
-offset_bottom = 98.0
+offset_top = -10.0
+offset_right = -80.0
+offset_bottom = -7.0
+grow_horizontal = 2
 color = Color(0.95, 0.55, 0.2, 0.22)
 
 [node name="BRContent" type="HBoxContainer" parent="BattleRoyalScreen" unique_id=1576637698]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 36.0
 offset_top = 115.0
-offset_right = 1244.0
-offset_bottom = 690.0
+offset_right = -36.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 28
 
 [node name="BRLeft" type="VBoxContainer" parent="BattleRoyalScreen/BRContent" unique_id=64503632]
@@ -1095,9 +1162,11 @@ grow_vertical = 2
 color = Color(0.06, 0.02, 0.02, 1)
 
 [node name="BHHeader" type="Control" parent="BossHuntScreen" unique_id=1843568328]
+layout_mode = 1
 anchors_preset = 0
-offset_right = 1280.0
+anchor_right = 1.0
 offset_bottom = 100.0
+grow_horizontal = 2
 
 [node name="BtnBackBH" type="Button" parent="BossHuntScreen/BHHeader" unique_id=1781468912]
 layout_mode = 0
@@ -1109,21 +1178,29 @@ theme_override_font_sizes/font_size = 14
 text = "<  Retour"
 
 [node name="BHTitle" type="Label" parent="BossHuntScreen/BHHeader" unique_id=282194019]
-layout_mode = 0
-offset_top = 18.0
-offset_right = 1280.0
-offset_bottom = 82.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.9, 0.28, 0.28, 1)
 theme_override_font_sizes/font_size = 30
 text = "JOINDRE ROOM  —  ELIMINATION BOSS"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BHDivider" type="ColorRect" parent="BossHuntScreen/BHHeader" unique_id=2044248961]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 80.0
-offset_top = 95.0
-offset_right = 1200.0
-offset_bottom = 98.0
+offset_top = -10.0
+offset_right = -80.0
+offset_bottom = -7.0
+grow_horizontal = 2
 color = Color(0.9, 0.28, 0.28, 0.22)
 
 [node name="BHContent" type="HBoxContainer" parent="BossHuntScreen" unique_id=631224612]
