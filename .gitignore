@@ -1,1 +1,74 @@
-Nothing needs to be added to .gitignore since only a source file (.tscn) was modified and no build artifacts, dependencies, or temporary files were detected in the changes.
+```
+# Godot-specific ignores
+*.import
+*.remap
+export_presets.cfg
+.autoload_register
+.editor
+.godot/
+
+# Compiled and build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.class
+*.o
+*.obj
+*.out
+*.pyc
+__pycache__/
+*.class
+*.jar
+*.war
+*.zip
+*.tar.gz
+
+# Dependencies
+node_modules/
+venv/
+.venv/
+.env
+.env.local
+.env.*
+target/
+.gradle/
+.mypy_cache/
+.pytest_cache/
+coverage/
+htmlcov/
+.nyc_output/
+.scoverage/
+
+# Build outputs
+dist/
+build/
+out/
+release/
+debug/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+```

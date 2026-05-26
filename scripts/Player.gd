@@ -97,10 +97,17 @@ func _create_mobile_controls() -> void:
 		if canvas_scene:
 			_canvas_layer = canvas_scene.instantiate() as CanvasLayer
 			_canvas_layer.name = "CanvasLayer"
+			# Configurer le CanvasLayer pour correspondre à la taille de la fenêtre/vueport
+			_canvas_layer.layer = 1
 			add_child(_canvas_layer)
 			_game_hud = _canvas_layer.get_node_or_null("GameHUD") as GameHUD
 			if not _game_hud:
 				_game_hud = _canvas_layer.find_child("GameHUD", true, false) as GameHUD
+			# S'assurer que le GameHUD remplisse tout l'écran
+			if _game_hud:
+				_game_hud.set_anchors_preset(Control.PRESET_FULL_RECT)
+				_game_hud.grow_horizontal = Control.GROW_DIRECTION_BOTH
+				_game_hud.grow_vertical = Control.GROW_DIRECTION_BOTH
 		else:
 			push_error("[Player] Impossible de charger CanvasLayer.tscn")
 	else:
