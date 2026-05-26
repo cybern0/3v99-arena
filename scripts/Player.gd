@@ -5,7 +5,7 @@ class_name Player
 #  Configuration
 # ─────────────────────────────────────────────
 @export_group("Movement")
-@export var walk_speed:    float = 5.0
+@export var walk_speed:    float = 1.0
 @export var run_speed:     float = 2.0
 @export var acceleration:  float = 10.0
 @export var friction:      float = 8.0
