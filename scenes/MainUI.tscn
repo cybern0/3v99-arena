@@ -960,188 +960,180 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 14
 
-[node name="SearchBRLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2023910431]
+[node name="RoomNameLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2200000001]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
 theme_override_font_sizes/font_size = 11
-text = "RECHERCHER PAR CODE OU NOM"
+text = "NOM DE LA ROOM"
 
-[node name="SearchBREdit" type="LineEdit" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=592112620]
+[node name="RoomNameEdit" type="LineEdit" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2200000002]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
-placeholder_text = "Code ou nom de room..."
+placeholder_text = "Nom de la room (optionnel)..."
 
-[node name="FilterBRLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=1450999149]
+[node name="BossLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2200000003]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
 theme_override_font_sizes/font_size = 11
-text = "FILTRER PAR CARTE"
+text = "BOSS À AFFRONTER"
 
-[node name="FilterBROption" type="OptionButton" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=1919989053]
-custom_minimum_size = Vector2(0, 46)
+[node name="BossOption" type="OptionButton" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2200000004]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+selected = 0
+item_count = 5
+popup/item_0/text = "Dragon de Feu Eternel"
+popup/item_0/id = 0
+popup/item_1/text = "L'Ancien Dieu"
+popup/item_1/id = 1
+popup/item_2/text = "Ombre du Neant"
+popup/item_2/id = 2
+popup/item_3/text = "Seigneur des Abysses"
+popup/item_3/id = 3
+popup/item_4/text = "Bête Primordiale"
+popup/item_4/id = 4
+
+[node name="BRMapLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2200000005]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "CARTE DE COMBAT"
+
+[node name="BRMapOption" type="OptionButton" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2200000006]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 selected = 0
 item_count = 4
+popup/item_0/text = "Desert Aride"
 popup/item_0/id = 0
+popup/item_1/text = "Foret Noire"
 popup/item_1/id = 1
+popup/item_2/text = "Ville en Ruines"
 popup/item_2/id = 2
+popup/item_3/text = "Montagne Glace"
 popup/item_3/id = 3
 
-[node name="RoomsLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=84602317]
+[node name="MaxPlayersLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2200000007]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
 theme_override_font_sizes/font_size = 11
-text = "ROOMS DISPONIBLES"
+text = "JOUEURS MAX"
 
-[node name="BRRoomsList" type="ItemList" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=1748306453]
+[node name="MaxPlayersRow" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2200000008]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 14
-item_count = 5
-item_0/text = "Room de Alex       14 / 20     Desert Ardent"
-item_1/text = "ShadowKings         8 / 20     Foret Noire"
-item_2/text = "NightFall          19 / 20     Ville en Ruines"
-item_3/text = "Room Publique #42   3 / 20     Desert Ardent"
-item_4/text = "IronStorm          11 / 20     Foret Noire"
+theme_override_constants/separation = 10
 
-[node name="BtnJoinBR" type="Button" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=1043501925]
-custom_minimum_size = Vector2(0, 56)
+[node name="BtnMax2" type="Button" parent="BattleRoyalScreen/BRContent/BRLeft/MaxPlayersRow" unique_id=2200000009]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 17
-text = "Rejoindre la Room"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+toggle_mode = true
+text = "2"
+
+[node name="BtnMax4" type="Button" parent="BattleRoyalScreen/BRContent/BRLeft/MaxPlayersRow" unique_id=2200000010]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+toggle_mode = true
+button_pressed = true
+text = "4"
+
+[node name="BtnMax6" type="Button" parent="BattleRoyalScreen/BRContent/BRLeft/MaxPlayersRow" unique_id=2200000011]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+toggle_mode = true
+text = "6"
+
+[node name="BtnMax8" type="Button" parent="BattleRoyalScreen/BRContent/BRLeft/MaxPlayersRow" unique_id=2200000012]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+toggle_mode = true
+text = "8"
+
+[node name="BtnCreateBoss" type="Button" parent="BattleRoyalScreen/BRContent/BRLeft" unique_id=2200000013]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "CRÉER LA ROOM BOSS  >"
 
 [node name="BRRight" type="VBoxContainer" parent="BattleRoyalScreen/BRContent" unique_id=195900107]
 custom_minimum_size = Vector2(310, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_constants/separation = 12
+theme_override_constants/separation = 14
 
-[node name="InviteBRLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRRight" unique_id=1708534410]
+[node name="BossPreviewLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRRight" unique_id=2200000016]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
 theme_override_font_sizes/font_size = 11
-text = "INVITER DES JOUEURS"
+text = "APERÇU ROOM"
 
-[node name="InviteSearchBR" type="LineEdit" parent="BattleRoyalScreen/BRContent/BRRight" unique_id=1514581708]
-custom_minimum_size = Vector2(0, 42)
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-placeholder_text = "Rechercher un joueur..."
-
-[node name="BRPlayerScroll" type="ScrollContainer" parent="BattleRoyalScreen/BRContent/BRRight" unique_id=435446783]
+[node name="BossPreviewCard" type="PanelContainer" parent="BattleRoyalScreen/BRContent/BRRight" unique_id=2200000014]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BRPlayerList" type="VBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll" unique_id=279142915]
+[node name="BossPreviewVBox" type="VBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BossPreviewCard" unique_id=2200000015]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 10
 
-[node name="BRP1" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList" unique_id=1884655250]
+[node name="PrevBossLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox" unique_id=2200000017]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.7)
+theme_override_font_sizes/font_size = 11
+text = "BOSS"
 
-[node name="Name" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP1" unique_id=861666729]
+[node name="PrevBossVal" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox" unique_id=2200000018]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
-text = "Alex_94"
+theme_override_colors/font_color = Color(0.95, 0.42, 0.32, 1)
+theme_override_font_sizes/font_size = 17
+text = "Dragon de Feu Eternel"
 
-[node name="Status" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP1" unique_id=594809570]
+[node name="PrevBRMapLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox" unique_id=2200000019]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.7)
+theme_override_font_sizes/font_size = 11
+text = "CARTE"
+
+[node name="PrevBRMapVal" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox" unique_id=2200000020]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "Desert Aride"
+
+[node name="PrevMaxPlayersLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox" unique_id=2200000021]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.7)
+theme_override_font_sizes/font_size = 11
+text = "JOUEURS MAX"
+
+[node name="PrevMaxPlayersVal" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox" unique_id=2200000022]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
-theme_override_font_sizes/font_size = 12
-text = "En ligne"
+theme_override_font_sizes/font_size = 17
+text = "4 joueurs max"
 
-[node name="Btn" type="Button" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP1" unique_id=1411763302]
-custom_minimum_size = Vector2(78, 34)
+[node name="RoomCodeLbl" type="Label" parent="BattleRoyalScreen/BRContent/BRRight" unique_id=2200000023]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Inviter"
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "CODE DE LA ROOM (après création)"
 
-[node name="BRP2" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList" unique_id=350947901]
+[node name="RoomCodeVal" type="Label" parent="BattleRoyalScreen/BRContent/BRRight" unique_id=2200000024]
 layout_mode = 2
-
-[node name="Name" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP2" unique_id=1978812534]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
-text = "Shadow_Wolf"
-
-[node name="Status" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP2" unique_id=1847406561]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
-theme_override_font_sizes/font_size = 12
-text = "En ligne"
-
-[node name="Btn" type="Button" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP2" unique_id=715424688]
-custom_minimum_size = Vector2(78, 34)
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Inviter"
-
-[node name="BRP3" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList" unique_id=1553424307]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP3" unique_id=398026915]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
-text = "NightBlade_X"
-
-[node name="Status" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP3" unique_id=1797522493]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.55, 0.2, 1)
-theme_override_font_sizes/font_size = 12
-text = "En jeu"
-
-[node name="Btn" type="Button" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP3" unique_id=3268301]
-custom_minimum_size = Vector2(78, 34)
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Inviter"
-
-[node name="BRP4" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList" unique_id=525419058]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP4" unique_id=1345748799]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
-text = "IronFist_99"
-
-[node name="Status" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP4" unique_id=518754789]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 1)
-theme_override_font_sizes/font_size = 12
-text = "En ligne"
-
-[node name="Btn" type="Button" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP4" unique_id=2062837399]
-custom_minimum_size = Vector2(78, 34)
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Inviter"
-
-[node name="BRP5" type="HBoxContainer" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList" unique_id=2005980895]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP5" unique_id=177108104]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
-text = "StormRider"
-
-[node name="Status" type="Label" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP5" unique_id=1908961073]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.5, 0.48, 0.65, 0.8)
-theme_override_font_sizes/font_size = 12
-text = "Hors ligne"
-
-[node name="Btn" type="Button" parent="BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList/BRP5" unique_id=94530301]
-custom_minimum_size = Vector2(78, 34)
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Inviter"
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+text = "——————"
+horizontal_alignment = 1
 
 [node name="BossHuntScreen" type="Control" parent="." unique_id=747992695]
 visible = false

@@ -19,15 +19,6 @@ venv/
 .env.local
 *.env.*
 
-# Build directories
-dist/
-build/
-target/
-*.jar
-*.war
-*.zip
-*.tar.gz
-
 # Logs and temp files
 *.log
 *.tmp
@@ -38,29 +29,13 @@ target/
 .vscode/
 .idea/
 
-# OS generated files
+# System files
 .DS_Store
 Thumbs.db
 
-# Coverage reports
+# Coverage
 coverage/
 htmlcov/
-.coverage
-
-# Python specific
-*.pyc
-__pycache__/
-*.pyo
-*.pyd
-.Python
-*.so
-*.egg-info/
-.eggs/
-
-# Test and cache
-.mypy_cache/
-.pytest_cache/
-.tox/
 .coverage
 
 # Compressed files
