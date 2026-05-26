@@ -17,11 +17,11 @@ const CLASS_STATS := {
 }
 
 # ── Noeuds principaux ──────────────────────────────────────────────────────────
-@onready var main_menu    : Control = $MainMenuScreen
-@onready var avatar_scr   : Control = $AvatarScreen
-@onready var solo_scr     : Control = $SoloScreen
-@onready var br_scr       : Control = $BattleRoyalScreen
-@onready var bh_scr       : Control = $BossHuntScreen
+@onready var main_menu : Control = $MainMenuScreen
+@onready var avatar_scr: Control = $AvatarScreen
+@onready var solo_scr  : Control = $SoloScreen
+@onready var br_scr    : Control = $BattleRoyalScreen   # ← devient "Créer Room Boss"
+@onready var bh_scr    : Control = $BossHuntScreen
 
 # Avatar 3D
 const MODEL_SCENES := {
@@ -29,40 +29,59 @@ const MODEL_SCENES := {
 	"Model 2": preload("res://scenes/P2.tscn"),
 }
 
-@onready var char_node    : Node3D          = $AvatarScreen/AvatarViewportContainer/AvatarViewport/CharNode
-@onready var avatar_cam   : Camera3D         = $AvatarScreen/AvatarViewportContainer/AvatarViewport/AvatarCamera
-@onready var rot_timer    : Timer           = $AvatarScreen/AvatarViewportContainer/AvatarViewport/AvatarRotateTimer
-@onready var name_edit    : LineEdit        = $AvatarScreen/AvatarControls/NameEdit
-@onready var stat_vie     : ProgressBar     = $AvatarScreen/AvatarControls/StatsGrid/BarVie
-@onready var stat_atq     : ProgressBar     = $AvatarScreen/AvatarControls/StatsGrid/BarAtq
-@onready var stat_def     : ProgressBar     = $AvatarScreen/AvatarControls/StatsGrid/BarDef
-@onready var stat_vit     : ProgressBar     = $AvatarScreen/AvatarControls/StatsGrid/BarVit
+@onready var char_node  : Node3D        = $AvatarScreen/AvatarViewportContainer/AvatarViewport/CharNode
+@onready var avatar_cam : Camera3D       = $AvatarScreen/AvatarViewportContainer/AvatarViewport/AvatarCamera
+@onready var rot_timer  : Timer         = $AvatarScreen/AvatarViewportContainer/AvatarViewport/AvatarRotateTimer
+@onready var name_edit  : LineEdit      = $AvatarScreen/AvatarControls/NameEdit
+@onready var stat_vie   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarVie
+@onready var stat_atq   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarAtq
+@onready var stat_def   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarDef
+@onready var stat_vit   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarVit
 
-# Solo — apercu
-@onready var prev_map     : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevMapVal
-@onready var prev_time    : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevTimeVal
-@onready var prev_meteo   : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevMeteoVal
-@onready var prev_diff    : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevDiffVal
-@onready var prev_cam     : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevCamVal
+# Solo — aperçu
+@onready var prev_map   : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevMapVal
+@onready var prev_time  : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevTimeVal
+@onready var prev_meteo : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevMeteoVal
+@onready var prev_diff  : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevDiffVal
+@onready var prev_cam   : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevCamVal
 
-# Map vers scene
+# "Créer Room Boss" — aperçu (nœuds renommés dans le TSCN)
+@onready var boss_prev_boss   : Label = $BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox/PrevBossVal
+@onready var boss_prev_map    : Label = $BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox/PrevBRMapVal
+@onready var boss_prev_players: Label = $BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox/PrevMaxPlayersVal
+@onready var boss_room_code   : Label = $BattleRoyalScreen/BRContent/BRRight/RoomCodeVal
+
+# Map → scène
 const MAP_SCENES := {
 	"Foret Profonde": "res://scenes/w_1.tscn",
 	"Desert Aride":   "res://scenes/w_2.tscn",
 	"Montagne Glace": "res://scenes/w_3.tscn",
 }
 
-# ── Etat interne ───────────────────────────────────────────────────────────────
-var _rot_dir       : float  = 1.0
-var _current_class : String = "Guerrier"
-var _selected_model: String = "Model 1"
-var _solo_config   : Dictionary = {
+# ── État interne ───────────────────────────────────────────────────────────────
+var _rot_dir:        float   = 1.0
+var _current_class:  String  = "Guerrier"
+var _selected_model: String  = "Model 1"
+
+var _solo_config: Dictionary = {
 	"map":    "Foret Profonde",
 	"time":   "Jour",
 	"meteo":  "Ensoleille",
 	"diff":   "Normal",
 	"camera": "TPS",
 }
+
+var _boss_config: Dictionary = {
+	"boss":        "Dragon de Feu Eternel",
+	"map":         "Desert Aride",
+	"max_players": 4,
+	"room_name":   "",
+}
+
+# ── Référence au modèle Player instancié dans la scène de jeu ─────────────────
+# MainUI stocke la sélection dans SessionManager ; la scène de jeu appelle ensuite
+# player_node.create_mobile_controls() après avoir instancié le bon modèle.
+var _active_player_model: Node = null  # rempli si un Player est présent dans cette scène
 
 # ══════════════════════════════════════════════════════════════════════════════
 func _ready() -> void:
@@ -75,26 +94,22 @@ func _connect_all() -> void:
 	# Menu principal
 	$MainMenuScreen/MenuButtons/BtnAvatar.pressed.connect(func(): _show(avatar_scr))
 	$MainMenuScreen/MenuButtons/BtnSolo.pressed.connect(func(): _show(solo_scr))
+	# BtnBattleRoyal renommé "Créer Room Boss" dans le TSCN — ouvre br_scr
 	$MainMenuScreen/MenuButtons/BtnBattleRoyal.pressed.connect(func(): _show(br_scr))
 	$MainMenuScreen/MenuButtons/BtnBossHunt.pressed.connect(func(): _show(bh_scr))
 
 	# ── AVATAR ────────────────────────────────────────────────────────────────
 	$AvatarScreen/AvatarHeader/BtnBackAvatar.pressed.connect(func(): _show(main_menu))
 	$AvatarScreen/AvatarControls/BtnSaveAvatar.pressed.connect(_save_avatar)
-
-	# Rotation manuelle
 	$AvatarScreen/AvatarControls/RotateRow/BtnRotL.pressed.connect(func(): _manual_rotate(-0.4))
-	$AvatarScreen/AvatarControls/RotateRow/BtnRotR.pressed.connect(func(): _manual_rotate(0.4))
+	$AvatarScreen/AvatarControls/RotateRow/BtnRotR.pressed.connect(func(): _manual_rotate( 0.4))
 
-	# Classe
 	for btn in $AvatarScreen/AvatarControls/ClassRow.get_children():
 		btn.pressed.connect(_on_class_selected.bind(btn.text))
 
-	# Modele de personnage
 	$AvatarScreen/AvatarControls/ModelRow/BtnModel1.pressed.connect(func(): _select_model("Model 1"))
 	$AvatarScreen/AvatarControls/ModelRow/BtnModel2.pressed.connect(func(): _select_model("Model 2"))
 
-	# Couleur armure
 	for btn in $AvatarScreen/AvatarControls/ColorRow.get_children():
 		btn.pressed.connect(_on_color_selected.bind(btn.text))
 
@@ -118,22 +133,23 @@ func _connect_all() -> void:
 	_connect_toggle_group(
 		$SoloScreen/SoloContent/SoloRightPanel/CamRow.get_children(),
 		func(t):
-			if t == "TPS — 3e pers.":
-				_solo_config["camera"] = t
-			else:
-				_solo_config["camera"] = "FPS"
+			_solo_config["camera"] = "TPS" if t == "TPS — 3e pers." else "FPS"
 			_update_cam_preview()
 	)
 
-	# ── BATTLE ROYAL ──────────────────────────────────────────────────────────
+	# ── CRÉER ROOM BOSS (ancien BattleRoyalScreen) ────────────────────────────
 	$BattleRoyalScreen/BRHeader/BtnBackBR.pressed.connect(func(): _show(main_menu))
-	$BattleRoyalScreen/BRContent/BRLeft/BtnJoinBR.pressed.connect(_join_br)
+	$BattleRoyalScreen/BRContent/BRLeft/BtnCreateBoss.pressed.connect(_create_boss_room)
 
-	for row in $BattleRoyalScreen/BRContent/BRRight/BRPlayerScroll/BRPlayerList.get_children():
-		var btn  = row.get_node_or_null("Btn")
-		var name = row.get_node_or_null("Name")
-		if btn and name:
-			btn.pressed.connect(_invite.bind(name.text))
+	# Boss sélection
+	$BattleRoyalScreen/BRContent/BRLeft/BossOption.item_selected.connect(_on_boss_selected)
+	# Map sélection dans l'écran boss
+	$BattleRoyalScreen/BRContent/BRLeft/BRMapOption.item_selected.connect(_on_boss_map_selected)
+	# Max players
+	_connect_toggle_group(
+		$BattleRoyalScreen/BRContent/BRLeft/MaxPlayersRow.get_children(),
+		func(t): _boss_config["max_players"] = int(t); _update_boss_preview()
+	)
 
 	# ── BOSS HUNT ─────────────────────────────────────────────────────────────
 	$BossHuntScreen/BHHeader/BtnBackBH.pressed.connect(func(): _show(main_menu))
@@ -183,7 +199,6 @@ func _apply_armor_color(node: Node, color: Color) -> void:
 					var new_mat := mat.duplicate() as StandardMaterial3D
 					new_mat.albedo_color = color
 					mesh_node.set_surface_override_material(surface, new_mat)
-
 	for child in node.get_children():
 		_apply_armor_color(child, color)
 
@@ -195,31 +210,27 @@ func _save_avatar() -> void:
 	$MainMenuScreen/AvatarCard/AvatarVBox/AvatarClassLabel.text = _current_class + "  |  Niveau 1"
 	_show(main_menu)
 
-func _select_model(name: String) -> void:
-	if not MODEL_SCENES.has(name):
+func _select_model(model_name: String) -> void:
+	if not MODEL_SCENES.has(model_name):
 		return
-	_selected_model = name
-	# Vider le conteneur existant
+	_selected_model = model_name
 	for child in char_node.get_children():
 		child.queue_free()
-	# Instancier le modele GLB
-	var scene : PackedScene = MODEL_SCENES[name] as PackedScene
-	var inst : Node3D = scene.instantiate() as Node3D
+	var scene: PackedScene = MODEL_SCENES[model_name] as PackedScene
+	var inst: Node3D = scene.instantiate() as Node3D
 	if inst:
 		char_node.add_child(inst)
 		inst.transform = Transform3D.IDENTITY
-		# Lancer l'animation idle dès que le modèle est ajouté à la scène
 		_play_default_animation(inst)
-		# Attacher la camera au modele selectionne
 		_attach_camera_to_model(inst)
-	
-	# Assurer que seul le bouton selectionne reste presse
+		# Stocker la référence si le modèle est un Player
+		if inst.has_method("create_mobile_controls"):
+			_active_player_model = inst
 	for btn in $AvatarScreen/AvatarControls/ModelRow.get_children():
 		if btn is Button:
-			btn.set_pressed(btn.text == name)
+			btn.set_pressed(btn.text == model_name)
 
 func _attach_camera_to_model(model: Node3D) -> void:
-	# Positionner la camera pour une vue TPS derriere le modele
 	var cam_offset := Vector3(0, 1.2, 2.5)
 	avatar_cam.transform.origin = model.to_global(cam_offset)
 	avatar_cam.look_at(model.global_transform.origin + Vector3(0, 0.8, 0))
@@ -229,13 +240,10 @@ func _play_default_animation(node: Node) -> void:
 	if anim_player == null:
 		anim_player = node.find_child("AnimationPlayer", true, false) as AnimationPlayer
 	if anim_player:
-		var animations : Array = anim_player.get_animation_list()
+		var animations: Array = anim_player.get_animation_list()
 		if animations.size() > 0:
-			var animation_name : String = "idle"
-			# Vérifier si "idle" existe, sinon prendre la première animation
-			if not animations.has("idle"):
-				animation_name = animations[0]
-			var animation : Animation = anim_player.get_animation(animation_name)
+			var animation_name: String = "idle" if animations.has("idle") else animations[0]
+			var animation: Animation = anim_player.get_animation(animation_name)
 			if animation:
 				animation.loop_mode = Animation.LOOP_LINEAR
 				anim_player.play(animation_name)
@@ -252,55 +260,109 @@ func _update_cam_preview() -> void:
 	prev_cam.text = "TPS — 3e personne" if _solo_config["camera"] == "TPS" else "FPS — 1re personne"
 
 func _launch_solo() -> void:
-	# Passe la configuration a la scene de jeu via un Autoload ou des meta
+	# ── Appel create_mobile_controls sur le modèle sélectionné ────────────────
+	# Player._create_mobile_controls() n'est PAS dans _ready() — c'est ici
+	# qu'on l'initialise, juste avant le lancement de la partie.
+	#
+	# Si le modèle Player est déjà présent dans cette scène (avatar preview) :
+	if _active_player_model and _active_player_model.has_method("create_mobile_controls"):
+		_active_player_model.create_mobile_controls()
+		print("[MainUI] create_mobile_controls() appelé sur ", _selected_model)
+	#
+	# Sinon : on signale via SessionManager que le monde devra l'appeler.
+	# La scène de jeu lit SessionManager.needs_mobile_hud et appelle
+	# player_node.create_mobile_controls() dans son _ready().
 	if has_node("/root/SessionManager"):
 		var sm = get_node("/root/SessionManager")
-		sm.solo_config = _solo_config.duplicate()
-		sm.selected_model = _selected_model
-	print("[Solo] Lancement avec config : ", _solo_config)
-	print("[Solo] Modele selectionne : ", _selected_model)
-	# Determiner la scene a charger selon la map choisie
-	var map_name: String = _solo_config["map"]
+		sm.solo_config     = _solo_config.duplicate()
+		sm.selected_model  = _selected_model
+		sm.needs_mobile_hud = true   # ← lu par la scène de jeu
+	print("[Solo] Lancement — config: ", _solo_config, " | modèle: ", _selected_model)
+	var map_name:   String = _solo_config["map"]
 	var scene_path: String = MAP_SCENES.get(map_name, "res://scenes/w_1.tscn")
-	print("[Solo] Scene cible : ", scene_path)
+	print("[Solo] Scène cible: ", scene_path)
 	get_tree().change_scene_to_file(scene_path)
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  Battle Royal — Joindre
+#  Créer Room Boss (ancien "Battle Royal")
 # ══════════════════════════════════════════════════════════════════════════════
-func _join_br() -> void:
-	var code: String  = $BattleRoyalScreen/BRContent/BRLeft/SearchBREdit.text.strip_edges()
-	var list: ItemList  = $BattleRoyalScreen/BRContent/BRLeft/BRRoomsList
-	var sel: Array   = list.get_selected_items()
-	if code.is_empty() and sel.is_empty():
-		print("[BR] Selectionnez une room ou entrez un code.")
-		return
-	var room: String = code if not code.is_empty() else list.get_item_text(sel[0])
-	print("[BR] Rejoindre : ", room)
-	# ENet/WebSocket — connexion au serveur ici
+func _on_boss_selected(index: int) -> void:
+	var boss_name: String = $BattleRoyalScreen/BRContent/BRLeft/BossOption.get_item_text(index)
+	_boss_config["boss"] = boss_name
+	_update_boss_preview()
+
+func _on_boss_map_selected(index: int) -> void:
+	var map_name: String = $BattleRoyalScreen/BRContent/BRLeft/BRMapOption.get_item_text(index)
+	_boss_config["map"] = map_name
+	_update_boss_preview()
+
+func _update_boss_preview() -> void:
+	if boss_prev_boss:
+		boss_prev_boss.text = _boss_config["boss"]
+	if boss_prev_map:
+		boss_prev_map.text = _boss_config["map"]
+	if boss_prev_players:
+		boss_prev_players.text = str(_boss_config["max_players"]) + " joueurs max"
+
+func _create_boss_room() -> void:
+	# Récupérer le nom de room saisi
+	var room_name_edit = $BattleRoyalScreen/BRContent/BRLeft/RoomNameEdit
+	var room_name: String = room_name_edit.text.strip_edges() if room_name_edit else ""
+	if room_name.is_empty():
+		room_name = "Room-Boss-" + str(randi() % 9000 + 1000)
+	_boss_config["room_name"] = room_name
+
+	# Générer un code de room
+	var room_code: String = _generate_room_code()
+	if boss_room_code:
+		boss_room_code.text = room_code
+
+	print("[Boss Room] Création — config: ", _boss_config, " | code: ", room_code)
+
+	# Transmettre la config au SessionManager
+	if has_node("/root/SessionManager"):
+		var sm = get_node("/root/SessionManager")
+		sm.boss_config      = _boss_config.duplicate()
+		sm.selected_model   = _selected_model
+		sm.needs_mobile_hud = true
+		sm.room_code        = room_code
+		sm.is_host          = true
+
+	# Lancer la scène Boss Hunt correspondante
+	var scene_path := "res://scenes/boss_hunt.tscn"
+	if ResourceLoader.exists(scene_path):
+		get_tree().change_scene_to_file(scene_path)
+	else:
+		print("[Boss Room] Scène boss_hunt.tscn introuvable — config sauvegardée.")
+
+func _generate_room_code() -> String:
+	const CHARS := "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+	var code := ""
+	for i in range(6):
+		code += CHARS[randi() % CHARS.length()]
+	return code
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  Boss Hunt — Joindre
+#  Boss Hunt — Joindre (inchangé)
 # ══════════════════════════════════════════════════════════════════════════════
 func _join_bh() -> void:
-	var code: String = $BossHuntScreen/BHContent/BHLeft/SearchBHEdit.text.strip_edges()
+	var code: String   = $BossHuntScreen/BHContent/BHLeft/SearchBHEdit.text.strip_edges()
 	var list: ItemList = $BossHuntScreen/BHContent/BHLeft/BHRoomsList
-	var sel: Array = list.get_selected_items()
+	var sel: Array     = list.get_selected_items()
 	if code.is_empty() and sel.is_empty():
-		print("[BH] Selectionnez une room ou entrez un code.")
+		print("[BH] Sélectionnez une room ou entrez un code.")
 		return
 	var room: String = code if not code.is_empty() else list.get_item_text(sel[0])
-	print("[BH] Rejoindre : ", room)
+	print("[BH] Rejoindre: ", room)
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Inviter un joueur
 # ══════════════════════════════════════════════════════════════════════════════
 func _invite(player_name: String) -> void:
-	print("[Invite] Invitation envoyee a : ", player_name)
-	# RPC ou WebSocket -> envoyer notification au joueur
+	print("[Invite] Invitation envoyée à: ", player_name)
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  Helper — groupe de boutons toggle (un seul actif a la fois)
+#  Helper — groupe de boutons toggle (un seul actif)
 # ══════════════════════════════════════════════════════════════════════════════
 func _connect_toggle_group(buttons: Array, callback: Callable) -> void:
 	for btn in buttons:
