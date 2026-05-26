@@ -260,23 +260,15 @@ func _update_cam_preview() -> void:
 	prev_cam.text = "TPS — 3e personne" if _solo_config["camera"] == "TPS" else "FPS — 1re personne"
 
 func _launch_solo() -> void:
-	# ── Appel create_mobile_controls sur le modèle sélectionné ────────────────
-	# Player._create_mobile_controls() n'est PAS dans _ready() — c'est ici
-	# qu'on l'initialise, juste avant le lancement de la partie.
-	#
-	# Si le modèle Player est déjà présent dans cette scène (avatar preview) :
-	if _active_player_model and _active_player_model.has_method("create_mobile_controls"):
-		_active_player_model.create_mobile_controls()
-		print("[MainUI] create_mobile_controls() appelé sur ", _selected_model)
-	#
-	# Sinon : on signale via SessionManager que le monde devra l'appeler.
-	# La scène de jeu lit SessionManager.needs_mobile_hud et appelle
-	# player_node.create_mobile_controls() dans son _ready().
+	# ── Configuration du SessionManager pour la scène de jeu ──────────────────
+	# C'est la scène de jeu qui lira ces valeurs et appellera
+	# player_node.create_mobile_controls() dans son _ready() ou après l'instanciation.
 	if has_node("/root/SessionManager"):
 		var sm = get_node("/root/SessionManager")
 		sm.solo_config     = _solo_config.duplicate()
 		sm.selected_model  = _selected_model
 		sm.needs_mobile_hud = true   # ← lu par la scène de jeu
+	
 	print("[Solo] Lancement — config: ", _solo_config, " | modèle: ", _selected_model)
 	var map_name:   String = _solo_config["map"]
 	var scene_path: String = MAP_SCENES.get(map_name, "res://scenes/w_1.tscn")
