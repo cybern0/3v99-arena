@@ -35,16 +35,17 @@ const MODEL_IMAGES := {
 	"Model 2": preload("res://assets/P2/P2_image0.png"),
 }
 
-@onready var char_node  : Node3D        = $AvatarScreen/AvatarViewportContainer/AvatarViewport/CharNode
-@onready var avatar_cam : Camera3D       = $AvatarScreen/AvatarViewportContainer/AvatarViewport/AvatarCamera
-@onready var rot_timer  : Timer         = $AvatarScreen/AvatarViewportContainer/AvatarViewport/AvatarRotateTimer
+# Plus de viewport 3D, on utilise des images 2D
+# var char_node  : Node3D
+# var avatar_cam : Camera3D
+
 @onready var name_edit  : LineEdit      = $AvatarScreen/AvatarControls/NameEdit
 @onready var stat_vie   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarVie
 @onready var stat_atq   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarAtq
 @onready var stat_def   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarDef
 @onready var stat_vit   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarVit
-# AvatarImage est dans MainMenuScreen, pas AvatarScreen
-@onready var avatar_preview_img : TextureRect = $MainMenuScreen/AvatarCard/AvatarVBox/AvatarPreview/AvatarImage
+# AvatarImage est maintenant dans AvatarScreen
+@onready var avatar_preview_img : TextureRect = $AvatarScreen/AvatarPreview
 
 # Solo — aperçu
 @onready var prev_map   : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevMapVal
@@ -109,8 +110,9 @@ func _connect_all() -> void:
 	# ── AVATAR ────────────────────────────────────────────────────────────────
 	$AvatarScreen/AvatarHeader/BtnBackAvatar.pressed.connect(func(): _show(main_menu))
 	$AvatarScreen/AvatarControls/BtnSaveAvatar.pressed.connect(_save_avatar)
-	$AvatarScreen/AvatarControls/RotateRow/BtnRotL.pressed.connect(func(): _manual_rotate(-0.4))
-	$AvatarScreen/AvatarControls/RotateRow/BtnRotR.pressed.connect(func(): _manual_rotate( 0.4))
+	# Rotation désactivée car on utilise des images 2D statiques
+	# $AvatarScreen/AvatarControls/RotateRow/BtnRotL.pressed.connect(func(): _manual_rotate(-0.4))
+	# $AvatarScreen/AvatarControls/RotateRow/BtnRotR.pressed.connect(func(): _manual_rotate( 0.4))
 
 	for btn in $AvatarScreen/AvatarControls/ClassRow.get_children():
 		btn.pressed.connect(_on_class_selected.bind(btn.text))
@@ -177,10 +179,11 @@ func _show(screen: Control) -> void:
 		s.visible = (s == screen)
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  Avatar 3D
+#  Avatar 2D (plus de 3D)
 # ══════════════════════════════════════════════════════════════════════════════
-func _manual_rotate(amount: float) -> void:
-	char_node.rotate_y(amount)
+# Fonctions désactivées car on utilise des images 2D statiques
+# func _manual_rotate(amount: float) -> void:
+# 	char_node.rotate_y(amount)
 
 func _on_class_selected(cls: String) -> void:
 	_current_class = cls
@@ -192,23 +195,24 @@ func _on_class_selected(cls: String) -> void:
 		stat_vit.value = s["vit"]
 
 func _on_color_selected(color_name: String) -> void:
-	if color_name in ARMOR_COLORS:
-		_apply_armor_color(char_node, ARMOR_COLORS[color_name])
+	# Couleur désactivée car on utilise des images 2D statiques
+	pass
 
-func _apply_armor_color(node: Node, color: Color) -> void:
-	if node is MeshInstance3D:
-		var mesh_node := node as MeshInstance3D
-		if mesh_node.mesh:
-			for surface in range(mesh_node.mesh.get_surface_count()):
-				var mat := mesh_node.get_surface_override_material(surface)
-				if mat == null:
-					mat = mesh_node.mesh.surface_get_material(surface)
-				if mat and mat is StandardMaterial3D:
-					var new_mat := mat.duplicate() as StandardMaterial3D
-					new_mat.albedo_color = color
-					mesh_node.set_surface_override_material(surface, new_mat)
-	for child in node.get_children():
-		_apply_armor_color(child, color)
+# Fonctions désactivées
+# func _apply_armor_color(node: Node, color: Color) -> void:
+# 	if node is MeshInstance3D:
+# 		var mesh_node := node as MeshInstance3D
+# 		if mesh_node.mesh:
+# 			for surface in range(mesh_node.mesh.get_surface_count()):
+# 				var mat := mesh_node.get_surface_override_material(surface)
+# 				if mat == null:
+# 					mat = mesh_node.mesh.surface_get_material(surface)
+# 				if mat and mat is StandardMaterial3D:
+# 					var new_mat := mat.duplicate() as StandardMaterial3D
+# 					new_mat.albedo_color = color
+# 					mesh_node.set_surface_override_material(surface, new_mat)
+# 	for child in node.get_children():
+# 		_apply_armor_color(child, color)
 
 func _save_avatar() -> void:
 	var nom := name_edit.text.strip_edges()
@@ -228,11 +232,6 @@ func _select_model(model_name: String) -> void:
 		avatar_preview_img.texture = MODEL_IMAGES[model_name]
 		avatar_preview_img.visible = true
 	
-	# Masquer le viewport 3D (on garde la logique de chemin mais on ne l'utilise plus visuellement)
-	if char_node:
-		for child in char_node.get_children():
-			child.visible = false
-	
 	# Stocker la référence si le modèle est un Player (pour la logique de création de HUD)
 	_active_player_model = null  # Sera réinstancié dans la scène de jeu
 	
@@ -240,12 +239,13 @@ func _select_model(model_name: String) -> void:
 		if btn is Button:
 			btn.set_pressed(btn.text == model_name)
 
-func _attach_camera_to_model(model: Node3D) -> void:
-	var cam_offset := Vector3(0, 1.2, 2.5)
-	avatar_cam.transform.origin = model.to_global(cam_offset)
-	avatar_cam.look_at(model.global_transform.origin + Vector3(0, 0.8, 0))
+# Fonctions désactivées
+# func _attach_camera_to_model(model: Node3D) -> void:
+# 	var cam_offset := Vector3(0, 1.2, 2.5)
+# 	avatar_cam.transform.origin = model.to_global(cam_offset)
+# 	avatar_cam.look_at(model.global_transform.origin + Vector3(0, 0.8, 0))
 
-func _play_default_animation(node: Node) -> void:
+# func _play_default_animation(node: Node) -> void:
 	var anim_player := node.get_node_or_null("AnimationPlayer")
 	if anim_player == null:
 		anim_player = node.find_child("AnimationPlayer", true, false) as AnimationPlayer
