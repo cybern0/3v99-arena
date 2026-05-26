@@ -296,57 +296,17 @@ offset_right = 1200.0
 offset_bottom = 98.0
 color = Color(0.75, 0.6, 1, 0.22)
 
-[node name="AvatarViewportContainer" type="SubViewportContainer" parent="AvatarScreen" unique_id=391184483]
+[node name="AvatarPreview" type="TextureRect" parent="AvatarScreen" unique_id=391184483]
 layout_mode = 0
 offset_left = 48.0
 offset_top = 115.0
 offset_right = 500.0
 offset_bottom = 680.0
-stretch = true
+stretch_mode = 3
+expand_mode = 1
 
-[node name="AvatarViewport" type="SubViewport" parent="AvatarScreen/AvatarViewportContainer" unique_id=618814193]
-handle_input_locally = false
-size = Vector2i(452, 592)
-render_target_update_mode = 0
-
-[node name="WorldEnv" type="WorldEnvironment" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=2047191588]
-environment = SubResource("Env_avatar")
-
-[node name="KeyLight" type="DirectionalLight3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=2054807929]
-transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 4, 0)
-light_color = Color(1, 0.95, 1, 1)
-light_energy = 1.5
-shadow_enabled = true
-
-[node name="FillLight" type="DirectionalLight3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=656906002]
-transform = Transform3D(-0.866, -0.25, -0.433, 0, 0.866, -0.5, 0.5, -0.433, -0.75, -2, 2, 2)
-light_color = Color(0.55, 0.45, 1, 1)
-light_energy = 0.45
-
-[node name="RimLight" type="DirectionalLight3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=2089474632]
-transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 2, -3)
-light_color = Color(0.6, 0.5, 1, 1)
-light_energy = 0.6
-
-[node name="AvatarCamera" type="Camera3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=383200442]
-transform = Transform3D(1, 0, 0, 0, 0.97, 0.24, 0, -0.24, 0.97, 0, 1.05, 3)
-current = true
-fov = 52.0
-
-[node name="CharNode" type="Node3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=1941656649]
-
-[node name="Body" type="MeshInstance3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport/CharNode" unique_id=1752400348]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
-mesh = SubResource("Mesh_body")
-surface_material_override/0 = SubResource("Mat_body")
-
-[node name="Head" type="MeshInstance3D" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport/CharNode" unique_id=2017768599]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52, 0)
-mesh = SubResource("Mesh_head")
-surface_material_override/0 = SubResource("Mat_head")
-
-[node name="AvatarRotateTimer" type="Timer" parent="AvatarScreen/AvatarViewportContainer/AvatarViewport" unique_id=417977289]
-wait_time = 0.016
+[node name="AvatarImage" type="Texture2D" parent="AvatarScreen/AvatarPreview" unique_id=618814193]
+resource_path = "res://assets/P1_image0.png"
 
 [node name="AvatarControls" type="VBoxContainer" parent="AvatarScreen" unique_id=454804063]
 layout_mode = 0

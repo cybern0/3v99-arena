@@ -1,1 +1,18 @@
-Nothing should be ignored based on the provided file changes, as they only include source code files (.gd files) without any build artifacts, dependencies, or temporary files.
+```
+# Build artifacts
+*.import
+*.bin
+*.res
+# Dependencies
+addons/
+# Editor files
+.project
+.editor
+.vs/
+*.import
+# Configuration
+*.cfg
+*.tres
+*.tscn
+*.gd
+```
