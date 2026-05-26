@@ -43,7 +43,8 @@ const MODEL_IMAGES := {
 @onready var stat_atq   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarAtq
 @onready var stat_def   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarDef
 @onready var stat_vit   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarVit
-@onready var avatar_preview_img : TextureRect = $AvatarScreen/AvatarCard/AvatarVBox/AvatarPreview/AvatarImage
+# AvatarImage est dans MainMenuScreen, pas AvatarScreen
+@onready var avatar_preview_img : TextureRect = $MainMenuScreen/AvatarCard/AvatarVBox/AvatarPreview/AvatarImage
 
 # Solo — aperçu
 @onready var prev_map   : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevMapVal
