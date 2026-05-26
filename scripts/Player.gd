@@ -80,7 +80,7 @@ func _ready() -> void:
 			create_mobile_controls()
 	elif has_node("/root/SessionManager"):
 		var sm2 = get_node("/root/SessionManager")
-		if sm2.get("needs_mobile_hud", false):
+		if sm2.has_property("needs_mobile_hud") and sm2.needs_mobile_hud:
 			create_mobile_controls()
 
 	add_to_group("player")

@@ -1,7 +1,1 @@
-```
-# Godot-specific ignores
-*.import
-*.uid
-export_presets.cfg
-.rsync-filter
-```
+Nothing to output - the modified file 'scripts/Player.gd' is a source code file and no build artifacts, dependencies, or temporary files were detected in the changes.
