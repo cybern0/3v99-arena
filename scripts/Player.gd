@@ -215,7 +215,7 @@ func _on_kick_pressed() -> void:
 func _on_run_down() -> void:
 	_run_held = true
 	if enable_mobile_controls:
-		_input_direction = Vector2(0.0, 1.0)
+		_input_direction = Vector2(0.0, -1.0)
 
 func _on_run_up() -> void:
 	_run_held = false

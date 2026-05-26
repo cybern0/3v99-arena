@@ -31,8 +31,8 @@ const MODEL_SCENES := {
 
 # Images 2D pour l'aperçu dans l'UI
 const MODEL_IMAGES := {
-	"Model 1": preload("res://assets/P1/P1_image0.png"),
-	"Model 2": preload("res://assets/P2/P2_image0.png"),
+	"Model 1": preload("res://assets/P1/P1Pose.jpg"),
+	"Model 2": preload("res://assets/P2/P2Pose.jpg"),
 }
 
 # Plus de viewport 3D, on utilise des images 2D
