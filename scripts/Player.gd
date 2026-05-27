@@ -78,7 +78,7 @@ func _ready() -> void:
 	if sm and "needs_mobile_hud" in sm and sm.needs_mobile_hud:
 		create_mobile_controls()
 
-	add_to_group("player")
+	find_child("CollisionShape3D2", true, false).add_to_group("player")
 	print("[Player] Initialisé — mobile: ", enable_mobile_controls)
 
 # ─────────────────────────────────────────────

@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://3x1kw6ub6hvr"]
 
 [ext_resource type="Texture2D" uid="uid://hiwp8774ke2h" path="res://assets/H2/H2_image0.png" id="1_obogf"]
+[ext_resource type="Script" uid="uid://3708ye5ok8go" path="res://scripts/Boss.gd" id="1_ouevv"]
 [ext_resource type="Script" uid="uid://t8x3q2xr1qpx" path="res://scripts/vfx_controller.gd" id="2_0dddp"]
 [ext_resource type="PackedScene" uid="uid://boyhotq285mx5" path="res://scenes/particles/h2_scales.tscn" id="3_3qx68"]
 
@@ -2861,6 +2862,7 @@ height = 0.6647949
 radius = 0.55615234
 
 [node name="H2" type="CharacterBody3D" unique_id=113978543 groups=["Characters"]]
+script = ExtResource("1_ouevv")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=694895276 groups=["boss"]]
 transform = Transform3D(98.999886, 0, 0, 0, 98.14255, -13.025252, 0, 13.025252, 98.14255, 0, 0.16756517, 0.14954421)

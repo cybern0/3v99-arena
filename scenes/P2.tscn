@@ -2379,7 +2379,7 @@ script = ExtResource("1_ktg3b")
 transform = Transform3D(-8.742278e-09, 0.19999997, -8.742276e-09, 0, -8.742276e-09, -0.19999997, -0.2, -8.742276e-09, 3.8213703e-16, 0, -0.39460093, 0.003359262)
 shape = SubResource("CylinderShape3D_18y8a")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1043919104 groups=["players"]]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1043919104]
 transform = Transform3D(98.999886, 0, 0, 0, 98.14255, -13.025252, 0, 13.025252, 98.14255, 0, 0.13572457, 0.08518577)
 shape = SubResource("CapsuleShape3D_qem3q")
 

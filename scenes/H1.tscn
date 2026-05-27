@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://e0afi2ghxp61"]
 
+[ext_resource type="Script" uid="uid://3708ye5ok8go" path="res://scripts/Boss.gd" id="1_57s55"]
 [ext_resource type="Texture2D" uid="uid://2xn0qwo6b2e3" path="res://assets/H1/H1_image0.png" id="1_atbu0"]
 [ext_resource type="Script" uid="uid://t8x3q2xr1qpx" path="res://scripts/vfx_controller.gd" id="2_jdote"]
 [ext_resource type="PackedScene" uid="uid://ced27cgevylim" path="res://scenes/particles/h1_feathers.tscn" id="3_60wso"]
@@ -3499,6 +3500,7 @@ _data = {
 }
 
 [node name="H1" type="CharacterBody3D" unique_id=1039648812 groups=["Characters"]]
+script = ExtResource("1_57s55")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=101597490]
 transform = Transform3D(-8.742277e-09, -0.19999997, 8.742276e-09, 0, -8.742276e-09, -0.19999997, 0.19999999, -8.742276e-09, 3.8213703e-16, 0, -0.3490564, 0.012048669)
