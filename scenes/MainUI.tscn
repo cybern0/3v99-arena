@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dx2yv6be7srk4"]
 
 [ext_resource type="Script" uid="uid://ftpay0c0slbn" path="res://scripts/MainUI.gd" id="1_74o4q"]
+[ext_resource type="Texture2D" path="res://assets/P1/P1Pose.jpg" id="2_p1pose"]
+[ext_resource type="Texture2D" path="res://assets/P2/P2Pose.jpg" id="3_p2pose"]
 
 [node name="MainUI" type="Control"]
 layout_mode = 3
@@ -51,6 +53,10 @@ offset_bottom = 0.0
 theme_override_constants/separation = 20
 alignment = 1
 
+[node name="BtnAvatar" type="Button" parent="MainMenuScreen/VBoxContainer"]
+custom_minimum_size = Vector2(300, 60)
+text = "Personnaliser Avatar"
+
 [node name="BtnModeBR" type="Button" parent="MainMenuScreen/VBoxContainer"]
 custom_minimum_size = Vector2(300, 60)
 text = "Mode Battle Royale (4v99)"
@@ -62,6 +68,200 @@ text = "Mode Boss Hunt (PVE)"
 [node name="BtnQuit" type="Button" parent="MainMenuScreen/VBoxContainer"]
 custom_minimum_size = Vector2(300, 50)
 text = "Quitter"
+
+[node name="AvatarScreen" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AvatarTitle" type="Label" parent="AvatarScreen"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 70.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "Choix de l'avatar et répartition des points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnBackFromAvatar" type="Button" parent="AvatarScreen"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+custom_minimum_size = Vector2(180, 44)
+text = "Retour"
+
+[node name="AvatarContent" type="HBoxContainer" parent="AvatarScreen"]
+layout_mode = 1
+anchors_preset = 4
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -220.0
+offset_right = 540.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="AvatarChoiceVBox" type="VBoxContainer" parent="AvatarScreen/AvatarContent"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="AvatarPreview" type="TextureRect" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox"]
+custom_minimum_size = Vector2(360, 240)
+size_flags_horizontal = 3
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("2_p1pose")
+
+[node name="SelectedAvatarLabel" type="Label" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox"]
+text = "Modèle sélectionné : P1"
+horizontal_alignment = 1
+
+[node name="AvatarButtonsHBox" type="HBoxContainer" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox"]
+alignment = 1
+theme_override_constants/separation = 14
+
+[node name="BtnAvatarP1" type="TextureButton" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox/AvatarButtonsHBox"]
+custom_minimum_size = Vector2(220, 220)
+texture_normal = ExtResource("2_p1pose")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BtnAvatarP2" type="TextureButton" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox/AvatarButtonsHBox"]
+custom_minimum_size = Vector2(220, 220)
+texture_normal = ExtResource("3_p2pose")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="AvatarHint" type="Label" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox"]
+text = "Cliquez sur une pose pour choisir votre avatar."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="PointsPanel" type="PanelContainer" parent="AvatarScreen/AvatarContent"]
+custom_minimum_size = Vector2(420, 0)
+size_flags_horizontal = 3
+
+[node name="PointsVBox" type="VBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="PointsTitle" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+text = "Répartition des points"
+horizontal_alignment = 1
+
+[node name="TotalPointsLabel" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+text = "Points totaux : 50"
+horizontal_alignment = 1
+
+[node name="StatAgility" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+theme_override_constants/separation = 8
+
+[node name="LblAgility" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility"]
+text = "Agilité"
+size_flags_horizontal = 3
+
+[node name="BtnAgilityMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility"]
+text = "-"
+custom_minimum_size = Vector2(40, 40)
+
+[node name="ValAgility" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility"]
+text = "10"
+custom_minimum_size = Vector2(50, 40)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnAgilityPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility"]
+text = "+"
+custom_minimum_size = Vector2(40, 40)
+
+[node name="StatStrength" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+theme_override_constants/separation = 8
+
+[node name="LblStrength" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength"]
+text = "Force"
+size_flags_horizontal = 3
+
+[node name="BtnStrengthMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength"]
+text = "-"
+custom_minimum_size = Vector2(40, 40)
+
+[node name="ValStrength" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength"]
+text = "20"
+custom_minimum_size = Vector2(50, 40)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnStrengthPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength"]
+text = "+"
+custom_minimum_size = Vector2(40, 40)
+
+[node name="StatVitality" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+theme_override_constants/separation = 8
+
+[node name="LblVitality" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality"]
+text = "Vitalité"
+size_flags_horizontal = 3
+
+[node name="BtnVitalityMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality"]
+text = "-"
+custom_minimum_size = Vector2(40, 40)
+
+[node name="ValVitality" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality"]
+text = "15"
+custom_minimum_size = Vector2(50, 40)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnVitalityPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality"]
+text = "+"
+custom_minimum_size = Vector2(40, 40)
+
+[node name="StatShield" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+theme_override_constants/separation = 8
+
+[node name="LblShield" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield"]
+text = "Bouclier"
+size_flags_horizontal = 3
+
+[node name="BtnShieldMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield"]
+text = "-"
+custom_minimum_size = Vector2(40, 40)
+
+[node name="ValShield" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield"]
+text = "5"
+custom_minimum_size = Vector2(50, 40)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnShieldPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield"]
+text = "+"
+custom_minimum_size = Vector2(40, 40)
+
+[node name="PointsLeftLabel" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+text = "Points restants : 0"
+horizontal_alignment = 1
+
+[node name="BtnSaveAvatar" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+custom_minimum_size = Vector2(0, 50)
+text = "Enregistrer l'avatar"
 
 [node name="BattleRoyaleScreen" type="Control" parent="."]
 visible = false
