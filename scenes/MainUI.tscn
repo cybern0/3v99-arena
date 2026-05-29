@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dx2yv6be7srk4"]
 
 [ext_resource type="Script" uid="uid://ftpay0c0slbn" path="res://scripts/MainUI.gd" id="1_74o4q"]
-[ext_resource type="Texture2D" path="res://assets/P1/P1Pose.jpg" id="2_p1pose"]
-[ext_resource type="Texture2D" path="res://assets/P2/P2Pose.jpg" id="3_p2pose"]
+[ext_resource type="Texture2D" uid="uid://c5mcidumxbmql" path="res://assets/P1/P1Pose.jpg" id="2_p1pose"]
+[ext_resource type="Texture2D" uid="uid://bgq7qf2xbybtn" path="res://assets/P2/P2Pose.jpg" id="3_p2pose"]
 
-[node name="MainUI" type="Control"]
+[node name="MainUI" type="Control" unique_id=351244371]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_74o4q")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1827208964]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.117647, 0.117647, 0.180392, 1)
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="." unique_id=1361670323]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -36,7 +36,7 @@ text = "4v99 Arena"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MainMenuScreen" type="Control" parent="."]
+[node name="MainMenuScreen" type="Control" parent="." unique_id=1578899076]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,32 +44,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuScreen" unique_id=847182523]
 layout_mode = 0
-offset_left = 0.0
 offset_top = 140.0
-offset_right = 0.0
-offset_bottom = 0.0
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="BtnAvatar" type="Button" parent="MainMenuScreen/VBoxContainer"]
+[node name="BtnAvatar" type="Button" parent="MainMenuScreen/VBoxContainer" unique_id=382936154]
 custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
 text = "Personnaliser Avatar"
 
-[node name="BtnModeBR" type="Button" parent="MainMenuScreen/VBoxContainer"]
+[node name="BtnModeBR" type="Button" parent="MainMenuScreen/VBoxContainer" unique_id=1013905175]
 custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
 text = "Mode Battle Royale (4v99)"
 
-[node name="BtnModeBoss" type="Button" parent="MainMenuScreen/VBoxContainer"]
+[node name="BtnModeBoss" type="Button" parent="MainMenuScreen/VBoxContainer" unique_id=1014506440]
 custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
 text = "Mode Boss Hunt (PVE)"
 
-[node name="BtnQuit" type="Button" parent="MainMenuScreen/VBoxContainer"]
+[node name="BtnQuit" type="Button" parent="MainMenuScreen/VBoxContainer" unique_id=1544702542]
 custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
 text = "Quitter"
 
-[node name="AvatarScreen" type="Control" parent="."]
+[node name="AvatarScreen" type="Control" parent="." unique_id=960106111]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -78,7 +79,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AvatarTitle" type="Label" parent="AvatarScreen"]
+[node name="AvatarTitle" type="Label" parent="AvatarScreen" unique_id=456156700]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -91,16 +92,16 @@ text = "Choix de l'avatar et répartition des points"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BtnBackFromAvatar" type="Button" parent="AvatarScreen"]
+[node name="BtnBackFromAvatar" type="Button" parent="AvatarScreen" unique_id=199100448]
+custom_minimum_size = Vector2(180, 44)
 layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
-custom_minimum_size = Vector2(180, 44)
 text = "Retour"
 
-[node name="AvatarContent" type="HBoxContainer" parent="AvatarScreen"]
+[node name="AvatarContent" type="HBoxContainer" parent="AvatarScreen" unique_id=1207385659]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -113,157 +114,184 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 24
 
-[node name="AvatarChoiceVBox" type="VBoxContainer" parent="AvatarScreen/AvatarContent"]
+[node name="AvatarChoiceVBox" type="VBoxContainer" parent="AvatarScreen/AvatarContent" unique_id=1352892646]
+layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 14
 
-[node name="AvatarPreview" type="TextureRect" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox"]
+[node name="AvatarPreview" type="TextureRect" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox" unique_id=864825122]
 custom_minimum_size = Vector2(360, 240)
+layout_mode = 2
 size_flags_horizontal = 3
+texture = ExtResource("2_p1pose")
 expand_mode = 1
 stretch_mode = 5
-texture = ExtResource("2_p1pose")
 
-[node name="SelectedAvatarLabel" type="Label" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox"]
+[node name="SelectedAvatarLabel" type="Label" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox" unique_id=2118861720]
+layout_mode = 2
 text = "Modèle sélectionné : P1"
 horizontal_alignment = 1
 
-[node name="AvatarButtonsHBox" type="HBoxContainer" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox"]
-alignment = 1
+[node name="AvatarButtonsHBox" type="HBoxContainer" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox" unique_id=1052228002]
+layout_mode = 2
 theme_override_constants/separation = 14
+alignment = 1
 
-[node name="BtnAvatarP1" type="TextureButton" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox/AvatarButtonsHBox"]
+[node name="BtnAvatarP1" type="TextureButton" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox/AvatarButtonsHBox" unique_id=872003220]
 custom_minimum_size = Vector2(220, 220)
+layout_mode = 2
 texture_normal = ExtResource("2_p1pose")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="BtnAvatarP2" type="TextureButton" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox/AvatarButtonsHBox"]
+[node name="BtnAvatarP2" type="TextureButton" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox/AvatarButtonsHBox" unique_id=1196537917]
 custom_minimum_size = Vector2(220, 220)
+layout_mode = 2
 texture_normal = ExtResource("3_p2pose")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="AvatarHint" type="Label" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox"]
+[node name="AvatarHint" type="Label" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox" unique_id=1750170721]
+layout_mode = 2
 text = "Cliquez sur une pose pour choisir votre avatar."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="PointsPanel" type="PanelContainer" parent="AvatarScreen/AvatarContent"]
+[node name="PointsPanel" type="PanelContainer" parent="AvatarScreen/AvatarContent" unique_id=504254532]
 custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PointsVBox" type="VBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PointsVBox" type="VBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel" unique_id=1836197477]
+layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="PointsTitle" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+[node name="PointsTitle" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=453022989]
+layout_mode = 2
 text = "Répartition des points"
 horizontal_alignment = 1
 
-[node name="TotalPointsLabel" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+[node name="TotalPointsLabel" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=1162531476]
+layout_mode = 2
 text = "Points totaux : 50"
 horizontal_alignment = 1
 
-[node name="StatAgility" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+[node name="StatAgility" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=1379304039]
+layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="LblAgility" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility"]
+[node name="LblAgility" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility" unique_id=364974745]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Agilité"
-size_flags_horizontal = 3
 
-[node name="BtnAgilityMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility"]
-text = "-"
+[node name="BtnAgilityMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility" unique_id=859553947]
 custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "-"
 
-[node name="ValAgility" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility"]
+[node name="ValAgility" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility" unique_id=412685984]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
 text = "10"
-custom_minimum_size = Vector2(50, 40)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BtnAgilityPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility"]
-text = "+"
+[node name="BtnAgilityPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility" unique_id=921809273]
 custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "+"
 
-[node name="StatStrength" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+[node name="StatStrength" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=101667013]
+layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="LblStrength" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength"]
+[node name="LblStrength" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength" unique_id=1222655304]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Force"
-size_flags_horizontal = 3
 
-[node name="BtnStrengthMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength"]
-text = "-"
+[node name="BtnStrengthMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength" unique_id=1470068205]
 custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "-"
 
-[node name="ValStrength" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength"]
+[node name="ValStrength" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength" unique_id=1358444493]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
 text = "20"
-custom_minimum_size = Vector2(50, 40)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BtnStrengthPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength"]
-text = "+"
+[node name="BtnStrengthPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength" unique_id=1363104124]
 custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "+"
 
-[node name="StatVitality" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+[node name="StatVitality" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=1403160527]
+layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="LblVitality" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality"]
+[node name="LblVitality" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality" unique_id=789831179]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Vitalité"
-size_flags_horizontal = 3
 
-[node name="BtnVitalityMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality"]
-text = "-"
+[node name="BtnVitalityMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality" unique_id=172316690]
 custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "-"
 
-[node name="ValVitality" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality"]
-text = "15"
+[node name="ValVitality" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality" unique_id=252922465]
 custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+text = "15"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BtnVitalityPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality"]
-text = "+"
+[node name="BtnVitalityPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality" unique_id=1083148575]
 custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "+"
 
-[node name="StatShield" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+[node name="StatShield" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=125453705]
+layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="LblShield" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield"]
-text = "Bouclier"
+[node name="LblShield" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield" unique_id=621471097]
+layout_mode = 2
 size_flags_horizontal = 3
+text = "Bouclier"
 
-[node name="BtnShieldMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield"]
-text = "-"
+[node name="BtnShieldMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield" unique_id=1092250278]
 custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "-"
 
-[node name="ValShield" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield"]
-text = "5"
+[node name="ValShield" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield" unique_id=162475148]
 custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BtnShieldPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield"]
-text = "+"
+[node name="BtnShieldPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield" unique_id=1285015637]
 custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "+"
 
-[node name="PointsLeftLabel" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+[node name="PointsLeftLabel" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=169349567]
+layout_mode = 2
 text = "Points restants : 0"
 horizontal_alignment = 1
 
-[node name="BtnSaveAvatar" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox"]
+[node name="BtnSaveAvatar" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=372181436]
 custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 text = "Enregistrer l'avatar"
 
-[node name="BattleRoyaleScreen" type="Control" parent="."]
+[node name="BattleRoyaleScreen" type="Control" parent="." unique_id=1323972844]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -272,7 +300,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TitleBR" type="Label" parent="BattleRoyaleScreen"]
+[node name="TitleBR" type="Label" parent="BattleRoyaleScreen" unique_id=275731758]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -285,9 +313,9 @@ text = "Salons Battle Royale"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BRContent" type="VBoxContainer" parent="BattleRoyaleScreen"]
+[node name="BRContent" type="VBoxContainer" parent="BattleRoyaleScreen" unique_id=985736968]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -300,31 +328,34 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
 
-[node name="BRRoomsList" type="ItemList" parent="BattleRoyaleScreen/BRContent"]
+[node name="BRRoomsList" type="ItemList" parent="BattleRoyaleScreen/BRContent" unique_id=2090093875]
 custom_minimum_size = Vector2(600, 250)
+layout_mode = 2
 size_flags_vertical = 3
-select_mode = 0
 
-[node name="ButtonsHBox" type="HBoxContainer" parent="BattleRoyaleScreen/BRContent"]
-alignment = 1
+[node name="ButtonsHBox" type="HBoxContainer" parent="BattleRoyaleScreen/BRContent" unique_id=374974493]
+layout_mode = 2
 theme_override_constants/separation = 20
+alignment = 1
 
-[node name="BtnCreateBR" type="Button" parent="BattleRoyaleScreen/BRContent/ButtonsHBox"]
+[node name="BtnCreateBR" type="Button" parent="BattleRoyaleScreen/BRContent/ButtonsHBox" unique_id=669778733]
 custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
 text = "Créer Salon"
 
-[node name="BtnJoinBR" type="Button" parent="BattleRoyaleScreen/BRContent/ButtonsHBox"]
+[node name="BtnJoinBR" type="Button" parent="BattleRoyaleScreen/BRContent/ButtonsHBox" unique_id=587206940]
 custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
 text = "Joindre Sélection"
 
-[node name="BtnBackFromBR" type="Button" parent="BattleRoyaleScreen"]
+[node name="BtnBackFromBR" type="Button" parent="BattleRoyaleScreen" unique_id=51384800]
+custom_minimum_size = Vector2(180, 44)
 layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
-custom_minimum_size = Vector2(180, 44)
 text = "Retour au menu"
 
-[node name="BossHuntScreen" type="Control" parent="."]
+[node name="BossHuntScreen" type="Control" parent="." unique_id=1879545767]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -333,7 +364,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TitleBoss" type="Label" parent="BossHuntScreen"]
+[node name="TitleBoss" type="Label" parent="BossHuntScreen" unique_id=156402753]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -346,9 +377,9 @@ text = "Mondes de Boss"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BHContent" type="HBoxContainer" parent="BossHuntScreen"]
+[node name="BHContent" type="HBoxContainer" parent="BossHuntScreen" unique_id=782987794]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -361,28 +392,32 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
 
-[node name="BHLeft" type="VBoxContainer" parent="BossHuntScreen/BHContent"]
+[node name="BHLeft" type="VBoxContainer" parent="BossHuntScreen/BHContent" unique_id=1455582706]
+layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="BHRoomsList" type="ItemList" parent="BossHuntScreen/BHContent/BHLeft"]
+[node name="BHRoomsList" type="ItemList" parent="BossHuntScreen/BHContent/BHLeft" unique_id=2130496037]
 custom_minimum_size = Vector2(470, 250)
+layout_mode = 2
 size_flags_vertical = 3
-select_mode = 0
 
-[node name="BtnJoinBossWorld" type="Button" parent="BossHuntScreen/BHContent/BHLeft"]
+[node name="BtnJoinBossWorld" type="Button" parent="BossHuntScreen/BHContent/BHLeft" unique_id=798851632]
 custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 text = "Rejoindre le Monde"
 
-[node name="BHRight" type="VBoxContainer" parent="BossHuntScreen/BHContent"]
+[node name="BHRight" type="VBoxContainer" parent="BossHuntScreen/BHContent" unique_id=1534370308]
+layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="BossInfoPanel" type="Panel" parent="BossHuntScreen/BHContent/BHRight"]
+[node name="BossInfoPanel" type="Panel" parent="BossHuntScreen/BHContent/BHRight" unique_id=1342291517]
 custom_minimum_size = Vector2(280, 350)
+layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BossInfoVBox" type="VBoxContainer" parent="BossHuntScreen/BHContent/BHRight/BossInfoPanel"]
+[node name="BossInfoVBox" type="VBoxContainer" parent="BossHuntScreen/BHContent/BHRight/BossInfoPanel" unique_id=1171890171]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -391,18 +426,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="BossInfoTitle" type="Label" parent="BossHuntScreen/BHContent/BHRight/BossInfoPanel/BossInfoVBox"]
+[node name="BossInfoTitle" type="Label" parent="BossHuntScreen/BHContent/BHRight/BossInfoPanel/BossInfoVBox" unique_id=530359053]
+layout_mode = 2
 text = "Infos du boss"
 horizontal_alignment = 1
 
-[node name="BossInfoDescription" type="Label" parent="BossHuntScreen/BHContent/BHRight/BossInfoPanel/BossInfoVBox"]
+[node name="BossInfoDescription" type="Label" parent="BossHuntScreen/BHContent/BHRight/BossInfoPanel/BossInfoVBox" unique_id=1979523696]
+layout_mode = 2
 text = "Sélectionnez un monde pour afficher les détails du boss."
 autowrap_mode = 2
-vertical_alignment = 0
 
-[node name="BtnBackFromBoss" type="Button" parent="BossHuntScreen"]
+[node name="BtnBackFromBoss" type="Button" parent="BossHuntScreen" unique_id=717512702]
+custom_minimum_size = Vector2(180, 44)
 layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
-custom_minimum_size = Vector2(180, 44)
 text = "Retour au menu"
