@@ -30,15 +30,130 @@ const AUTO_DELAY := 1.8
 @onready var offline_notice  : VBoxContainer = $OfflineNotice
 @onready var btn_offline     : Button   = $BtnPlayOffline
 
+# À mettre avec tes autres const
+const API_URL := "https://TON_ESPACE_HUGGING_FACE.hf.space" # Remplace par ta vraie URL
+
+# À mettre avec tes autres variables
+var _http_login : HTTPRequest
+var _http_register : HTTPRequest
 var _http_check : HTTPRequest
 var _is_online  : bool       = false
 var _local_data : Dictionary = {}
 var _auto_timer : SceneTreeTimer = null
 
 func _ready() -> void:
+	# --- NOUVEAU : Initialisation des requêtes HTTP ---
+	_http_login = HTTPRequest.new()
+	add_child(_http_login)
+	_http_login.request_completed.connect(_on_login_request_completed)
+	
+	_http_register = HTTPRequest.new()
+	add_child(_http_register)
+	_http_register.request_completed.connect(_on_register_request_completed)
+	# --------------------------------------------------
+
 	_connect_signals()
 	_load_local_data()
 	_check_connection()
+
+func _on_login_pressed() -> void:
+	var user := username_edit.text.strip_edges()
+	var pwd  := password_edit.text.strip_edges()
+	
+	if user.is_empty():
+		_show_error("Veuillez entrer votre nom d'utilisateur."); return
+	if pwd.length() < 4:
+		_show_error("Mot de passe trop court."); return
+	if not _is_online:
+		_show_error("Connexion Internet requise."); return
+
+	btn_login.disabled = true
+	btn_login.text     = "Connexion..."
+	error_label.text   = ""
+
+	# Préparation de la requête vers FastAPI
+	var url = API_URL + "/get_player_api_key"
+	var headers = ["Content-Type: application/json"]
+	var body = JSON.stringify({"name": user, "password": pwd})
+	
+	_http_login.request(url, headers, HTTPClient.METHOD_POST, body)
+
+func _on_login_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	btn_login.disabled = false
+	btn_login.text     = "SE CONNECTER"
+	
+	if result != HTTPRequest.RESULT_SUCCESS:
+		_show_error("Impossible de joindre le serveur.")
+		return
+		
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	
+	if response_code == 200 and json != null:
+		# Succès : on récupère la vraie clé API de la base de données
+		var user_data := {
+			"username": username_edit.text.strip_edges(),
+			"class":    "Guerrier",
+			"level":    1,
+			"token":    json.get("api_key", ""), # On remplace le faux MD5 par la vraie clé API
+		}
+		
+		if remember_check.button_pressed:
+			_save_local_data(user_data)
+			
+		_emit_login_success(user_data)
+	else:
+		# Erreur 401 (Mauvais mot de passe) ou autre
+		var error_msg = json.get("detail", "Identifiants incorrects.") if json else "Erreur serveur."
+		_show_error(error_msg)
+
+func _on_register_pressed() -> void:
+	var user  := reg_username_edit.text.strip_edges()
+	var email := reg_email_edit.text.strip_edges()
+	var pwd   := reg_password_edit.text.strip_edges()
+	
+	if user.is_empty():
+		_show_error("Veuillez choisir un nom d'utilisateur."); return
+	if not "@" in email or not "." in email:
+		_show_error("Adresse email invalide."); return
+	if pwd.length() < 8:
+		_show_error("Le mot de passe doit contenir au moins 8 caractères."); return
+	if not _is_online:
+		_show_error("Connexion Internet requise pour l'inscription."); return
+
+	btn_register.disabled = true
+	btn_register.text     = "Création du compte..."
+	error_label.text      = ""
+
+	# L'API s'attend à recevoir "name" et "password" selon ton schéma Pydantic UserAuth
+	var url = API_URL + "/signup"
+	var headers = ["Content-Type: application/json"]
+	var body = JSON.stringify({"name": user, "password": pwd})
+	
+	_http_register.request(url, headers, HTTPClient.METHOD_POST, body)
+
+func _on_register_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	btn_register.disabled = false
+	btn_register.text     = "CRÉER LE COMPTE"
+	
+	if result != HTTPRequest.RESULT_SUCCESS:
+		_show_error("Impossible de joindre le serveur.")
+		return
+		
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	
+	if response_code == 201 and json != null: # 201 = HTTP_201_CREATED défini dans ton FastAPI
+		var user_data := {
+			"username": reg_username_edit.text.strip_edges(),
+			"class":    "Guerrier",
+			"level":    1,
+			"token":    json.get("api_key", ""),
+		}
+		_save_local_data(user_data)
+		_emit_login_success(user_data)
+	else:
+		# Erreur 400 (Nom d'utilisateur déjà pris par exemple)
+		var error_msg = json.get("detail", "Erreur lors de l'inscription.") if json else "Erreur serveur."
+		_show_error(error_msg)
 
 func _connect_signals() -> void:
 	tab_login.pressed.connect(func(): _switch_tab(true))

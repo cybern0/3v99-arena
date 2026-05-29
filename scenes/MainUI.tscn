@@ -50,6 +50,7 @@ offset_top = -10.0
 offset_right = -80.0
 offset_bottom = -7.0
 grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.95, 0.82, 0.35, 0.3)
 
 [node name="MainMenuScreen" type="Control" parent="." unique_id=306803336]

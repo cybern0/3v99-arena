@@ -1,378 +1,222 @@
 extends Control
 
-# ── Couleurs armure ────────────────────────────────────────────────────────────
-const ARMOR_COLORS := {
-	"Violet": Color(0.25, 0.20, 0.65, 1.0),
-	"Bleu":   Color(0.12, 0.30, 0.80, 1.0),
-	"Rouge":  Color(0.70, 0.10, 0.10, 1.0),
-	"Or":     Color(0.72, 0.55, 0.08, 1.0),
-}
-
-# ── Stats par classe ───────────────────────────────────────────────────────────
-const CLASS_STATS := {
-	"Guerrier": {"vie": 80, "atq": 70, "def": 75, "vit": 55},
-	"Mage":     {"vie": 55, "atq": 95, "def": 40, "vit": 65},
-	"Archer":   {"vie": 65, "atq": 80, "def": 50, "vit": 85},
-	"Assassin": {"vie": 60, "atq": 90, "def": 45, "vit": 90},
-}
+# ── CONFIGURATION DES URLS SATELLITES ──────────────────────────────────────────
+const FASTAPI_URL = "http://127.0.0.1:8000" # Remplacez par votre URL de production
+const GODOT_SERVER_URL = "ws://127.0.0.1:9099" # Port du serveur C++ game_server.cpp
 
 # ── Noeuds principaux ──────────────────────────────────────────────────────────
 @onready var main_menu : Control = $MainMenuScreen
-@onready var avatar_scr: Control = $AvatarScreen
-@onready var solo_scr  : Control = $SoloScreen
-@onready var br_scr    : Control = $BattleRoyalScreen   # ← devient "Créer Room Boss"
+@onready var br_scr    : Control = $BattleRoyaleScreen # Votre écran Battle Royale
 @onready var bh_scr    : Control = $BossHuntScreen
 
-# Avatar 3D → remplacé par images 2D
-const MODEL_SCENES := {
-	"Model 1": preload("res://scenes/P1.tscn"),
-	"Model 2": preload("res://scenes/P2.tscn"),
-}
+# ── NOUVEAUX NOEUDS BATTLE ROYALE (INTERFACE COMPLÉTÉE) ────────────────────────
+@onready var br_rooms_list  : ItemList = $BattleRoyaleScreen/BRContent/BRRoomsList
+@onready var btn_create_br  : Button   = $BattleRoyaleScreen/BRContent/BtnCreateBR
+@onready var btn_join_br    : Button   = $BattleRoyaleScreen/BRContent/BtnJoinBR
 
-# Images 2D pour l'aperçu dans l'UI
-const MODEL_IMAGES := {
-	"Model 1": preload("res://assets/P1/P1Pose.jpg"),
-	"Model 2": preload("res://assets/P2/P2Pose.jpg"),
-}
+# ── NOEUDS BOSS HUNT MIS À JOUR ────────────────────────────────────────────────
+@onready var boss_worlds_list : ItemList = $BossHuntScreen/BHContent/BHLeft/BHRoomsList
 
-# Plus de viewport 3D, on utilise des images 2D
-# var char_node  : Node3D
-# var avatar_cam : Camera3D
+# Références pour les requêtes API
+var http_request : HTTPRequest
+var ws_client : WebSocketPeer
 
-@onready var name_edit  : LineEdit      = $AvatarScreen/AvatarControls/NameEdit
-@onready var stat_vie   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarVie
-@onready var stat_atq   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarAtq
-@onready var stat_def   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarDef
-@onready var stat_vit   : ProgressBar   = $AvatarScreen/AvatarControls/StatsGrid/BarVit
-# AvatarImage est maintenant dans AvatarScreen
-@onready var avatar_preview_img : TextureRect = $AvatarScreen/AvatarPreview
-
-# Solo — aperçu
-@onready var prev_map   : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevMapVal
-@onready var prev_time  : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevTimeVal
-@onready var prev_meteo : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevMeteoVal
-@onready var prev_diff  : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevDiffVal
-@onready var prev_cam   : Label = $SoloScreen/SoloContent/SoloRightPanel/PreviewCard/PreviewVBox/PrevCamVal
-
-# "Créer Room Boss" — aperçu (nœuds renommés dans le TSCN)
-@onready var boss_prev_boss   : Label = $BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox/PrevBossVal
-@onready var boss_prev_map    : Label = $BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox/PrevBRMapVal
-@onready var boss_prev_players: Label = $BattleRoyalScreen/BRContent/BRRight/BossPreviewCard/BossPreviewVBox/PrevMaxPlayersVal
-@onready var boss_room_code   : Label = $BattleRoyalScreen/BRContent/BRRight/RoomCodeVal
-
-# Map → scène
-const MAP_SCENES := {
-	"Foret Profonde": "res://scenes/w_1.tscn",
-	"Desert Aride":   "res://scenes/w_2.tscn",
-	"Montagne Glace": "res://scenes/w_3.tscn",
-}
-
-# ── État interne ───────────────────────────────────────────────────────────────
-var _rot_dir:        float   = 1.0
-var _current_class:  String  = "Guerrier"
-var _selected_model: String  = "Model 1"
-
-var _solo_config: Dictionary = {
-	"map":    "Foret Profonde",
-	"time":   "Jour",
-	"meteo":  "Ensoleille",
-	"diff":   "Normal",
-	"camera": "TPS",
-}
-
-var _boss_config: Dictionary = {
-	"boss":        "Dragon de Feu Eternel",
-	"map":         "Desert Aride",
-	"max_players": 4,
-	"room_name":   "",
-}
-
-# ── Référence au modèle Player instancié dans la scène de jeu ─────────────────
-# MainUI stocke la sélection dans SessionManager ; la scène de jeu appelle ensuite
-# player_node.create_mobile_controls() après avoir instancié le bon modèle.
-var _active_player_model: Node = null  # rempli si un Player est présent dans cette scène
-
-# ══════════════════════════════════════════════════════════════════════════════
 func _ready() -> void:
-	_connect_all()
-	_select_model("Model 1")
-	_show(main_menu)
-
-# ── Connexion des signaux ──────────────────────────────────────────────────────
-func _connect_all() -> void:
-	# Menu principal
-	$MainMenuScreen/MenuButtons/BtnAvatar.pressed.connect(func(): _show(avatar_scr))
-	$MainMenuScreen/MenuButtons/BtnSolo.pressed.connect(func(): _show(solo_scr))
-	# BtnBattleRoyal renommé "Créer Room Boss" dans le TSCN — ouvre br_scr
-	$MainMenuScreen/MenuButtons/BtnBattleRoyal.pressed.connect(func(): _show(br_scr))
-	$MainMenuScreen/MenuButtons/BtnBossHunt.pressed.connect(func(): _show(bh_scr))
-
-	# ── AVATAR ────────────────────────────────────────────────────────────────
-	$AvatarScreen/AvatarHeader/BtnBackAvatar.pressed.connect(func(): _show(main_menu))
-	$AvatarScreen/AvatarControls/BtnSaveAvatar.pressed.connect(_save_avatar)
-	# Rotation désactivée car on utilise des images 2D statiques
-	# $AvatarScreen/AvatarControls/RotateRow/BtnRotL.pressed.connect(func(): _manual_rotate(-0.4))
-	# $AvatarScreen/AvatarControls/RotateRow/BtnRotR.pressed.connect(func(): _manual_rotate( 0.4))
-
-	for btn in $AvatarScreen/AvatarControls/ClassRow.get_children():
-		btn.pressed.connect(_on_class_selected.bind(btn.text))
-
-	$AvatarScreen/AvatarControls/ModelRow/BtnModel1.pressed.connect(func(): _select_model("Model 1"))
-	$AvatarScreen/AvatarControls/ModelRow/BtnModel2.pressed.connect(func(): _select_model("Model 2"))
-
-	for btn in $AvatarScreen/AvatarControls/ColorRow.get_children():
-		btn.pressed.connect(_on_color_selected.bind(btn.text))
-
-	# ── SOLO ──────────────────────────────────────────────────────────────────
-	$SoloScreen/SoloHeader/BtnBackSolo.pressed.connect(func(): _show(main_menu))
-	$SoloScreen/SoloContent/SoloLeftPanel/BtnLancer.pressed.connect(_launch_solo)
-	$SoloScreen/SoloContent/SoloLeftPanel/MapOption.item_selected.connect(_on_map_selected)
-
-	_connect_toggle_group(
-		$SoloScreen/SoloContent/SoloLeftPanel/TimeRow.get_children(),
-		func(t): _solo_config["time"] = t; prev_time.text = t
+	# Navigation des menus
+	$MainMenuScreen/VBoxContainer/BtnModeBR.pressed.connect(func(): 
+		main_menu.visible = false
+		br_scr.visible = true
+		_refresh_battle_royale_rooms()
 	)
-	_connect_toggle_group(
-		$SoloScreen/SoloContent/SoloLeftPanel/MeteoRow.get_children(),
-		func(t): _solo_config["meteo"] = t; prev_meteo.text = t
+	
+	$MainMenuScreen/VBoxContainer/BtnModeBoss.pressed.connect(func(): 
+		main_menu.visible = false
+		bh_scr.visible = true
+		_connect_to_boss_server_for_status()
 	)
-	_connect_toggle_group(
-		$SoloScreen/SoloContent/SoloLeftPanel/DiffRow.get_children(),
-		func(t): _solo_config["diff"] = t; prev_diff.text = t
+	
+	$BattleRoyaleScreen/BtnBackFromBR.pressed.connect(func():
+		br_scr.visible = false
+		main_menu.visible = true
 	)
-	_connect_toggle_group(
-		$SoloScreen/SoloContent/SoloRightPanel/CamRow.get_children(),
-		func(t):
-			_solo_config["camera"] = "TPS" if t == "TPS — 3e pers." else "FPS"
-			_update_cam_preview()
+	
+	$BossHuntScreen/BtnBackFromBoss.pressed.connect(func():
+		bh_scr.visible = false
+		main_menu.visible = true
 	)
+	
+	$MainMenuScreen/VBoxContainer/BtnQuit.pressed.connect(func(): get_tree().quit())
+	
+	# N'oubliez pas de connecter le bouton "Rejoindre le monde" pour les Boss !
+	$BossHuntScreen/BHContent/BHLeft/BtnJoinBossWorld.pressed.connect(_on_join_boss_world_clicked)
+	# Initialisation du noeud HTTP pour interagir avec FastAPI
+	http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(_on_http_request_completed)
+	
+	# Connexions des signaux des boutons Battle Royale
+	if btn_create_br: btn_create_br.pressed.connect(_on_create_br_pressed)
+	if btn_join_br:   btn_join_br.pressed.connect(_on_join_br_pressed)
+	
+	# Initialisation du client WebSocket pour écouter le serveur de Boss C++
+	ws_client = WebSocketPeer.new()
+	set_process(true)
+	
+	# Au démarrage, on rafraîchit les listes
+	_refresh_battle_royale_rooms()
+	_connect_to_boss_server_for_status()
 
-	# ── CRÉER ROOM BOSS (ancien BattleRoyalScreen) ────────────────────────────
-	$BattleRoyalScreen/BRHeader/BtnBackBR.pressed.connect(func(): _show(main_menu))
-	$BattleRoyalScreen/BRContent/BRLeft/BtnCreateBoss.pressed.connect(_create_boss_room)
-
-	# Boss sélection
-	$BattleRoyalScreen/BRContent/BRLeft/BossOption.item_selected.connect(_on_boss_selected)
-	# Map sélection dans l'écran boss
-	$BattleRoyalScreen/BRContent/BRLeft/BRMapOption.item_selected.connect(_on_boss_map_selected)
-	# Max players
-	_connect_toggle_group(
-		$BattleRoyalScreen/BRContent/BRLeft/MaxPlayersRow.get_children(),
-		func(t): _boss_config["max_players"] = int(t); _update_boss_preview()
-	)
-
-	# ── BOSS HUNT ─────────────────────────────────────────────────────────────
-	$BossHuntScreen/BHHeader/BtnBackBH.pressed.connect(func(): _show(main_menu))
-	$BossHuntScreen/BHContent/BHLeft/BtnJoinBH.pressed.connect(_join_bh)
-
-	for row in $BossHuntScreen/BHContent/BHRight/BHPlayerScroll/BHPlayerList.get_children():
-		var btn  = row.get_node_or_null("Btn")
-		var name = row.get_node_or_null("Name")
-		if btn and name:
-			btn.pressed.connect(_invite.bind(name.text))
+func _process(_delta: float) -> void:
+	if ws_client.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		ws_client.poll()
+		while ws_client.get_available_packet_count() > 0:
+			var packet = ws_client.get_packet()
+			var json_str = packet.get_string_from_utf8()
+			_handle_boss_server_message(json_str)
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  Navigation
+#  SECTION 1 : BATTLE ROYALE (SIGNALING WEBRTC VIA FASTAPI)
 # ══════════════════════════════════════════════════════════════════════════════
-func _show(screen: Control) -> void:
-	for s in [main_menu, avatar_scr, solo_scr, br_scr, bh_scr]:
-		s.visible = (s == screen)
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  Avatar 2D (plus de 3D)
-# ══════════════════════════════════════════════════════════════════════════════
-# Fonctions désactivées car on utilise des images 2D statiques
-# func _manual_rotate(amount: float) -> void:
-# 	char_node.rotate_y(amount)
+func _refresh_battle_royale_rooms() -> void:
+	print("[BR] Récupération des salons depuis FastAPI...")
+	var url = FASTAPI_URL + "/rooms"
+	var headers = ["Accept: application/json"]
+	http_request.request(url, headers, HTTPClient.METHOD_GET)
 
-func _on_class_selected(cls: String) -> void:
-	_current_class = cls
-	if cls in CLASS_STATS:
-		var s = CLASS_STATS[cls]
-		stat_vie.value = s["vie"]
-		stat_atq.value = s["atq"]
-		stat_def.value = s["def"]
-		stat_vit.value = s["vit"]
-
-func _on_color_selected(color_name: String) -> void:
-	# Couleur désactivée car on utilise des images 2D statiques
-	pass
-
-# Fonctions désactivées
-# func _apply_armor_color(node: Node, color: Color) -> void:
-# 	if node is MeshInstance3D:
-# 		var mesh_node := node as MeshInstance3D
-# 		if mesh_node.mesh:
-# 			for surface in range(mesh_node.mesh.get_surface_count()):
-# 				var mat := mesh_node.get_surface_override_material(surface)
-# 				if mat == null:
-# 					mat = mesh_node.mesh.surface_get_material(surface)
-# 				if mat and mat is StandardMaterial3D:
-# 					var new_mat := mat.duplicate() as StandardMaterial3D
-# 					new_mat.albedo_color = color
-# 					mesh_node.set_surface_override_material(surface, new_mat)
-# 	for child in node.get_children():
-# 		_apply_armor_color(child, color)
-
-func _save_avatar() -> void:
-	var nom := name_edit.text.strip_edges()
-	if nom.is_empty():
-		nom = "Joueur"
-	$MainMenuScreen/AvatarCard/AvatarVBox/AvatarNameLabel.text = nom
-	$MainMenuScreen/AvatarCard/AvatarVBox/AvatarClassLabel.text = _current_class + "  |  Niveau 1"
-	_show(main_menu)
-
-func _select_model(model_name: String) -> void:
-	if not MODEL_SCENES.has(model_name):
+func _on_http_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
+		print("[BR] Erreur lors de la récupération des salons Battle Royale.")
 		return
-	_selected_model = model_name
-	
-	# Afficher l'image 2D correspondante
-	if avatar_preview_img and MODEL_IMAGES.has(model_name):
-		avatar_preview_img.texture = MODEL_IMAGES[model_name]
-		avatar_preview_img.visible = true
-		# S'assurer que l'image garde ses proportions et s'adapte au container
-		avatar_preview_img.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		avatar_preview_img.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	
-	# Stocker la référence si le modèle est un Player (pour la logique de création de HUD)
-	_active_player_model = null  # Sera réinstancié dans la scène de jeu
-	
-	for btn in $AvatarScreen/AvatarControls/ModelRow.get_children():
-		if btn is Button:
-			btn.set_pressed(btn.text == model_name)
+		
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	if json and json.has("rooms"):
+		br_rooms_list.clear()
+		var rooms = json["rooms"]
+		for room in rooms:
+			var room_id = room["room_id"]
+			var count = room["player_count"]
+			var display_text = "Salon BR: %s (%d/99 Joueurs)" % [room_id, count]
+			br_rooms_list.add_item(display_text)
+			# On stocke l'ID réel dans les métadonnées de la ligne
+			br_rooms_list.set_item_metadata(br_rooms_list.get_item_count() - 1, room_id)
 
-# Fonctions désactivées
-# func _attach_camera_to_model(model: Node3D) -> void:
-# 	var cam_offset := Vector3(0, 1.2, 2.5)
-# 	avatar_cam.transform.origin = model.to_global(cam_offset)
-# 	avatar_cam.look_at(model.global_transform.origin + Vector3(0, 0.8, 0))
+func _on_create_br_pressed() -> void:
+	# Génération d'un code unique aléatoire pour la nouvelle room
+	var new_room_code = _generate_random_code()
+	print("[BR] Création d'une room Battle Royale avec le code : ", new_room_code)
+	
+	# Initialisation de la connexion de signaling WebRTC vers l'adresse WebSocket dédiée
+	# main.py gère l'auto-création à la connexion sur `/ws/signaling/{room_id}/{peer_id}`
+	_enter_br_signaling_room(new_room_code)
 
-# func _play_default_animation(node: Node) -> void:
-# 	var anim_player := node.get_node_or_null("AnimationPlayer")
-# 	if anim_player == null:
-# 		anim_player = node.find_child("AnimationPlayer", true, false) as AnimationPlayer
-# 	if anim_player:
-# 		var animations: Array = anim_player.get_animation_list()
-# 		if animations.size() > 0:
-# 			var animation_name: String = "idle" if animations.has("idle") else animations[0]
-# 			var animation: Animation = anim_player.get_animation(animation_name)
-# 			if animation:
-# 				animation.loop_mode = Animation.LOOP_LINEAR
-# 				anim_player.play(animation_name)
+func _on_join_br_pressed() -> void:
+	var selected_items = br_rooms_list.get_selected_items()
+	if selected_items.is_empty():
+		print("[BR] Veuillez sélectionner un salon Battle Royale dans la liste.")
+		return
+		
+	var room_id = br_rooms_list.get_item_metadata(selected_items[0])
+	print("[BR] Tentative de connexion au salon WebRTC : ", room_id)
+	_enter_br_signaling_room(room_id)
+
+func _enter_br_signaling_room(room_id: String) -> void:
+	var my_peer_id = str(randi() % 100000) # Identifiant éphémère du joueur
+	var signaling_ws_url = FASTAPI_URL.replace("http", "ws") + "/ws/signaling/" + room_id + "/" + my_peer_id
+	print("[WebRTC Signaling] Connexion au WebSocket : ", signaling_ws_url)
+	# Ici, vous passez la main à votre gestionnaire WebRTC global (ex: NetworkManager)
+	# Exemple : NetworkManager.connect_to_signaling(signaling_ws_url)
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  Solo
+#  SECTION 2 : MONDES DE BOSS (SERVEUR GODOT C++ ACCÈS DYNAMIQUE)
 # ══════════════════════════════════════════════════════════════════════════════
-func _on_map_selected(index: int) -> void:
-	var map_name: String = $SoloScreen/SoloContent/SoloLeftPanel/MapOption.get_item_text(index)
-	_solo_config["map"] = map_name
-	prev_map.text = map_name
 
-func _update_cam_preview() -> void:
-	prev_cam.text = "TPS — 3e personne" if _solo_config["camera"] == "TPS" else "FPS — 1re personne"
+func _connect_to_boss_server_for_status() -> void:
+	print("[Boss] Connexion au serveur de jeu C++ pour obtenir les statuts...")
+	ws_client.connect_to_url(GODOT_SERVER_URL)
 
-func _launch_solo() -> void:
-	# ── Configuration du SessionManager pour la scène de jeu ──────────────────
-	# C'est la scène de jeu qui lira ces valeurs et appellera
-	# player_node.create_mobile_controls() dans son _ready() ou après l'instanciation.
-	if has_node("/root/SessionManager"):
-		var sm = get_node("/root/SessionManager")
-		sm.solo_config     = _solo_config.duplicate()
-		sm.selected_model  = _selected_model
-		sm.needs_mobile_hud = true   # ← lu par la scène de jeu
+func _handle_boss_server_message(json_str: String) -> void:
+	var parsed = JSON.parse_string(json_str)
+	# Si le serveur renvoie une mise à jour d'état globale ou directe des mondes
+	if parsed and parsed.get_type() == Variant.DICTIONARY:
+		_update_boss_worlds_ui(parsed)
+
+# Traduction et filtrage selon l'état retourné par GameServer::get_worlds_status()
+func _update_boss_worlds_ui(worlds_data: Dictionary) -> void:
+	boss_worlds_list.clear()
 	
-	print("[Solo] Lancement — config: ", _solo_config, " | modèle: ", _selected_model)
-	var map_name:   String = _solo_config["map"]
-	var scene_path: String = MAP_SCENES.get(map_name, "res://scenes/w_1.tscn")
-	print("[Solo] Scène cible: ", scene_path)
-	get_tree().change_scene_to_file(scene_path)
+	# Configuration des correspondances d'énumérations de game_server.cpp
+	# WORLD_FREE = 0, WORLD_BUSY = 1, ou autres statuts intermédiaires customisés (En attente)
+	for world_key in worlds_data.keys():
+		var w_info = worlds_data[world_key]
+		var world_id = int(world_key)
+		var status_code = int(w_info.get("status", 0))
+		var current_players = int(w_info.get("players", 0))
+		var boss_type = int(w_info.get("boss_type", 1))
+		
+		var status_text = ""
+		var is_joinable = false
+		
+		# Application stricte de vos règles d'accès :
+		match status_code:
+			0: # WORLD_FREE
+				status_text = "Libre"
+				is_joinable = true
+			1: # WORLD_BUSY
+				# Si le monde est occupé mais qu'il reste de la place, on le considère "En attente"
+				if current_players < 4:
+					status_text = "En attente (%d/4 Joueurs)" % current_players
+					is_joinable = true
+				else:
+					status_text = "Occupé (Complet)"
+					is_joinable = false
+			_:
+				status_text = "Occupé"
+				is_joinable = false
+				
+		var display_line = "Monde %d [Boss Type %d] ─ %s" % [world_id + 1, boss_type, status_text]
+		boss_worlds_list.add_item(display_line)
+		
+		# Sauvegarde de la configuration d'accès dans les métadonnées de l'index
+		var meta_config = {"world_id": world_id, "joinable": is_joinable}
+		var last_index = boss_worlds_list.get_item_count() - 1
+		boss_worlds_list.set_item_metadata(last_index, meta_config)
+		
+		# Modification visuelle optionnelle (Griser si inaccessible)
+		if not is_joinable:
+			boss_worlds_list.set_item_custom_fg_color(last_index, Color(0.5, 0.5, 0.5, 1.0))
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  Créer Room Boss (ancien "Battle Royal")
-# ══════════════════════════════════════════════════════════════════════════════
-func _on_boss_selected(index: int) -> void:
-	var boss_name: String = $BattleRoyalScreen/BRContent/BRLeft/BossOption.get_item_text(index)
-	_boss_config["boss"] = boss_name
-	_update_boss_preview()
+# Appelée lors du clic sur le bouton d'action pour valider la règle d'accès
+func _on_join_boss_world_clicked() -> void:
+	var selected = boss_worlds_list.get_selected_items()
+	if selected.is_empty():
+		return
+		
+	var meta = boss_worlds_list.get_item_metadata(selected[0])
+	if meta["joinable"] == false:
+		print("[Boss Hunt] Action Impossible : Ce monde est actuellement Occupé et inaccessible !")
+		# Afficher une alerte UI à l'utilisateur ici si nécessaire
+		return
+		
+	print("[Boss Hunt] Autorisé ! Connexion en cours au Monde ID : ", meta["world_id"])
+	# Envoyer la trame JSON {"type": "join", ...} au serveur C++
+	_send_join_command_to_server(meta["world_id"])
 
-func _on_boss_map_selected(index: int) -> void:
-	var map_name: String = $BattleRoyalScreen/BRContent/BRLeft/BRMapOption.get_item_text(index)
-	_boss_config["map"] = map_name
-	_update_boss_preview()
+func _send_join_command_to_server(world_id: int) -> void:
+	if ws_client.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		var join_payload = {
+			"type": "join",
+			"name": SessionManager.user_data.get("username", "Player"),
+			"api_key": SessionManager.user_data.get("token", ""),
+			"target_world_id": world_id
+		}
+		var bytes = JSON.stringify(join_payload).to_utf8_buffer()
+		ws_client.put_packet(bytes)
 
-func _update_boss_preview() -> void:
-	if boss_prev_boss:
-		boss_prev_boss.text = _boss_config["boss"]
-	if boss_prev_map:
-		boss_prev_map.text = _boss_config["map"]
-	if boss_prev_players:
-		boss_prev_players.text = str(_boss_config["max_players"]) + " joueurs max"
-
-func _create_boss_room() -> void:
-	# Récupérer le nom de room saisi
-	var room_name_edit = $BattleRoyalScreen/BRContent/BRLeft/RoomNameEdit
-	var room_name: String = room_name_edit.text.strip_edges() if room_name_edit else ""
-	if room_name.is_empty():
-		room_name = "Room-Boss-" + str(randi() % 9000 + 1000)
-	_boss_config["room_name"] = room_name
-
-	# Générer un code de room
-	var room_code: String = _generate_room_code()
-	if boss_room_code:
-		boss_room_code.text = room_code
-
-	print("[Boss Room] Création — config: ", _boss_config, " | code: ", room_code)
-
-	# Transmettre la config au SessionManager
-	if has_node("/root/SessionManager"):
-		var sm = get_node("/root/SessionManager")
-		sm.boss_config      = _boss_config.duplicate()
-		sm.selected_model   = _selected_model
-		sm.needs_mobile_hud = true
-		sm.room_code        = room_code
-		sm.is_host          = true
-
-	# Lancer la scène Boss Hunt correspondante
-	var scene_path := "res://scenes/boss_hunt.tscn"
-	if ResourceLoader.exists(scene_path):
-		get_tree().change_scene_to_file(scene_path)
-	else:
-		print("[Boss Room] Scène boss_hunt.tscn introuvable — config sauvegardée.")
-
-func _generate_room_code() -> String:
+# Utilitaires de génération
+func _generate_random_code() -> String:
 	const CHARS := "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
 	var code := ""
 	for i in range(6):
 		code += CHARS[randi() % CHARS.length()]
 	return code
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  Boss Hunt — Joindre (inchangé)
-# ══════════════════════════════════════════════════════════════════════════════
-func _join_bh() -> void:
-	var code: String   = $BossHuntScreen/BHContent/BHLeft/SearchBHEdit.text.strip_edges()
-	var list: ItemList = $BossHuntScreen/BHContent/BHLeft/BHRoomsList
-	var sel: Array     = list.get_selected_items()
-	if code.is_empty() and sel.is_empty():
-		print("[BH] Sélectionnez une room ou entrez un code.")
-		return
-	var room: String = code if not code.is_empty() else list.get_item_text(sel[0])
-	print("[BH] Rejoindre: ", room)
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  Inviter un joueur
-# ══════════════════════════════════════════════════════════════════════════════
-func _invite(player_name: String) -> void:
-	print("[Invite] Invitation envoyée à: ", player_name)
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  Helper — groupe de boutons toggle (un seul actif)
-# ══════════════════════════════════════════════════════════════════════════════
-func _connect_toggle_group(buttons: Array, callback: Callable) -> void:
-	for btn in buttons:
-		btn.pressed.connect(func():
-			for b in buttons:
-				b.button_pressed = (b == btn)
-			callback.call(btn.text)
-		)
