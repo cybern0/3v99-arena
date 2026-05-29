@@ -7,7 +7,25 @@ const SIGNALING_URL = "wss://TON_ESPACE_HUGGING_FACE.hf.space/ws/signaling"
 
 # WebRTC configuration (STUN servers are essential for P2P connection)
 const WEBRTC_ICE_SERVERS = [
-	{ "urls": ["stun:stun.l.google.com:19302"] }
+	{
+		"urls": [
+			"stun:stun.l.google.com:19302"
+		]
+	},
+	{
+		"urls": [
+			"turn:free.expressturn.com:3478"
+		],
+		"username": "000000002095236103",
+		"credential": "leoMnuUj+S9hOYscaOxGb5FtRB8="
+	},
+	{
+		"urls": [
+			"turn:free.expressturn.com:3478"
+		],
+		"username": "000000002095236706",
+		"credential": "WkD+6ZX/eSrVgYP96hZmTEAwWPs="
+	}
 ]
 
 # --- VARIABLES ---
