@@ -4,6 +4,8 @@ class_name WorldManager
 signal avatar_spawned(avatar: Node3D)
 signal world_ready(world_id: int)
 signal multiplayer_spawner_ready(spawner: MultiplayerSpawner)
+signal character_registered(character: CharacterBody3D)
+signal character_unregistered(character: CharacterBody3D)
 
 @export_group("World")
 @export var world_id: int = 1
@@ -18,6 +20,12 @@ signal multiplayer_spawner_ready(spawner: MultiplayerSpawner)
 @export var player_spawner_name: String = "MultiplayerSpawner"
 @export var boss_spawner_name: String = "MultiplayerSpawnerBoss"
 
+@export_group("Legacy Compatibility")
+@export var legacy_player_group_name: String = "player"
+@export var legacy_players_group_name: String = "Characters"
+@export var legacy_characters_group_name: String = "characters"
+@export var legacy_boss_group_name: String = "boss"
+
 var characters: Array[CharacterBody3D] = []
 var player_character: CharacterBody3D = null
 var spawned_avatar: CharacterBody3D = null
@@ -31,21 +39,34 @@ var _boss_spawners: Array[MultiplayerSpawner] = []
 @onready var spawn_point: Node3D = get_node_or_null(avatar_spawn_point_path)
 
 func _ready() -> void:
+	_refresh_scene_links()
 	_collect_characters()
 	_spawn_selected_avatar()
 	_configure_multiplayer_spawners()
 	_setup_cameras()
+	_bind_scene_entities()
 	world_ready.emit(world_id)
+
+func _refresh_scene_links() -> void:
+	if spawn_point == null:
+		spawn_point = get_node_or_null(avatar_spawn_point_path)
+
+	camera_tps = get_node_or_null("CameraTPS") as Camera3D
+	camera_fps = get_node_or_null("CameraFPS") as Camera3D
 
 func _collect_characters() -> void:
 	characters.clear()
-	for node in get_tree().get_nodes_in_group("characters"):
-		if node is CharacterBody3D:
-			characters.append(node)
+
+	# Compatibilité avec l'ancien et le nouveau nom de groupe.
+	var groups := [legacy_characters_group_name, legacy_players_group_name, legacy_player_group_name]
+	for group_name in groups:
+		for node in get_tree().get_nodes_in_group(group_name):
+			if node is CharacterBody3D and not characters.has(node):
+				characters.append(node)
 
 	if characters.is_empty():
-		for node in get_tree().get_nodes_in_group("player"):
-			if node is CharacterBody3D:
+		for node in get_children():
+			if node is CharacterBody3D and not characters.has(node):
 				characters.append(node)
 
 	if not characters.is_empty():
@@ -67,33 +88,33 @@ func _spawn_selected_avatar() -> void:
 		push_warning("[WorldManager] Aucune scène d'avatar fournie.")
 		return
 
+	# Évite de dupliquer le joueur si la scène a déjà instancié P1/P2.
+	if spawned_avatar and is_instance_valid(spawned_avatar):
+		return
+
 	var avatar := scene.instantiate()
 	if avatar is CharacterBody3D:
 		spawned_avatar = avatar
 		if spawn_point:
 			spawned_avatar.global_transform = spawn_point.global_transform
 		add_child(spawned_avatar)
-		spawned_avatar.add_to_group("player")
-		spawned_avatar.add_to_group("characters")
-		player_character = spawned_avatar
-		characters = [spawned_avatar]
+		_register_character_node(spawned_avatar)
 		avatar_spawned.emit(spawned_avatar)
 
 func _configure_multiplayer_spawners() -> void:
 	_player_spawners.clear()
 	_boss_spawners.clear()
 
+	# Cherche tous les spawners du monde, y compris ceux déjà placés dans w_1 / w_2 / w_3.
 	for node in find_children("*", "MultiplayerSpawner", true, false):
 		if node is MultiplayerSpawner:
-			_player_spawners.append(node)
+			if String(node.name).to_lower().contains("boss"):
+				_boss_spawners.append(node)
+			else:
+				_player_spawners.append(node)
 			multiplayer_spawner_ready.emit(node)
 
-	for node in find_children("*", "MultiplayerSpawner", true, false):
-		if node is MultiplayerSpawner and String(node.name).to_lower().contains("boss"):
-			_boss_spawners.append(node)
-
-	# Les spawners sont souvent configurés dans la scène; ici on ne force pas leur setup,
-	# on laisse la scène w_1 / w_2 / w_3 fournir les paths et on synchronise les références.
+	# Fallbacks nommés explicitement si la scène n'a pas été taggée comme attendu.
 	if _player_spawners.is_empty():
 		var fallback := find_child(player_spawner_name, true, false)
 		if fallback is MultiplayerSpawner:
@@ -106,9 +127,6 @@ func _configure_multiplayer_spawners() -> void:
 			_boss_spawners.append(boss_fallback)
 
 func _setup_cameras() -> void:
-	camera_tps = get_node_or_null("CameraTPS") as Camera3D
-	camera_fps = get_node_or_null("CameraFPS") as Camera3D
-
 	var sm := get_node_or_null("/root/SessionManager")
 	if sm and sm.has_method("get"):
 		var solo_config = sm.get("solo_config", {})
@@ -124,10 +142,29 @@ func _setup_cameras() -> void:
 		if camera_fps:
 			camera_fps.current = false
 
+func _bind_scene_entities() -> void:
+	# Lie les nœuds déjà présents dans les groupes globaux, compatibles avec P1/P2 et boss.
+	for node in get_tree().get_nodes_in_group(legacy_player_group_name):
+		if node is CharacterBody3D:
+			_register_character_node(node)
+	for node in get_tree().get_nodes_in_group(legacy_characters_group_name):
+		if node is CharacterBody3D:
+			_register_character_node(node)
+	for node in get_tree().get_nodes_in_group(legacy_players_group_name):
+		if node is CharacterBody3D:
+			_register_character_node(node)
+
+	# Si un objet du monde expose une méthode de liaison, on la passe ici.
+	for node in get_children():
+		if node != self and node.has_method("set_world_manager"):
+			node.call("set_world_manager", self)
+
 func _process(delta: float) -> void:
 	for c in characters:
 		if c:
-			c.velocity.y -= 9.8 * delta
+			# Compatibilité avec l'ancien WorldManager : gravité côté manager.
+			if not c.is_on_floor():
+				c.velocity.y -= 9.8 * delta
 			c.move_and_slide()
 
 	if player_character:
@@ -144,22 +181,53 @@ func _update_camera(player: CharacterBody3D) -> void:
 		camera_tps.look_at(player.global_transform.origin + Vector3(0, 1.0, 0))
 
 func register_character(character: CharacterBody3D) -> void:
-	if character == null:
-		return
-	if not characters.has(character):
-		characters.append(character)
-	if character.is_in_group("player"):
-		player_character = character
+	_register_character_node(character)
 
 func unregister_character(character: CharacterBody3D) -> void:
 	if character == null:
 		return
 	characters.erase(character)
+	character_unregistered.emit(character)
 	if player_character == character:
 		player_character = characters[0] if not characters.is_empty() else null
+
+func _register_character_node(character: CharacterBody3D) -> void:
+	if character == null:
+		return
+	if not characters.has(character):
+		characters.append(character)
+		character_registered.emit(character)
+
+	# Priorité au personnage local si le groupe indique qu'il s'agit d'un joueur.
+	if character.is_in_group(legacy_player_group_name) or character.is_in_group(legacy_characters_group_name):
+		player_character = character
+
+	# Petit raccord pour les scènes P1/P2 : si le nœud sait s'initialiser, on lui laisse le contrôle.
+	if character.has_method("set_world_manager"):
+		character.call("set_world_manager", self)
+	if character.has_method("set_network_authority_from_world"):
+		character.call("set_network_authority_from_world", multiplayer.get_unique_id())
 
 func get_player_character() -> CharacterBody3D:
 	return player_character
 
 func get_characters() -> Array[CharacterBody3D]:
 	return characters.duplicate()
+
+func get_player_spawners() -> Array[MultiplayerSpawner]:
+	return _player_spawners.duplicate()
+
+func get_boss_spawners() -> Array[MultiplayerSpawner]:
+	return _boss_spawners.duplicate()
+
+func get_main_player_spawner() -> MultiplayerSpawner:
+	return _player_spawners[0] if not _player_spawners.is_empty() else null
+
+func get_main_boss_spawner() -> MultiplayerSpawner:
+	return _boss_spawners[0] if not _boss_spawners.is_empty() else null
+
+func refresh_world_bindings() -> void:
+	_refresh_scene_links()
+	_collect_characters()
+	_configure_multiplayer_spawners()
+	_bind_scene_entities()
