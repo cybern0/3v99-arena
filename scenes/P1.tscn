@@ -2104,6 +2104,8 @@ _data = {
 &"run": SubResource("Animation_t4bo6")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_a8v6l"]
+
 [node name="P1" type="CharacterBody3D" unique_id=1070610618 groups=["Characters"]]
 script = ExtResource("1_8x38n")
 
@@ -2373,3 +2375,6 @@ transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, -
 script = ExtResource("4_7yykq")
 
 [node name="VFXParticles" parent="VFXController" unique_id=118253165 instance=ExtResource("5_a8v6l")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=852104954]
+replication_config = SubResource("SceneReplicationConfig_a8v6l")

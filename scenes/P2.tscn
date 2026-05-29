@@ -2372,6 +2372,8 @@ _data = {
 &"run": SubResource("Animation_7dp74")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_k44bp"]
+
 [node name="P2" type="CharacterBody3D" unique_id=1358748129 groups=["Characters"]]
 script = ExtResource("1_ktg3b")
 
@@ -2698,3 +2700,6 @@ script = ExtResource("4_mto72")
 character_type = "p2"
 
 [node name="VFXParticles" parent="VFXController" unique_id=2111414798 instance=ExtResource("5_k44bp")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1601514991]
+replication_config = SubResource("SceneReplicationConfig_k44bp")
