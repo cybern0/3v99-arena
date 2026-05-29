@@ -35,7 +35,22 @@ var use_fps: bool = false
 
 var _player_spawners: Array[MultiplayerSpawner] = []
 var _boss_spawners: Array[MultiplayerSpawner] = []
+func _bind_scene_entities() -> void:
+	for node in get_tree().get_nodes_in_group("player"):
+		if node is CharacterBody3D:
+			_register_character_node(node)
 
+	for node in get_tree().get_nodes_in_group("characters"):
+		if node is CharacterBody3D:
+			_register_character_node(node)
+
+	for node in get_children():
+		if node is MultiplayerSpawner:
+			# classer player_spawner / boss_spawner
+			pass
+		if node is MultiplayerSynchronizer:
+			# classer player_sync / boss_sync selon le parent ou le nom
+			pass
 @onready var spawn_point: Node3D = get_node_or_null(avatar_spawn_point_path)
 
 func _ready() -> void:

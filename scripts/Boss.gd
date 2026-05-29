@@ -45,7 +45,21 @@ enum BossAction {
 	LIGHT_ATK = 6,
 	HEAVY_ATK = 7,
 }
+# Boss.gd
+@onready var sync: MultiplayerSynchronizer = find_child("MultiplayerSynchronizer", true, false)
+@onready var ray_cast: RayCast3D = find_child("RayCast3D", true, false)
 
+func set_world_manager(wm: Node) -> void:
+	world_manager = wm
+	add_to_group("boss")
+	add_to_group("characters")
+	if wm and wm.has_method("register_character"):
+		wm.register_character(self)
+
+func set_network_authority_from_world(peer_id: int) -> void:
+	set_multiplayer_authority(peer_id)
+	if sync:
+		sync.set_multiplayer_authority(peer_id)
 @export var server_url: String = DEFAULT_SERVER_URL
 @export var auto_connect_on_ready := false
 @export var auto_join_on_connect := true

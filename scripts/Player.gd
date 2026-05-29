@@ -56,7 +56,21 @@ signal move_vector_updated(direction: Vector2)
 signal player_died
 signal attack_requested(attack_type: String)
 signal state_changed(new_state: String)
+# Player.gd
+@onready var sync: MultiplayerSynchronizer = find_child("MultiplayerSynchronizer", true, false)
+@onready var ray_cast: RayCast3D = find_child("RayCast3D", true, false)
 
+func set_world_manager(wm: Node) -> void:
+	world_manager = wm
+	add_to_group("player")
+	add_to_group("characters")
+	if wm and wm.has_method("register_character"):
+		wm.register_character(self)
+
+func set_network_authority_from_world(peer_id: int) -> void:
+	set_multiplayer_authority(peer_id)
+	if sync:
+		sync.set_multiplayer_authority(peer_id)
 # ─────────────────────────────────────────────
 #  Initialisation
 # ─────────────────────────────────────────────
