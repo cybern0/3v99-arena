@@ -2,10 +2,117 @@
 
 [ext_resource type="Script" uid="uid://p27fk2jtkckf" path="res://scripts/GameHUD.gd" id="1_hud"]
 
-; ── Racine ──────────────────────────────────────────────────────────────────────
-[node name="CanvasLayer" type="CanvasLayer"]
+; ── StyleBoxFlat : barre HP (rouge) ─────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_HPFill"]
+bg_color = Color(0.88, 0.12, 0.12, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
 
-; ── GameHUD : Control plein écran, porte le script ─────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BarBg"]
+bg_color = Color(0.07, 0.07, 0.13, 0.95)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+border_color = Color(0.18, 0.18, 0.30, 0.6)
+border_width_bottom = 1
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+
+; ── StyleBoxFlat : barre Stamina (bleu) ─────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_StamFill"]
+bg_color = Color(0.18, 0.40, 0.88, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+
+; ── StyleBoxFlat : barre Énergie (teal) ─────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_EnerFill"]
+bg_color = Color(0.12, 0.80, 0.65, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+
+; ── StyleBoxFlat : barre XP (or) ────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_XPFill"]
+bg_color = Color(0.92, 0.68, 0.12, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+
+; ── StyleBoxFlat : barre Boss HP (violet) ───────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BossFill"]
+bg_color = Color(0.68, 0.12, 0.92, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+
+; ── StyleBoxFlat : fond de la BossBar ───────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BossBarBg"]
+bg_color = Color(0.05, 0.03, 0.10, 0.92)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+border_color = Color(0.50, 0.08, 0.70, 0.5)
+border_width_bottom = 1
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+
+; ── StyleBoxFlat : fond TopBar ──────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_TopBarBg"]
+bg_color = Color(0.05, 0.05, 0.12, 0.88)
+
+; ── StyleBoxFlat : fond bouton mobile normal ────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BtnNormal"]
+bg_color = Color(0.10, 0.10, 0.20, 0.82)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+border_color = Color(0.40, 0.38, 0.65, 0.5)
+border_width_bottom = 2
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 6
+shadow_offset = Vector2(0, 2)
+
+; ── StyleBoxFlat : fond bouton Block (bleu marine) ──────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BtnBlock"]
+bg_color = Color(0.08, 0.18, 0.48, 0.88)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+border_color = Color(0.38, 0.60, 0.95, 0.7)
+border_width_bottom = 2
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+shadow_color = Color(0.15, 0.35, 0.85, 0.35)
+shadow_size = 8
+shadow_offset = Vector2(0, 2)
+
+; ── StyleBoxFlat : fond bouton pressed ──────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BtnPressed"]
+bg_color = Color(0.30, 0.30, 0.55, 0.95)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+border_color = Color(0.75, 0.72, 1.0, 0.8)
+border_width_bottom = 2
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+
+; ════════════════════════════════════════════════════════════════════════════
+;  RACINE
+; ════════════════════════════════════════════════════════════════════════════
+[node name="CanvasLayer" type="CanvasLayer"]
+layer = 5
+
+; ── GameHUD : Control plein écran ───────────────────────────────────────────
 [node name="GameHUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -16,112 +123,337 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_hud")
 
-; ── TopBar : barre haut, HBox sur toute la largeur ─────────────────────────────
-[node name="TopBar" type="HBoxContainer" parent="GameHUD"]
+; ════════════════════════════════════════════════════════════════════════════
+;  TOPBAR — Barre de statut haut (HP / Stamina / Énergie / XP / Score / Timer)
+; ════════════════════════════════════════════════════════════════════════════
+[node name="TopBar" type="PanelContainer" parent="GameHUD"]
 layout_mode = 1
 anchor_right = 1.0
-offset_top = 4.0
-offset_bottom = 44.0
+offset_top = 0.0
+offset_bottom = 56.0
 grow_horizontal = 2
-theme_override_constants/separation = 8
+theme_override_styles/panel = SubResource("SF_TopBarBg")
 
-[node name="HealthBar" type="ProgressBar" parent="GameHUD/TopBar"]
+[node name="TopBarInner" type="HBoxContainer" parent="GameHUD/TopBar"]
 layout_mode = 2
-custom_minimum_size = Vector2(180, 25)
-size_flags_horizontal = 3
-value = 100.0
+theme_override_constants/separation = 6
+offset_left = 8.0
+offset_right = -8.0
 
-[node name="HealthLabel" type="Label" parent="GameHUD/TopBar/HealthBar"]
+; ── HP Section ──────────────────────────────────────────────────────────────
+[node name="HPSection" type="HBoxContainer" parent="GameHUD/TopBar/TopBarInner"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="HPIcon" type="Label" parent="GameHUD/TopBar/TopBarInner/HPSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.25, 0.25, 1)
+theme_override_font_sizes/font_size = 16
+text = "❤"
+vertical_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="GameHUD/TopBar/TopBarInner/HPSection"]
+custom_minimum_size = Vector2(130, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+theme_override_styles/fill = SubResource("SF_HPFill")
+theme_override_styles/background = SubResource("SF_BarBg")
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="GameHUD/TopBar/TopBarInner/HPSection/HealthBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 11
 text = "100 / 100"
 horizontal_alignment = 1
 vertical_alignment = 1
+mouse_filter = 2
 
-[node name="StaminaBar" type="ProgressBar" parent="GameHUD/TopBar"]
+; ── Stamina Section ─────────────────────────────────────────────────────────
+[node name="StamSection" type="HBoxContainer" parent="GameHUD/TopBar/TopBarInner"]
 layout_mode = 2
-custom_minimum_size = Vector2(150, 25)
+size_flags_horizontal = 2
+theme_override_constants/separation = 4
+
+[node name="StamIcon" type="Label" parent="GameHUD/TopBar/TopBarInner/StamSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30, 0.60, 1.0, 1)
+theme_override_font_sizes/font_size = 16
+text = "⚡"
+vertical_alignment = 1
+
+[node name="StaminaBar" type="ProgressBar" parent="GameHUD/TopBar/TopBarInner/StamSection"]
+custom_minimum_size = Vector2(100, 28)
+layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 value = 100.0
+theme_override_styles/fill = SubResource("SF_StamFill")
+theme_override_styles/background = SubResource("SF_BarBg")
+show_percentage = false
 
-[node name="XPBar" type="ProgressBar" parent="GameHUD/TopBar"]
+; ── Énergie Section ─────────────────────────────────────────────────────────
+[node name="EnerSection" type="HBoxContainer" parent="GameHUD/TopBar/TopBarInner"]
 layout_mode = 2
-custom_minimum_size = Vector2(150, 25)
-size_flags_horizontal = 3
+size_flags_horizontal = 2
+theme_override_constants/separation = 4
 
-[node name="LevelLabel" type="Label" parent="GameHUD/TopBar/XPBar"]
+[node name="EnerIcon" type="Label" parent="GameHUD/TopBar/TopBarInner/EnerSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.20, 0.90, 0.72, 1)
+theme_override_font_sizes/font_size = 16
+text = "✦"
+vertical_alignment = 1
+
+[node name="EnergyBar" type="ProgressBar" parent="GameHUD/TopBar/TopBarInner/EnerSection"]
+custom_minimum_size = Vector2(90, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+theme_override_styles/fill = SubResource("SF_EnerFill")
+theme_override_styles/background = SubResource("SF_BarBg")
+show_percentage = false
+
+; ── XP Section ──────────────────────────────────────────────────────────────
+[node name="XPSection" type="HBoxContainer" parent="GameHUD/TopBar/TopBarInner"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/separation = 4
+
+[node name="XPIcon" type="Label" parent="GameHUD/TopBar/TopBarInner/XPSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.68, 0.12, 1)
+theme_override_font_sizes/font_size = 14
+text = "✦XP"
+vertical_alignment = 1
+
+[node name="XPBar" type="ProgressBar" parent="GameHUD/TopBar/TopBarInner/XPSection"]
+custom_minimum_size = Vector2(80, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("SF_XPFill")
+theme_override_styles/background = SubResource("SF_BarBg")
+show_percentage = false
+
+[node name="LevelLabel" type="Label" parent="GameHUD/TopBar/TopBarInner/XPSection/XPBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_override_font_sizes/font_size = 11
 text = "Niv. 1"
 horizontal_alignment = 1
 vertical_alignment = 1
+mouse_filter = 2
 
-[node name="ScoreLabel" type="Label" parent="GameHUD/TopBar"]
+; ── Score + Timer + Pause ───────────────────────────────────────────────────
+[node name="Spacer" type="Control" parent="GameHUD/TopBar/TopBarInner"]
 layout_mode = 2
-custom_minimum_size = Vector2(90, 0)
-size_flags_horizontal = 0
-text = "Score: 0"
-horizontal_alignment = 1
+size_flags_horizontal = 3
+
+[node name="ScoreLabel" type="Label" parent="GameHUD/TopBar/TopBarInner"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 14
+text = "⭐ 0"
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="TimerLabel" type="Label" parent="GameHUD/TopBar"]
+[node name="TimerLabel" type="Label" parent="GameHUD/TopBar/TopBarInner"]
+custom_minimum_size = Vector2(56, 0)
 layout_mode = 2
-custom_minimum_size = Vector2(60, 0)
+theme_override_colors/font_color = Color(0.80, 0.80, 1.0, 0.9)
+theme_override_font_sizes/font_size = 14
 text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PauseButton" type="Button" parent="GameHUD/TopBar"]
+[node name="PauseButton" type="Button" parent="GameHUD/TopBar/TopBarInner"]
+custom_minimum_size = Vector2(44, 40)
 layout_mode = 2
-custom_minimum_size = Vector2(50, 30)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("SF_BtnNormal")
+theme_override_styles/pressed = SubResource("SF_BtnPressed")
 text = "⏸"
 
-; ── SettingsPanel : centré, caché ───────────────────────────────────────────────
+; ════════════════════════════════════════════════════════════════════════════
+;  BOSSBAR — Barre de vie du boss (cachée par défaut, affichée en Boss Hunt)
+; ════════════════════════════════════════════════════════════════════════════
+[node name="BossBar" type="PanelContainer" parent="GameHUD"]
+visible = false
+layout_mode = 1
+anchor_left = 0.15
+anchor_right = 0.85
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 58.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("SF_BossBarBg")
+
+[node name="BossBarInner" type="HBoxContainer" parent="GameHUD/BossBar"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BossNameLabel" type="Label" parent="GameHUD/BossBar/BossBarInner"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.55, 1.0, 1)
+theme_override_font_sizes/font_size = 13
+text = "☠ Boss"
+vertical_alignment = 1
+
+[node name="BossHPBar" type="ProgressBar" parent="GameHUD/BossBar/BossBarInner"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+theme_override_styles/fill = SubResource("SF_BossFill")
+theme_override_styles/background = SubResource("SF_BarBg")
+show_percentage = false
+
+[node name="BossHPLabel" type="Label" parent="GameHUD/BossBar/BossBarInner/BossHPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 11
+text = "100%"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+; ════════════════════════════════════════════════════════════════════════════
+;  BLOCK FEEDBACK — overlay animé par AnimationPlayerBlock
+; ════════════════════════════════════════════════════════════════════════════
+[node name="BlockFeedback" type="Control" parent="GameHUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BlockGlow" type="ColorRect" parent="GameHUD/BlockFeedback"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.15, 0.35, 0.90, 0.18)
+mouse_filter = 2
+
+[node name="BlockIcon" type="Label" parent="GameHUD/BlockFeedback"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0.50, 0.75, 1.0, 0.85)
+theme_override_font_sizes/font_size = 72
+text = "🛡"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+; ════════════════════════════════════════════════════════════════════════════
+;  SETTINGS PANEL — caché, centré
+; ════════════════════════════════════════════════════════════════════════════
 [node name="SettingsPanel" type="PanelContainer" parent="GameHUD"]
+visible = false
 layout_mode = 1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = -150.0
+offset_top = -160.0
 offset_right = 200.0
-offset_bottom = 150.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
-visible = false
 
-; ── MinimapContainer : coin haut-droit ─────────────────────────────────────────
-[node name="MinimapContainer" type="MarginContainer" parent="GameHUD"]
+[node name="SettingsVBox" type="VBoxContainer" parent="GameHUD/SettingsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="SettingsTitle" type="Label" parent="GameHUD/SettingsPanel/SettingsVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Paramètres"
+horizontal_alignment = 1
+
+[node name="SettingsDivider" type="ColorRect" parent="GameHUD/SettingsPanel/SettingsVBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.95, 0.82, 0.35, 0.2)
+
+[node name="SettingsCloseBtn" type="Button" parent="GameHUD/SettingsPanel/SettingsVBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Fermer"
+
+; ════════════════════════════════════════════════════════════════════════════
+;  MINIMAP — coin haut-droit
+; ════════════════════════════════════════════════════════════════════════════
+[node name="MinimapContainer" type="PanelContainer" parent="GameHUD"]
 layout_mode = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -148.0
-offset_top = 52.0
+offset_left = -142.0
+offset_top = 60.0
 offset_right = -8.0
-offset_bottom = 192.0
+offset_bottom = 194.0
 grow_horizontal = 0
-custom_minimum_size = Vector2(128, 128)
 
 [node name="MinimapViewport" type="SubViewport" parent="GameHUD/MinimapContainer"]
 size = Vector2i(128, 128)
 
-; ── MobileControls : croix d'action, coin bas-droit ────────────────────────────
+; ════════════════════════════════════════════════════════════════════════════
+;  ANIMATION PLAYER BLOCK
+;  Joue l'animation "block" sur BlockFeedback quand le joueur bloque.
+;  ► Ajouter l'animation "block" dans l'éditeur Godot
+;    (animer BlockFeedback.visible, BlockGlow.self_modulate, BlockIcon.scale)
+; ════════════════════════════════════════════════════════════════════════════
+[node name="AnimationPlayerBlock" type="AnimationPlayer" parent="GameHUD"]
+root_node = NodePath("../BlockFeedback")
+
+; ════════════════════════════════════════════════════════════════════════════
+;  MOBILE CONTROLS — Diamond layout coin bas-droite
 ;
-;        [ ⬆ Jump  ]
-;  [🦶 Kick]    [👊 Punch]
-;        [ 🏃 Run  ]
+;           [⬆ JUMP]
+;  [🦶 KICK] [🛡 BLOCK] [👊 PUNCH]
+;           [🏃 RUN]
 ;
-; Ancres toutes à (1,1) = coin bas-droit du parent.
-; Les offsets sont des distances négatives depuis ce coin.
+;  Toutes les ancres sur le coin bas-droit (1,1,1,1).
+;  Offsets = distances négatives depuis ce coin.
+;  Taille bouton 80×80px, gap 8px, marge bord 20px.
+;
+;  Grille :
+;   col left:   right=-196, left=-276
+;   col center: right=-108, left=-188
+;   col right:  right=-20,  left=-100
+;   row top:    bottom=-196, top=-276
+;   row mid:    bottom=-108, top=-188
+;   row bot:    bottom=-20,  top=-100
+; ════════════════════════════════════════════════════════════════════════════
 [node name="MobileControls" type="Control" parent="GameHUD"]
 layout_mode = 1
 anchors_preset = 15
@@ -131,58 +463,97 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+; ── JUMP (col center, row top) ───────────────────────────────────────────────
 [node name="JumpButton" type="Button" parent="GameHUD/MobileControls"]
 layout_mode = 1
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -105.0
-offset_top = -215.0
-offset_right = -25.0
-offset_bottom = -135.0
+offset_left = -188.0
+offset_top = -276.0
+offset_right = -108.0
+offset_bottom = -196.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("SF_BtnNormal")
+theme_override_styles/pressed = SubResource("SF_BtnPressed")
 text = "⬆"
+tooltip_text = "Sauter"
 
-[node name="PunchButton" type="Button" parent="GameHUD/MobileControls"]
-layout_mode = 1
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -135.0
-offset_right = 60.0
-offset_bottom = -55.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "👊"
-
+; ── KICK (col left, row mid) ─────────────────────────────────────────────────
 [node name="KickButton" type="Button" parent="GameHUD/MobileControls"]
 layout_mode = 1
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -190.0
-offset_top = -135.0
-offset_right = -110.0
-offset_bottom = -55.0
+offset_left = -276.0
+offset_top = -188.0
+offset_right = -196.0
+offset_bottom = -108.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("SF_BtnNormal")
+theme_override_styles/pressed = SubResource("SF_BtnPressed")
 text = "🦶"
+tooltip_text = "Coup de pied"
 
+; ── BLOCK (col center, row mid) — NOUVEAU ────────────────────────────────────
+[node name="BlockButton" type="Button" parent="GameHUD/MobileControls"]
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -188.0
+offset_top = -188.0
+offset_right = -108.0
+offset_bottom = -108.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("SF_BtnBlock")
+theme_override_styles/pressed = SubResource("SF_BtnPressed")
+text = "🛡"
+tooltip_text = "Bloquer"
+
+; ── PUNCH (col right, row mid) ───────────────────────────────────────────────
+[node name="PunchButton" type="Button" parent="GameHUD/MobileControls"]
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -188.0
+offset_right = -20.0
+offset_bottom = -108.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("SF_BtnNormal")
+theme_override_styles/pressed = SubResource("SF_BtnPressed")
+text = "👊"
+tooltip_text = "Punch"
+
+; ── RUN (col center, row bot) ────────────────────────────────────────────────
 [node name="RunButton" type="Button" parent="GameHUD/MobileControls"]
 layout_mode = 1
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -105.0
-offset_top = -55.0
-offset_right = -25.0
-offset_bottom = 25.0
+offset_left = -188.0
+offset_top = -100.0
+offset_right = -108.0
+offset_bottom = -20.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("SF_BtnNormal")
+theme_override_styles/pressed = SubResource("SF_BtnPressed")
 text = "🏃"
+tooltip_text = "Courir (maintenir)"

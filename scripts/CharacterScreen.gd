@@ -96,8 +96,8 @@ func _get_pts_used() -> int:
 		+ int(spin_vitality.value) + int(spin_shield.value))
 
 func _refresh_pts_label() -> void:
-	var used  := _get_pts_used()
-	var avail := max(SessionManager.total_pts - used, 0)
+	var used  : int = _get_pts_used()
+	var avail : int = maxi(SessionManager.total_pts - used, 0)
 	pts_available.text = "Points disponibles : %d" % avail
 	# Colore en rouge si depassement
 	pts_available.add_theme_color_override(
@@ -157,8 +157,8 @@ func _on_http_completed(result: int, response_code: int, _headers: PackedStringA
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	if response_code == 200 and json != null:
 		var profile : Dictionary = json.get("profile", {})
-		var new_stats := profile.get("stats", _build_stats_dict())
-		var avail     := int(profile.get("available_pts", 0))
+		var new_stats : Dictionary = profile.get("stats", _build_stats_dict())
+		var avail     : int        = int(profile.get("available_pts", 0))
 
 		# Mettre a jour le SessionManager
 		SessionManager.stats         = new_stats

@@ -90,9 +90,9 @@ func _process_signaling() -> void:
 			signaling_connected.emit()
 
 		while _signaling_ws.get_available_packet_count() > 0:
-			var pkt  := _signaling_ws.get_packet()
-			var text := pkt.get_string_from_utf8()
-			var msg  := JSON.parse_string(text)
+			var pkt  : PackedByteArray = _signaling_ws.get_packet()
+			var text : String          = pkt.get_string_from_utf8()
+			var msg  : Variant         = JSON.parse_string(text)
 			if typeof(msg) == TYPE_DICTIONARY:
 				_handle_signaling(msg)
 
@@ -224,7 +224,7 @@ func request_join_br() -> void:
 
 @rpc("any_peer", "unreliable")
 func _receive_player_state(json_str: String) -> void:
-	var msg := JSON.parse_string(json_str)
+	var msg : Variant = JSON.parse_string(json_str)
 	if typeof(msg) == TYPE_DICTIONARY:
 		if String(msg.get("type", "")) == "state":
 			game_state_received.emit(msg)

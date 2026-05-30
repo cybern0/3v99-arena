@@ -155,8 +155,8 @@ func _poll_socket() -> void:
 			_send_join_payload()
 
 	while _ws.get_available_packet_count() > 0:
-		var packet := _ws.get_packet()
-		var text   := packet.get_string_from_utf8()
+		var packet : PackedByteArray = _ws.get_packet()
+		var text   : String          = packet.get_string_from_utf8()
 		if debug_packets:
 			print("[Boss RX] ", text)
 		var parsed = JSON.parse_string(text)
@@ -187,15 +187,14 @@ func _send_join_payload() -> void:
 
 	# Calcul des features ML depuis les stats Supabase
 	var stats      : Dictionary = _session_data.get("stats", {})
-	var total_stat := max(
+	var total_stat : int = maxi(
 		int(stats.get("agility",0)) + int(stats.get("strength",0)) +
 		int(stats.get("vitality",0)) + int(stats.get("shield",0)),
 		1
 	)
-	var hist_style := float(stats.get("agility", 0)) / float(total_stat)
-	var base_def   := float(stats.get("shield", 0) + stats.get("vitality", 0))
-	# Vitalite → HP max (base 100, +1 par point)
-	var hp_max     := 100.0 + float(stats.get("vitality", 0))
+	var hist_style : float = float(stats.get("agility", 0)) / float(total_stat)
+	var base_def   : float = float(int(stats.get("shield", 0)) + int(stats.get("vitality", 0)))
+	var hp_max     : float = 100.0 + float(int(stats.get("vitality", 0)))
 
 	var payload := {
 		"type":             "join",
@@ -236,7 +235,7 @@ func send_special() -> void: send_player_input(3, false)
 #  Reception messages serveur
 # ─────────────────────────────────────────────
 func _handle_message(msg: Dictionary) -> void:
-	var msg_type := String(msg.get("type", ""))
+	var msg_type : String = String(msg.get("type", ""))
 	match msg_type:
 		"joined":           _on_joined(msg)
 		"join_failed":      _on_join_failed(msg)
@@ -268,7 +267,7 @@ func _on_world_started(msg: Dictionary) -> void:
 	world_started.emit(int(msg.get("world_id", -1)))
 
 func _on_world_ended(msg: Dictionary) -> void:
-	var reason := String(msg.get("reason", "ended"))
+	var reason : String = String(msg.get("reason", "ended"))
 	match reason:
 		"boss_defeated": _encounter_state = EncounterState.ENDED_WIN
 		"all_dead":      _encounter_state = EncounterState.ENDED_LOSE
@@ -286,8 +285,8 @@ func _on_world_state(msg: Dictionary) -> void:
 	world_state_updated.emit(_last_world_state)
 
 func _on_boss_state_update(msg: Dictionary) -> void:
-	var action    := int(msg.get("state", BossAction.IDLE))
-	var intensity := 1.0
+	var action    : int   = int(msg.get("state", BossAction.IDLE))
+	var intensity : float = 1.0
 	if msg.has("values") and typeof(msg["values"]) == TYPE_ARRAY:
 		var values: Array = msg["values"]
 		if not values.is_empty():
@@ -302,10 +301,10 @@ func _apply_boss_snapshot(boss_data: Dictionary) -> void:
 	var pos = boss_data.get("pos", [0, 0, 0])
 	if typeof(pos) == TYPE_ARRAY and pos.size() >= 3:
 		_boss_target_position = Vector3(float(pos[0]), float(pos[1]), float(pos[2]))
-	var action    := int(boss_data.get("action", BossAction.IDLE))
-	var hp        := float(boss_data.get("hp",     1.0))
-	var energy    := float(boss_data.get("energy", 1.0))
-	var intensity := clampf((hp + energy) * 0.5, 0.0, 1.0)
+	var action    : int   = int(boss_data.get("action", BossAction.IDLE))
+	var hp        : float = float(boss_data.get("hp",     1.0))
+	var energy    : float = float(boss_data.get("energy", 1.0))
+	var intensity : float = clampf((hp + energy) * 0.5, 0.0, 1.0)
 	_set_boss_action(action, intensity)
 
 func _set_boss_action(action: int, intensity: float) -> void:

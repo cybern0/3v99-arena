@@ -48,6 +48,9 @@ func _ready() -> void:
 # ─────────────────────────────────────────────
 func _setup_navigation() -> void:
 	# Menu principal
+	$MainMenuScreen/VBoxContainer/BtnAvatar.pressed.connect(func():
+		get_tree().change_scene_to_file("res://scenes/CharacterScreen.tscn")
+	)
 	$MainMenuScreen/VBoxContainer/BtnModeBR.pressed.connect(func():
 		main_menu.visible = false
 		br_scr.visible    = true
@@ -101,8 +104,8 @@ func _poll_boss_ws() -> void:
 			_set_bh_status("Serveur boss connecte.", Color.GREEN)
 
 		while _boss_ws.get_available_packet_count() > 0:
-			var pkt     := _boss_ws.get_packet()
-			var json_str := pkt.get_string_from_utf8()
+			var pkt      : PackedByteArray = _boss_ws.get_packet()
+			var json_str : String          = pkt.get_string_from_utf8()
 			_handle_boss_message(json_str)
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -181,7 +184,7 @@ func _handle_boss_message(json_str: String) -> void:
 	# FIX: typeof() au lieu de get_type() qui n'existe pas sur Dictionary en GDScript
 	if typeof(parsed) == TYPE_DICTIONARY:
 		var msg := parsed as Dictionary
-		var msg_type := String(msg.get("type", ""))
+		var msg_type : String = String(msg.get("type", ""))
 		match msg_type:
 			"worlds_status":
 				_update_boss_worlds_ui(msg.get("worlds", {}))
@@ -268,8 +271,8 @@ func _send_join_boss(world_id: int) -> void:
 func _on_boss_joined(msg: Dictionary) -> void:
 	var world_id : int = int(msg.get("world_id", 0))
 	# Transition vers la scene du monde boss correspondant (w_1 / w_2 / w_3)
-	var scenes := ["res://scenes/w_1.tscn", "res://scenes/w_2.tscn", "res://scenes/w_3.tscn"]
-	var scene  := scenes[world_id] if world_id < scenes.size() else scenes[0]
+	var scenes : Array[String] = ["res://scenes/w_1.tscn", "res://scenes/w_2.tscn", "res://scenes/w_3.tscn"]
+	var scene  : String        = scenes[world_id] if world_id < scenes.size() else scenes[0]
 	# Stocker world_id dans SessionManager pour que Boss.gd puisse le lire
 	SessionManager.solo_config["world_id"] = world_id
 	SessionManager.solo_config["slot"]     = int(msg.get("slot", 0))

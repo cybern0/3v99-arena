@@ -4,7 +4,218 @@
 [ext_resource type="Texture2D" uid="uid://c5mcidumxbmql" path="res://assets/P1/P1Pose.jpg" id="2_p1pose"]
 [ext_resource type="Texture2D" uid="uid://bgq7qf2xbybtn" path="res://assets/P2/P2Pose.jpg" id="3_p2pose"]
 
-[node name="MainUI" type="Control" unique_id=351244371]
+; ════════════════════════════════════════════════════════════════════════════
+;  STYLES PARTAGÉS
+; ════════════════════════════════════════════════════════════════════════════
+
+; ── Fond panneau sombre ──────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_Panel"]
+bg_color = Color(0.07, 0.06, 0.15, 0.96)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+border_color = Color(0.30, 0.26, 0.58, 0.40)
+border_width_bottom = 1
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 18
+shadow_offset = Vector2(0, 6)
+
+; ── Fond panneau BR (accent bleu) ───────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_PanelBR"]
+bg_color = Color(0.06, 0.08, 0.20, 0.97)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+border_color = Color(0.25, 0.42, 0.80, 0.42)
+border_width_bottom = 1
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 20
+
+; ── Fond panneau Boss (accent violet) ───────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_PanelBoss"]
+bg_color = Color(0.08, 0.04, 0.16, 0.97)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+border_color = Color(0.50, 0.22, 0.75, 0.42)
+border_width_bottom = 1
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 20
+
+; ── Bouton primaire (or) ─────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BtnGold"]
+bg_color = Color(0.18, 0.14, 0.04, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_color = Color(0.95, 0.82, 0.35, 0.55)
+border_width_bottom = 2
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+shadow_color = Color(0.95, 0.82, 0.35, 0.20)
+shadow_size = 10
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="SF_BtnGoldHover"]
+bg_color = Color(0.26, 0.20, 0.06, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_color = Color(0.95, 0.82, 0.35, 0.80)
+border_width_bottom = 2
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+shadow_color = Color(0.95, 0.82, 0.35, 0.30)
+shadow_size = 14
+
+[sub_resource type="StyleBoxFlat" id="SF_BtnGoldPress"]
+bg_color = Color(0.38, 0.30, 0.08, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+; ── Bouton BR (bleu) ─────────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BtnBR"]
+bg_color = Color(0.07, 0.13, 0.35, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_color = Color(0.30, 0.58, 1.0, 0.50)
+border_width_bottom = 2
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+shadow_color = Color(0.15, 0.35, 0.85, 0.20)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="SF_BtnBRHover"]
+bg_color = Color(0.12, 0.20, 0.50, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_color = Color(0.45, 0.70, 1.0, 0.75)
+border_width_bottom = 2
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+
+; ── Bouton Boss (violet) ──────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BtnBoss"]
+bg_color = Color(0.14, 0.06, 0.30, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_color = Color(0.65, 0.30, 0.95, 0.50)
+border_width_bottom = 2
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+shadow_color = Color(0.40, 0.10, 0.75, 0.20)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="SF_BtnBossHover"]
+bg_color = Color(0.22, 0.10, 0.45, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_color = Color(0.80, 0.45, 1.0, 0.75)
+border_width_bottom = 2
+border_width_left = 2
+border_width_right = 2
+border_width_top = 2
+
+; ── Bouton retour (neutre) ────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BtnBack"]
+bg_color = Color(0.10, 0.09, 0.20, 0.88)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+border_color = Color(0.40, 0.38, 0.65, 0.45)
+border_width_bottom = 1
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+
+[sub_resource type="StyleBoxFlat" id="SF_BtnBackHover"]
+bg_color = Color(0.16, 0.14, 0.32, 0.95)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+border_color = Color(0.60, 0.58, 0.90, 0.65)
+border_width_bottom = 1
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+
+; ── Bouton quitter (rouge discret) ────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_BtnQuit"]
+bg_color = Color(0.18, 0.05, 0.05, 0.88)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_color = Color(0.75, 0.22, 0.22, 0.45)
+border_width_bottom = 1
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+
+[sub_resource type="StyleBoxFlat" id="SF_BtnQuitHover"]
+bg_color = Color(0.28, 0.08, 0.08, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_color = Color(0.90, 0.30, 0.30, 0.65)
+border_width_bottom = 1
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+
+; ── ItemList ─────────────────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_List"]
+bg_color = Color(0.05, 0.04, 0.12, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_color = Color(0.28, 0.24, 0.52, 0.35)
+border_width_bottom = 1
+border_width_left = 1
+border_width_right = 1
+border_width_top = 1
+
+; ── Fond TopBar global ────────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_TopBar"]
+bg_color = Color(0.04, 0.03, 0.10, 0.90)
+
+; ════════════════════════════════════════════════════════════════════════════
+;  RACINE
+; ════════════════════════════════════════════════════════════════════════════
+[node name="MainUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,432 +224,484 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_74o4q")
 
-[node name="Background" type="ColorRect" parent="." unique_id=1827208964]
+; ── Fond principal ───────────────────────────────────────────────────────────
+[node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.117647, 0.117647, 0.180392, 1)
+color = Color(0.04, 0.03, 0.10, 1)
 
-[node name="TitleLabel" type="Label" parent="." unique_id=1361670323]
+; ── Halos décoratifs ─────────────────────────────────────────────────────────
+[node name="BgGlowLeft" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 500.0
+offset_bottom = 680.0
+color = Color(0.12, 0.05, 0.35, 0.10)
+mouse_filter = 2
+
+[node name="BgGlowRight" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 780.0
+offset_right = 1480.0
+offset_top = -20.0
+offset_bottom = 600.0
+color = Color(0.05, 0.10, 0.30, 0.09)
+mouse_filter = 2
+
+; ── Lignes déco coin TL ──────────────────────────────────────────────────────
+[node name="CornerTL" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 2.0
+color = Color(0.95, 0.82, 0.35, 0.30)
+mouse_filter = 2
+
+[node name="CornerTL2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 2.0
+offset_bottom = 60.0
+color = Color(0.95, 0.82, 0.35, 0.30)
+mouse_filter = 2
+
+; ── Barre de titre globale ────────────────────────────────────────────────────
+[node name="GlobalTopBar" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 10
 anchor_right = 1.0
-offset_top = 18.0
-offset_bottom = 72.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 42
-text = "4v99 Arena"
-horizontal_alignment = 1
+offset_bottom = 68.0
+theme_override_styles/panel = SubResource("SF_TopBar")
+
+[node name="TopBarContent" type="HBoxContainer" parent="GlobalTopBar"]
+layout_mode = 2
+theme_override_constants/separation = 12
+offset_left = 20.0
+offset_right = -20.0
+
+[node name="TitleLabel" type="Label" parent="GlobalTopBar/TopBarContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 32
+text = "⚔  4v99 Arena"
 vertical_alignment = 1
 
-[node name="MainMenuScreen" type="Control" parent="." unique_id=1578899076]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuScreen" unique_id=847182523]
-layout_mode = 0
-offset_top = 140.0
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="BtnAvatar" type="Button" parent="MainMenuScreen/VBoxContainer" unique_id=382936154]
-custom_minimum_size = Vector2(300, 60)
+[node name="TopBarSpacer" type="Control" parent="GlobalTopBar/TopBarContent"]
 layout_mode = 2
-text = "Personnaliser Avatar"
+size_flags_horizontal = 3
 
-[node name="BtnModeBR" type="Button" parent="MainMenuScreen/VBoxContainer" unique_id=1013905175]
-custom_minimum_size = Vector2(300, 60)
+[node name="PlayerInfoLabel" type="Label" parent="GlobalTopBar/TopBarContent"]
 layout_mode = 2
-text = "Mode Battle Royale (4v99)"
-
-[node name="BtnModeBoss" type="Button" parent="MainMenuScreen/VBoxContainer" unique_id=1014506440]
-custom_minimum_size = Vector2(300, 60)
-layout_mode = 2
-text = "Mode Boss Hunt (PVE)"
-
-[node name="BtnQuit" type="Button" parent="MainMenuScreen/VBoxContainer" unique_id=1544702542]
-custom_minimum_size = Vector2(300, 50)
-layout_mode = 2
-text = "Quitter"
-
-[node name="AvatarScreen" type="Control" parent="." unique_id=960106111]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="AvatarTitle" type="Label" parent="AvatarScreen" unique_id=456156700]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 20.0
-offset_bottom = 70.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 30
-text = "Choix de l'avatar et répartition des points"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.65, 0.60, 0.90, 0.75)
+theme_override_font_sizes/font_size = 14
+text = ""
 vertical_alignment = 1
 
-[node name="BtnBackFromAvatar" type="Button" parent="AvatarScreen" unique_id=199100448]
-custom_minimum_size = Vector2(180, 44)
-layout_mode = 0
-offset_left = 24.0
-offset_top = 24.0
-text = "Retour"
-
-[node name="AvatarContent" type="HBoxContainer" parent="AvatarScreen" unique_id=1207385659]
+; ════════════════════════════════════════════════════════════════════════════
+;  MENU PRINCIPAL
+; ════════════════════════════════════════════════════════════════════════════
+[node name="MainMenuScreen" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuCard" type="PanelContainer" parent="MainMenuScreen"]
+layout_mode = 1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -540.0
-offset_top = -220.0
-offset_right = 540.0
-offset_bottom = 220.0
+offset_left = -200.0
+offset_top = -230.0
+offset_right = 200.0
+offset_bottom = 230.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 24
+theme_override_styles/panel = SubResource("SF_Panel")
 
-[node name="AvatarChoiceVBox" type="VBoxContainer" parent="AvatarScreen/AvatarContent" unique_id=1352892646]
+[node name="MenuMargin" type="MarginContainer" parent="MainMenuScreen/MenuCard"]
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuScreen/MenuCard/MenuMargin"]
+layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="AvatarPreview" type="TextureRect" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox" unique_id=864825122]
-custom_minimum_size = Vector2(360, 240)
+[node name="MenuTitle" type="Label" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.70, 0.95, 0.80)
+theme_override_font_sizes/font_size = 12
+text = "CHOISIR UN MODE"
+horizontal_alignment = 1
+
+[node name="MenuDivider" type="ColorRect" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.95, 0.82, 0.35, 0.16)
+
+; ── Bouton : Personnaliser Avatar → CharacterScreen.tscn ─────────────────────
+[node name="BtnAvatar" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+custom_minimum_size = Vector2(340, 62)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("SF_BtnGold")
+theme_override_styles/hover = SubResource("SF_BtnGoldHover")
+theme_override_styles/pressed = SubResource("SF_BtnGoldPress")
+text = "🧑  Personnaliser Avatar & Stats"
+
+; ── Bouton : Battle Royal ─────────────────────────────────────────────────────
+[node name="BtnModeBR" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+custom_minimum_size = Vector2(340, 62)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.90, 1.0, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("SF_BtnBR")
+theme_override_styles/hover = SubResource("SF_BtnBRHover")
+theme_override_styles/pressed = SubResource("SF_BtnBR")
+text = "⚡  Battle Royale (4v99)"
+
+; ── Bouton : Boss Hunt ────────────────────────────────────────────────────────
+[node name="BtnModeBoss" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+custom_minimum_size = Vector2(340, 62)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.65, 1.0, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("SF_BtnBoss")
+theme_override_styles/hover = SubResource("SF_BtnBossHover")
+theme_override_styles/pressed = SubResource("SF_BtnBoss")
+text = "☠  Boss Hunt (PVE)"
+
+[node name="MenuSpacer" type="Control" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+; ── Bouton : Quitter ──────────────────────────────────────────────────────────
+[node name="BtnQuit" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+custom_minimum_size = Vector2(340, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.90, 0.55, 0.55, 0.90)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("SF_BtnQuit")
+theme_override_styles/hover = SubResource("SF_BtnQuitHover")
+theme_override_styles/pressed = SubResource("SF_BtnQuit")
+text = "Quitter"
+
+; ── Aperçu avatars en bas du menu ────────────────────────────────────────────
+[node name="AvatarPreviewRow" type="HBoxContainer" parent="MainMenuScreen"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -260.0
+offset_top = -140.0
+offset_right = 260.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
+mouse_filter = 2
+
+[node name="AvatarP1Preview" type="TextureRect" parent="MainMenuScreen/AvatarPreviewRow"]
+custom_minimum_size = Vector2(120, 130)
+layout_mode = 2
 texture = ExtResource("2_p1pose")
 expand_mode = 1
 stretch_mode = 5
+self_modulate = Color(1, 1, 1, 0.40)
+mouse_filter = 2
 
-[node name="SelectedAvatarLabel" type="Label" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox" unique_id=2118861720]
+[node name="AvatarP2Preview" type="TextureRect" parent="MainMenuScreen/AvatarPreviewRow"]
+custom_minimum_size = Vector2(120, 130)
 layout_mode = 2
-text = "Modèle sélectionné : P1"
-horizontal_alignment = 1
-
-[node name="AvatarButtonsHBox" type="HBoxContainer" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox" unique_id=1052228002]
-layout_mode = 2
-theme_override_constants/separation = 14
-alignment = 1
-
-[node name="BtnAvatarP1" type="TextureButton" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox/AvatarButtonsHBox" unique_id=872003220]
-custom_minimum_size = Vector2(220, 220)
-layout_mode = 2
-texture_normal = ExtResource("2_p1pose")
-ignore_texture_size = true
+texture = ExtResource("3_p2pose")
+expand_mode = 1
 stretch_mode = 5
+self_modulate = Color(1, 1, 1, 0.40)
+mouse_filter = 2
 
-[node name="BtnAvatarP2" type="TextureButton" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox/AvatarButtonsHBox" unique_id=1196537917]
-custom_minimum_size = Vector2(220, 220)
-layout_mode = 2
-texture_normal = ExtResource("3_p2pose")
-ignore_texture_size = true
-stretch_mode = 5
+; ════════════════════════════════════════════════════════════════════════════
+;  ÉCRAN BATTLE ROYAL (w_by)
+; ════════════════════════════════════════════════════════════════════════════
+[node name="BattleRoyaleScreen" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="AvatarHint" type="Label" parent="AvatarScreen/AvatarContent/AvatarChoiceVBox" unique_id=1750170721]
-layout_mode = 2
-text = "Cliquez sur une pose pour choisir votre avatar."
+; ── Titre ────────────────────────────────────────────────────────────────────
+[node name="TitleBR" type="Label" parent="BattleRoyaleScreen"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 76.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.55, 0.78, 1.0, 1)
+theme_override_font_sizes/font_size = 30
+text = "⚡  Salons Battle Royale"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 2
 
-[node name="PointsPanel" type="PanelContainer" parent="AvatarScreen/AvatarContent" unique_id=504254532]
-custom_minimum_size = Vector2(420, 0)
+[node name="TitleBRSub" type="Label" parent="BattleRoyaleScreen"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 122.0
+offset_bottom = 146.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.45, 0.60, 0.90, 0.60)
+theme_override_font_sizes/font_size = 13
+text = "2 à 16 joueurs — Signaling WebRTC"
+horizontal_alignment = 1
+
+; ── Panneau centré contenant liste + boutons ──────────────────────────────────
+[node name="BRPanel" type="PanelContainer" parent="BattleRoyaleScreen"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -160.0
+offset_right = 340.0
+offset_bottom = 195.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("SF_PanelBR")
+
+[node name="BRMargin" type="MarginContainer" parent="BattleRoyaleScreen/BRPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 18
+
+[node name="BRContent" type="VBoxContainer" parent="BattleRoyaleScreen/BRPanel/BRMargin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="BRRoomsList" type="ItemList" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent"]
+custom_minimum_size = Vector2(630, 220)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("SF_List")
+theme_override_font_sizes/font_size = 15
+
+; ── Ligne status ──────────────────────────────────────────────────────────────
+[node name="BRStatusLabel" type="Label" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.60, 0.70, 1.0, 0.80)
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
+text = ""
+
+; ── Boutons Créer / Rejoindre ─────────────────────────────────────────────────
+[node name="ButtonsHBox" type="HBoxContainer" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BtnCreateBR" type="Button" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent/ButtonsHBox"]
+custom_minimum_size = Vector2(220, 54)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.90, 1.0, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("SF_BtnBR")
+theme_override_styles/hover = SubResource("SF_BtnBRHover")
+theme_override_styles/pressed = SubResource("SF_BtnBR")
+text = "+ Créer un Salon"
+
+[node name="BtnJoinBR" type="Button" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent/ButtonsHBox"]
+custom_minimum_size = Vector2(220, 54)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.90, 1.0, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("SF_BtnBR")
+theme_override_styles/hover = SubResource("SF_BtnBRHover")
+theme_override_styles/pressed = SubResource("SF_BtnBR")
+text = "→ Rejoindre Sélection"
+
+; ── Bouton retour ─────────────────────────────────────────────────────────────
+[node name="BtnBackFromBR" type="Button" parent="BattleRoyaleScreen"]
+custom_minimum_size = Vector2(160, 46)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 82.0
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("SF_BtnBack")
+theme_override_styles/hover = SubResource("SF_BtnBackHover")
+theme_override_styles/pressed = SubResource("SF_BtnBack")
+text = "← Retour"
+
+; ════════════════════════════════════════════════════════════════════════════
+;  ÉCRAN BOSS HUNT (w_1 / w_2 / w_3)
+; ════════════════════════════════════════════════════════════════════════════
+[node name="BossHuntScreen" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+; ── Titre ────────────────────────────────────────────────────────────────────
+[node name="TitleBoss" type="Label" parent="BossHuntScreen"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 76.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.85, 0.55, 1.0, 1)
+theme_override_font_sizes/font_size = 30
+text = "☠  Mondes des Boss"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleBossSub" type="Label" parent="BossHuntScreen"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 122.0
+offset_bottom = 146.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.60, 0.35, 0.80, 0.60)
+theme_override_font_sizes/font_size = 13
+text = "3 boss — 3 mondes uniques — Autorité serveur C++"
+horizontal_alignment = 1
+
+; ── Panneau centré contenant la liste + info boss ─────────────────────────────
+[node name="BHPanel" type="PanelContainer" parent="BossHuntScreen"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -170.0
+offset_right = 420.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("SF_PanelBoss")
+
+[node name="BHMargin" type="MarginContainer" parent="BossHuntScreen/BHPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 18
+
+[node name="BHContent" type="HBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+; ── Colonne gauche : liste des mondes ────────────────────────────────────────
+[node name="BHLeft" type="VBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 14
 
-[node name="PointsVBox" type="VBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel" unique_id=1836197477]
+[node name="BHListTitle" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.55, 1.0, 0.75)
+theme_override_font_sizes/font_size = 12
+text = "MONDES DISPONIBLES"
+
+[node name="BHRoomsList" type="ItemList" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft"]
+custom_minimum_size = Vector2(460, 230)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("SF_List")
+theme_override_font_sizes/font_size = 15
+
+[node name="BHStatusLabel" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.70, 0.50, 1.0, 0.75)
+theme_override_font_sizes/font_size = 13
+text = ""
+
+[node name="BtnJoinBossWorld" type="Button" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.65, 1.0, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("SF_BtnBoss")
+theme_override_styles/hover = SubResource("SF_BtnBossHover")
+theme_override_styles/pressed = SubResource("SF_BtnBoss")
+text = "→ Rejoindre ce Monde"
+
+; ── Colonne droite : infos du boss ────────────────────────────────────────────
+[node name="BHRight" type="VBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="BossInfoPanel" type="PanelContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight"]
+custom_minimum_size = Vector2(260, 290)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("SF_Panel")
+
+[node name="BossInfoMargin" type="MarginContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 14
+
+[node name="BossInfoVBox" type="VBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="PointsTitle" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=453022989]
+[node name="BossInfoTitle" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox"]
 layout_mode = 2
-text = "Répartition des points"
+theme_override_colors/font_color = Color(0.85, 0.55, 1.0, 1)
+theme_override_font_sizes/font_size = 18
+text = "☠ Infos du Boss"
 horizontal_alignment = 1
 
-[node name="TotalPointsLabel" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=1162531476]
+[node name="BossInfoDivider" type="ColorRect" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox"]
+custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
-text = "Points totaux : 50"
-horizontal_alignment = 1
+color = Color(0.65, 0.22, 0.90, 0.20)
 
-[node name="StatAgility" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=1379304039]
+[node name="BossInfoDescription" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox"]
 layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="LblAgility" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility" unique_id=364974745]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Agilité"
-
-[node name="BtnAgilityMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility" unique_id=859553947]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-text = "-"
-
-[node name="ValAgility" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility" unique_id=412685984]
-custom_minimum_size = Vector2(50, 40)
-layout_mode = 2
-text = "10"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BtnAgilityPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatAgility" unique_id=921809273]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-text = "+"
-
-[node name="StatStrength" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=101667013]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="LblStrength" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength" unique_id=1222655304]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Force"
-
-[node name="BtnStrengthMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength" unique_id=1470068205]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-text = "-"
-
-[node name="ValStrength" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength" unique_id=1358444493]
-custom_minimum_size = Vector2(50, 40)
-layout_mode = 2
-text = "20"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BtnStrengthPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatStrength" unique_id=1363104124]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-text = "+"
-
-[node name="StatVitality" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=1403160527]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="LblVitality" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality" unique_id=789831179]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Vitalité"
-
-[node name="BtnVitalityMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality" unique_id=172316690]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-text = "-"
-
-[node name="ValVitality" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality" unique_id=252922465]
-custom_minimum_size = Vector2(50, 40)
-layout_mode = 2
-text = "15"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BtnVitalityPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatVitality" unique_id=1083148575]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-text = "+"
-
-[node name="StatShield" type="HBoxContainer" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=125453705]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="LblShield" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield" unique_id=621471097]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Bouclier"
-
-[node name="BtnShieldMinus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield" unique_id=1092250278]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-text = "-"
-
-[node name="ValShield" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield" unique_id=162475148]
-custom_minimum_size = Vector2(50, 40)
-layout_mode = 2
-text = "5"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BtnShieldPlus" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox/StatShield" unique_id=1285015637]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-text = "+"
-
-[node name="PointsLeftLabel" type="Label" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=169349567]
-layout_mode = 2
-text = "Points restants : 0"
-horizontal_alignment = 1
-
-[node name="BtnSaveAvatar" type="Button" parent="AvatarScreen/AvatarContent/PointsPanel/PointsVBox" unique_id=372181436]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-text = "Enregistrer l'avatar"
-
-[node name="BattleRoyaleScreen" type="Control" parent="." unique_id=1323972844]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TitleBR" type="Label" parent="BattleRoyaleScreen" unique_id=275731758]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 20.0
-offset_bottom = 70.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 30
-text = "Salons Battle Royale"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BRContent" type="VBoxContainer" parent="BattleRoyaleScreen" unique_id=985736968]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -170.0
-offset_right = 300.0
-offset_bottom = 170.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 16
-
-[node name="BRRoomsList" type="ItemList" parent="BattleRoyaleScreen/BRContent" unique_id=2090093875]
-custom_minimum_size = Vector2(600, 250)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ButtonsHBox" type="HBoxContainer" parent="BattleRoyaleScreen/BRContent" unique_id=374974493]
-layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="BtnCreateBR" type="Button" parent="BattleRoyaleScreen/BRContent/ButtonsHBox" unique_id=669778733]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-text = "Créer Salon"
-
-[node name="BtnJoinBR" type="Button" parent="BattleRoyaleScreen/BRContent/ButtonsHBox" unique_id=587206940]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-text = "Joindre Sélection"
-
-[node name="BtnBackFromBR" type="Button" parent="BattleRoyaleScreen" unique_id=51384800]
-custom_minimum_size = Vector2(180, 44)
-layout_mode = 0
-offset_left = 24.0
-offset_top = 24.0
-text = "Retour au menu"
-
-[node name="BossHuntScreen" type="Control" parent="." unique_id=1879545767]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TitleBoss" type="Label" parent="BossHuntScreen" unique_id=156402753]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 20.0
-offset_bottom = 70.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 30
-text = "Mondes de Boss"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BHContent" type="HBoxContainer" parent="BossHuntScreen" unique_id=782987794]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -170.0
-offset_right = 400.0
-offset_bottom = 170.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 30
-
-[node name="BHLeft" type="VBoxContainer" parent="BossHuntScreen/BHContent" unique_id=1455582706]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 16
-
-[node name="BHRoomsList" type="ItemList" parent="BossHuntScreen/BHContent/BHLeft" unique_id=2130496037]
-custom_minimum_size = Vector2(470, 250)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="BtnJoinBossWorld" type="Button" parent="BossHuntScreen/BHContent/BHLeft" unique_id=798851632]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-text = "Rejoindre le Monde"
-
-[node name="BHRight" type="VBoxContainer" parent="BossHuntScreen/BHContent" unique_id=1534370308]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 16
-
-[node name="BossInfoPanel" type="Panel" parent="BossHuntScreen/BHContent/BHRight" unique_id=1342291517]
-custom_minimum_size = Vector2(280, 350)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="BossInfoVBox" type="VBoxContainer" parent="BossHuntScreen/BHContent/BHRight/BossInfoPanel" unique_id=1171890171]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-
-[node name="BossInfoTitle" type="Label" parent="BossHuntScreen/BHContent/BHRight/BossInfoPanel/BossInfoVBox" unique_id=530359053]
-layout_mode = 2
-text = "Infos du boss"
-horizontal_alignment = 1
-
-[node name="BossInfoDescription" type="Label" parent="BossHuntScreen/BHContent/BHRight/BossInfoPanel/BossInfoVBox" unique_id=1979523696]
-layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.68, 0.90, 0.80)
+theme_override_font_sizes/font_size = 14
 text = "Sélectionnez un monde pour afficher les détails du boss."
 autowrap_mode = 2
 
-[node name="BtnBackFromBoss" type="Button" parent="BossHuntScreen" unique_id=717512702]
-custom_minimum_size = Vector2(180, 44)
+[node name="BossW1Label" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.50, 0.80, 0.60)
+theme_override_font_sizes/font_size = 12
+text = "arena_w1 / arena_w2 / arena_w3 : —"
+
+; ── Bouton retour ─────────────────────────────────────────────────────────────
+[node name="BtnBackFromBoss" type="Button" parent="BossHuntScreen"]
+custom_minimum_size = Vector2(160, 46)
 layout_mode = 0
-offset_left = 24.0
-offset_top = 24.0
-text = "Retour au menu"
+offset_left = 20.0
+offset_top = 82.0
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("SF_BtnBack")
+theme_override_styles/hover = SubResource("SF_BtnBackHover")
+theme_override_styles/pressed = SubResource("SF_BtnBack")
+text = "← Retour"

@@ -77,7 +77,8 @@ func _spawn_selected_avatar() -> void:
 	var sm         := get_node_or_null("/root/SessionManager")
 	var model_name := "Model 1"
 	if sm and sm.has_method("get"):
-		model_name = String(sm.get("selected_model", "Model 1"))
+		var _sel = sm.get("selected_model")
+		model_name = String(_sel) if _sel != null else "Model 1"
 
 	var scene: PackedScene = p1_scene
 	if model_name == "Model 2" and p2_scene:
@@ -126,8 +127,9 @@ func _configure_multiplayer_spawners() -> void:
 func _setup_cameras() -> void:
 	var sm := get_node_or_null("/root/SessionManager")
 	if sm and sm.has_method("get"):
-		var solo_config = sm.get("solo_config", {})
-		if typeof(solo_config) == TYPE_DICTIONARY and solo_config.has("camera"):
+		var _sc = sm.get("solo_config")
+		var solo_config: Dictionary = _sc if typeof(_sc) == TYPE_DICTIONARY else {}
+		if solo_config.has("camera"):
 			use_fps = String(solo_config["camera"]) == "FPS"
 
 	if use_fps and camera_fps:
