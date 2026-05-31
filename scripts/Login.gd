@@ -6,7 +6,7 @@ signal login_success(user_data: Dictionary)
 const SAVE_PATH  := "user://session.cfg"
 const CHECK_URL  := "https://www.google.com"
 const AUTO_DELAY := 1.8
-const API_URL    := "https://TON_ESPACE.hf.space"  # <— remplace par ton URL FastAPI/Render
+const API_URL    := "https://tomefy-py-server.hf.space"  # <— remplace par ton URL FastAPI/Render
 
 # ── Noeuds UI ──────────────────────────────────────────────────────────────────
 @onready var status_dot      : ColorRect     = $StatusBar/StatusDot

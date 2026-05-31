@@ -22,7 +22,7 @@ signal disconnected
 # ─────────────────────────────────────────────
 #  Enums (alignes avec server_types.h)
 # ─────────────────────────────────────────────
-const DEFAULT_SERVER_URL := "ws://127.0.0.1:9099"
+const DEFAULT_SERVER_URL := "wss://tomefy-agentic-prescriptive.hf.space"
 
 enum ConnectionState {
 	DISCONNECTED, CONNECTING, CONNECTED, CLOSING, ERROR,

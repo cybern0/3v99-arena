@@ -7,7 +7,7 @@ extends Node
 #  Configuration
 # ─────────────────────────────────────────────
 ## URL FastAPI — meme valeur que Login.gd / MainUI.gd
-const FASTAPI_BASE := "https://TON_ESPACE.hf.space"
+const FASTAPI_BASE := "https://tomefy-py-server.hf.space"
 
 ## Serveurs STUN/TURN pour le NAT traversal mobile
 const WEBRTC_ICE_SERVERS := [
@@ -62,7 +62,7 @@ func _process(_delta: float) -> void:
 func connect_to_matchmaking(room_id: String) -> void:
 	_room_id = room_id
 	
-	# Générer un ID local temporaire (ou mieux, l'obtenir du serveur)
+	# Générer un ID local temporaire
 	_my_network_id = randi_range(2, 2147483647) 
 	
 	# Créer le Mesh IMMÉDIATEMENT
@@ -71,7 +71,13 @@ func connect_to_matchmaking(room_id: String) -> void:
 		get_tree().get_multiplayer().multiplayer_peer = _webrtc_peer
 	
 	var base_ws := FASTAPI_BASE.replace("https://", "wss://").replace("http://", "ws://")
-	var url     := base_ws + "/ws/signaling/" + room_id + "/" + str(_my_network_id)
+	
+	# Récupérer le token d'authentification
+	var token := SessionManager.get_token()
+	
+	# Construire l'URL avec le peer_id dans le path ET l'api_key en paramètre de requête
+	var url := base_ws + "/ws/signaling/" + room_id + "/" + str(_my_network_id) + "?api_key=" + token
+	
 	_signaling_ws.connect_to_url(url)
 
 func disconnect_matchmaking() -> void:

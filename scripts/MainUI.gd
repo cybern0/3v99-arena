@@ -3,9 +3,9 @@ extends Control
 
 # ── URLs ───────────────────────────────────────────────────────────────────────
 # FASTAPI gere : auth, stats, signaling WebRTC (Battle Royal)
-const FASTAPI_URL := "https://TON_ESPACE.hf.space"   # <— ton URL FastAPI
+const FASTAPI_URL := "https://tomefy-py-server.hf.space"   # <— ton URL FastAPI
 # GODOT C++ gere : simulation boss (Boss Elimination), connexion directe WS
-const BOSS_SERVER_WS := "ws://127.0.0.1:9099"         # <— serveur Godot C++ en prod
+const BOSS_SERVER_WS := "wss://tomefy-agentic-prescriptive.hf.space"         # <— serveur Godot C++ en prod
 
 # ── Noeuds principaux ──────────────────────────────────────────────────────────
 @onready var main_menu  : Control = $MainMenuScreen
@@ -49,20 +49,20 @@ func _ready() -> void:
 # ─────────────────────────────────────────────
 func _setup_navigation() -> void:
 	# Menu principal
-	$MainMenuScreen/VBoxContainer/BtnAvatar.pressed.connect(func():
+	$MainMenuScreen/MenuCard/MenuMargin/VBoxContainer/BtnAvatar.pressed.connect(func():
 		get_tree().change_scene_to_file("res://scenes/CharacterScreen.tscn")
 	)
-	$MainMenuScreen/VBoxContainer/BtnModeBR.pressed.connect(func():
+	$MainMenuScreen/MenuCard/MenuMargin/VBoxContainer/BtnModeBR.pressed.connect(func():
 		main_menu.visible = false
 		br_scr.visible    = true
 		_refresh_br_rooms()
 	)
-	$MainMenuScreen/VBoxContainer/BtnModeBoss.pressed.connect(func():
+	$MainMenuScreen/MenuCard/MenuMargin/VBoxContainer/BtnModeBoss.pressed.connect(func():
 		main_menu.visible = false
 		bh_scr.visible    = true
 		_connect_boss_ws()
 	)
-	$MainMenuScreen/VBoxContainer/BtnQuit.pressed.connect(func(): get_tree().quit())
+	$MainMenuScreen/MenuCard/MenuMargin/VBoxContainer/BtnQuit.pressed.connect(func(): get_tree().quit())
 
 	# Retour depuis BR
 	$BattleRoyaleScreen/BtnBackFromBR.pressed.connect(func():
@@ -82,7 +82,7 @@ func _setup_navigation() -> void:
 	if btn_join_br:   btn_join_br.pressed.connect(_on_join_br_pressed)
 
 	# Bouton rejoindre Boss
-	$BossHuntScreen/BHContent/BHLeft/BtnJoinBossWorld.pressed.connect(_on_join_boss_pressed)
+	$BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft/BtnJoinBossWorld.pressed.connect(_on_join_boss_pressed)
 
 # ─────────────────────────────────────────────
 #  Process (poll WebSocket Boss)

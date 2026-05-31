@@ -3,11 +3,11 @@
 ## Accede via CharacterScreen.tscn apres le Login.
 extends Control
 
-const API_URL := "https://TON_ESPACE.hf.space"  # <— meme URL que Login.gd
+const API_URL := "https://tomefy-py-server.hf.space"  # <— meme URL que Login.gd
 
 # ── Noeuds UI ──────────────────────────────────────────────────────────────────
-@onready var avatar_m_btn    : Button  = $AvatarPanel/AvatarMBtn
-@onready var avatar_f_btn    : Button  = $AvatarPanel/AvatarFBtn
+@onready var avatar_m_btn    : TextureButton  = $AvatarPanel/AvatarMBtn
+@onready var avatar_f_btn    : TextureButton  = $AvatarPanel/AvatarFBtn
 @onready var username_label  : Label   = $HeaderPanel/UsernameLabel
 @onready var pts_available   : Label   = $StatsPanel/PtsAvailable
 
