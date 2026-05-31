@@ -8,7 +8,6 @@ const API_URL := "https://TON_ESPACE.hf.space"  # <— meme URL que Login.gd
 # ── Noeuds UI ──────────────────────────────────────────────────────────────────
 @onready var avatar_m_btn    : Button  = $AvatarPanel/AvatarMBtn
 @onready var avatar_f_btn    : Button  = $AvatarPanel/AvatarFBtn
-@onready var avatar_preview  : Node3D  = $AvatarPanel/AvatarPreview   # optionnel
 @onready var username_label  : Label   = $HeaderPanel/UsernameLabel
 @onready var pts_available   : Label   = $StatsPanel/PtsAvailable
 
@@ -79,9 +78,6 @@ func _refresh_avatar_buttons() -> void:
 	var is_m := _current_model == "Model 1"
 	avatar_m_btn.button_pressed = is_m
 	avatar_f_btn.button_pressed = not is_m
-	# Optionnel : changer l'apercu 3D si present
-	if avatar_preview and avatar_preview.has_method("show_model"):
-		avatar_preview.call("show_model", _current_model)
 
 # ─────────────────────────────────────────────
 #  Stats

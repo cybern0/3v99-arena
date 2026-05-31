@@ -1,221 +1,202 @@
 [gd_scene format=3 uid="uid://dx2yv6be7srk4"]
 
 [ext_resource type="Script" uid="uid://ftpay0c0slbn" path="res://scripts/MainUI.gd" id="1_74o4q"]
-[ext_resource type="Texture2D" uid="uid://c5mcidumxbmql" path="res://assets/P1/P1Pose.jpg" id="2_p1pose"]
-[ext_resource type="Texture2D" uid="uid://bgq7qf2xbybtn" path="res://assets/P2/P2Pose.jpg" id="3_p2pose"]
 
-; ════════════════════════════════════════════════════════════════════════════
-;  STYLES PARTAGÉS
-; ════════════════════════════════════════════════════════════════════════════
+[sub_resource type="StyleBoxFlat" id="SF_TopBar"]
+bg_color = Color(0.04, 0.03, 0.1, 0.9)
 
-; ── Fond panneau sombre ──────────────────────────────────────────────────────
 [sub_resource type="StyleBoxFlat" id="SF_Panel"]
 bg_color = Color(0.07, 0.06, 0.15, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.26, 0.58, 0.4)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
-border_color = Color(0.30, 0.26, 0.58, 0.40)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
 shadow_color = Color(0, 0, 0, 0.45)
 shadow_size = 18
 shadow_offset = Vector2(0, 6)
 
-; ── Fond panneau BR (accent bleu) ───────────────────────────────────────────
-[sub_resource type="StyleBoxFlat" id="SF_PanelBR"]
-bg_color = Color(0.06, 0.08, 0.20, 0.97)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-border_color = Color(0.25, 0.42, 0.80, 0.42)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-shadow_color = Color(0, 0, 0, 0.5)
-shadow_size = 20
-
-; ── Fond panneau Boss (accent violet) ───────────────────────────────────────
-[sub_resource type="StyleBoxFlat" id="SF_PanelBoss"]
-bg_color = Color(0.08, 0.04, 0.16, 0.97)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-border_color = Color(0.50, 0.22, 0.75, 0.42)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-shadow_color = Color(0, 0, 0, 0.5)
-shadow_size = 20
-
-; ── Bouton primaire (or) ─────────────────────────────────────────────────────
 [sub_resource type="StyleBoxFlat" id="SF_BtnGold"]
 bg_color = Color(0.18, 0.14, 0.04, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.82, 0.35, 0.55)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-border_color = Color(0.95, 0.82, 0.35, 0.55)
-border_width_bottom = 2
-border_width_left = 2
-border_width_right = 2
-border_width_top = 2
-shadow_color = Color(0.95, 0.82, 0.35, 0.20)
+shadow_color = Color(0.95, 0.82, 0.35, 0.2)
 shadow_size = 10
 shadow_offset = Vector2(0, 3)
 
-[sub_resource type="StyleBoxFlat" id="SF_BtnGoldHover"]
-bg_color = Color(0.26, 0.20, 0.06, 1)
+[sub_resource type="StyleBoxFlat" id="SF_BtnGoldPress"]
+bg_color = Color(0.38, 0.3, 0.08, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-border_color = Color(0.95, 0.82, 0.35, 0.80)
-border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="SF_BtnGoldHover"]
+bg_color = Color(0.26, 0.2, 0.06, 1)
 border_width_left = 2
-border_width_right = 2
 border_width_top = 2
-shadow_color = Color(0.95, 0.82, 0.35, 0.30)
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.82, 0.35, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.95, 0.82, 0.35, 0.3)
 shadow_size = 14
 
-[sub_resource type="StyleBoxFlat" id="SF_BtnGoldPress"]
-bg_color = Color(0.38, 0.30, 0.08, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-; ── Bouton BR (bleu) ─────────────────────────────────────────────────────────
 [sub_resource type="StyleBoxFlat" id="SF_BtnBR"]
 bg_color = Color(0.07, 0.13, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.58, 1, 0.5)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-border_color = Color(0.30, 0.58, 1.0, 0.50)
-border_width_bottom = 2
-border_width_left = 2
-border_width_right = 2
-border_width_top = 2
-shadow_color = Color(0.15, 0.35, 0.85, 0.20)
+shadow_color = Color(0.15, 0.35, 0.85, 0.2)
 shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="SF_BtnBRHover"]
-bg_color = Color(0.12, 0.20, 0.50, 1)
+bg_color = Color(0.12, 0.2, 0.5, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.7, 1, 0.75)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-border_color = Color(0.45, 0.70, 1.0, 0.75)
-border_width_bottom = 2
-border_width_left = 2
-border_width_right = 2
-border_width_top = 2
 
-; ── Bouton Boss (violet) ──────────────────────────────────────────────────────
 [sub_resource type="StyleBoxFlat" id="SF_BtnBoss"]
-bg_color = Color(0.14, 0.06, 0.30, 1)
+bg_color = Color(0.14, 0.06, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.65, 0.3, 0.95, 0.5)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-border_color = Color(0.65, 0.30, 0.95, 0.50)
-border_width_bottom = 2
-border_width_left = 2
-border_width_right = 2
-border_width_top = 2
-shadow_color = Color(0.40, 0.10, 0.75, 0.20)
+shadow_color = Color(0.4, 0.1, 0.75, 0.2)
 shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="SF_BtnBossHover"]
-bg_color = Color(0.22, 0.10, 0.45, 1)
+bg_color = Color(0.22, 0.1, 0.45, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.45, 1, 0.75)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-border_color = Color(0.80, 0.45, 1.0, 0.75)
-border_width_bottom = 2
-border_width_left = 2
-border_width_right = 2
-border_width_top = 2
 
-; ── Bouton retour (neutre) ────────────────────────────────────────────────────
-[sub_resource type="StyleBoxFlat" id="SF_BtnBack"]
-bg_color = Color(0.10, 0.09, 0.20, 0.88)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
-border_color = Color(0.40, 0.38, 0.65, 0.45)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-
-[sub_resource type="StyleBoxFlat" id="SF_BtnBackHover"]
-bg_color = Color(0.16, 0.14, 0.32, 0.95)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
-border_color = Color(0.60, 0.58, 0.90, 0.65)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-
-; ── Bouton quitter (rouge discret) ────────────────────────────────────────────
 [sub_resource type="StyleBoxFlat" id="SF_BtnQuit"]
 bg_color = Color(0.18, 0.05, 0.05, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.75, 0.22, 0.22, 0.45)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-border_color = Color(0.75, 0.22, 0.22, 0.45)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
 
 [sub_resource type="StyleBoxFlat" id="SF_BtnQuitHover"]
 bg_color = Color(0.28, 0.08, 0.08, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9, 0.3, 0.3, 0.65)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-border_color = Color(0.90, 0.30, 0.30, 0.65)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
 
-; ── ItemList ─────────────────────────────────────────────────────────────────
+[sub_resource type="StyleBoxFlat" id="SF_PanelBR"]
+bg_color = Color(0.06, 0.08, 0.2, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.42, 0.8, 0.42)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 20
+
 [sub_resource type="StyleBoxFlat" id="SF_List"]
 bg_color = Color(0.05, 0.04, 0.12, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.24, 0.52, 0.35)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-border_color = Color(0.28, 0.24, 0.52, 0.35)
-border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="SF_BtnBack"]
+bg_color = Color(0.1, 0.09, 0.2, 0.88)
 border_width_left = 1
-border_width_right = 1
 border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.38, 0.65, 0.45)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
 
-; ── Fond TopBar global ────────────────────────────────────────────────────────
-[sub_resource type="StyleBoxFlat" id="SF_TopBar"]
-bg_color = Color(0.04, 0.03, 0.10, 0.90)
+[sub_resource type="StyleBoxFlat" id="SF_BtnBackHover"]
+bg_color = Color(0.16, 0.14, 0.32, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.58, 0.9, 0.65)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
 
-; ════════════════════════════════════════════════════════════════════════════
-;  RACINE
-; ════════════════════════════════════════════════════════════════════════════
-[node name="MainUI" type="Control"]
+[sub_resource type="StyleBoxFlat" id="SF_PanelBoss"]
+bg_color = Color(0.08, 0.04, 0.16, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.22, 0.75, 0.42)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 20
+
+[node name="MainUI" type="Control" unique_id=944614959]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -224,62 +205,60 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_74o4q")
 
-; ── Fond principal ───────────────────────────────────────────────────────────
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1100425339]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.04, 0.03, 0.10, 1)
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.03, 0.1, 1)
 
-; ── Halos décoratifs ─────────────────────────────────────────────────────────
-[node name="BgGlowLeft" type="ColorRect" parent="."]
+[node name="BgGlowLeft" type="ColorRect" parent="." unique_id=1967883379]
 layout_mode = 0
 offset_left = -100.0
 offset_top = 100.0
 offset_right = 500.0
 offset_bottom = 680.0
-color = Color(0.12, 0.05, 0.35, 0.10)
 mouse_filter = 2
+color = Color(0.12, 0.05, 0.35, 0.1)
 
-[node name="BgGlowRight" type="ColorRect" parent="."]
+[node name="BgGlowRight" type="ColorRect" parent="." unique_id=1405809524]
 layout_mode = 0
 offset_left = 780.0
-offset_right = 1480.0
 offset_top = -20.0
+offset_right = 1480.0
 offset_bottom = 600.0
-color = Color(0.05, 0.10, 0.30, 0.09)
 mouse_filter = 2
+color = Color(0.05, 0.1, 0.3, 0.09)
 
-; ── Lignes déco coin TL ──────────────────────────────────────────────────────
-[node name="CornerTL" type="ColorRect" parent="."]
+[node name="CornerTL" type="ColorRect" parent="." unique_id=534424647]
 layout_mode = 0
 offset_right = 60.0
 offset_bottom = 2.0
-color = Color(0.95, 0.82, 0.35, 0.30)
 mouse_filter = 2
+color = Color(0.95, 0.82, 0.35, 0.3)
 
-[node name="CornerTL2" type="ColorRect" parent="."]
+[node name="CornerTL2" type="ColorRect" parent="." unique_id=2052085733]
 layout_mode = 0
 offset_right = 2.0
 offset_bottom = 60.0
-color = Color(0.95, 0.82, 0.35, 0.30)
 mouse_filter = 2
+color = Color(0.95, 0.82, 0.35, 0.3)
 
-; ── Barre de titre globale ────────────────────────────────────────────────────
-[node name="GlobalTopBar" type="PanelContainer" parent="."]
+[node name="GlobalTopBar" type="PanelContainer" parent="." unique_id=1927557083]
 layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 68.0
+grow_horizontal = 2
 theme_override_styles/panel = SubResource("SF_TopBar")
 
-[node name="TopBarContent" type="HBoxContainer" parent="GlobalTopBar"]
+[node name="TopBarContent" type="HBoxContainer" parent="GlobalTopBar" unique_id=1849380321]
 layout_mode = 2
 theme_override_constants/separation = 12
-offset_left = 20.0
-offset_right = -20.0
 
-[node name="TitleLabel" type="Label" parent="GlobalTopBar/TopBarContent"]
+[node name="TitleLabel" type="Label" parent="GlobalTopBar/TopBarContent" unique_id=2001430778]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
@@ -287,21 +266,17 @@ theme_override_font_sizes/font_size = 32
 text = "⚔  4v99 Arena"
 vertical_alignment = 1
 
-[node name="TopBarSpacer" type="Control" parent="GlobalTopBar/TopBarContent"]
+[node name="TopBarSpacer" type="Control" parent="GlobalTopBar/TopBarContent" unique_id=1368571927]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerInfoLabel" type="Label" parent="GlobalTopBar/TopBarContent"]
+[node name="PlayerInfoLabel" type="Label" parent="GlobalTopBar/TopBarContent" unique_id=1498418322]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.65, 0.60, 0.90, 0.75)
+theme_override_colors/font_color = Color(0.65, 0.6, 0.9, 0.75)
 theme_override_font_sizes/font_size = 14
-text = ""
 vertical_alignment = 1
 
-; ════════════════════════════════════════════════════════════════════════════
-;  MENU PRINCIPAL
-; ════════════════════════════════════════════════════════════════════════════
-[node name="MainMenuScreen" type="Control" parent="."]
+[node name="MainMenuScreen" type="Control" parent="." unique_id=1728089870]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -309,8 +284,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MenuCard" type="PanelContainer" parent="MainMenuScreen"]
+[node name="MenuCard" type="PanelContainer" parent="MainMenuScreen" unique_id=2001398527]
 layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -323,116 +299,74 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("SF_Panel")
 
-[node name="MenuMargin" type="MarginContainer" parent="MainMenuScreen/MenuCard"]
+[node name="MenuMargin" type="MarginContainer" parent="MainMenuScreen/MenuCard" unique_id=1911239679]
 layout_mode = 2
 theme_override_constants/margin_left = 28
 theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 28
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuScreen/MenuCard/MenuMargin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuScreen/MenuCard/MenuMargin" unique_id=1239798222]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="MenuTitle" type="Label" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+[node name="MenuTitle" type="Label" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer" unique_id=1498297596]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.70, 0.95, 0.80)
+theme_override_colors/font_color = Color(0.75, 0.7, 0.95, 0.8)
 theme_override_font_sizes/font_size = 12
 text = "CHOISIR UN MODE"
 horizontal_alignment = 1
 
-[node name="MenuDivider" type="ColorRect" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+[node name="MenuDivider" type="ColorRect" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer" unique_id=271268632]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 color = Color(0.95, 0.82, 0.35, 0.16)
 
-; ── Bouton : Personnaliser Avatar → CharacterScreen.tscn ─────────────────────
-[node name="BtnAvatar" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+[node name="BtnAvatar" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer" unique_id=160454273]
 custom_minimum_size = Vector2(340, 62)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
 theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("SF_BtnGold")
-theme_override_styles/hover = SubResource("SF_BtnGoldHover")
 theme_override_styles/pressed = SubResource("SF_BtnGoldPress")
+theme_override_styles/hover = SubResource("SF_BtnGoldHover")
 text = "🧑  Personnaliser Avatar & Stats"
 
-; ── Bouton : Battle Royal ─────────────────────────────────────────────────────
-[node name="BtnModeBR" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+[node name="BtnModeBR" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer" unique_id=1589444261]
 custom_minimum_size = Vector2(340, 62)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.90, 1.0, 1)
+theme_override_colors/font_color = Color(0.75, 0.9, 1, 1)
 theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("SF_BtnBR")
-theme_override_styles/hover = SubResource("SF_BtnBRHover")
 theme_override_styles/pressed = SubResource("SF_BtnBR")
-text = "⚡  Battle Royale (4v99)"
+theme_override_styles/hover = SubResource("SF_BtnBRHover")
+text = "⚡  Battle Royale"
 
-; ── Bouton : Boss Hunt ────────────────────────────────────────────────────────
-[node name="BtnModeBoss" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+[node name="BtnModeBoss" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer" unique_id=1895615230]
 custom_minimum_size = Vector2(340, 62)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.65, 1.0, 1)
+theme_override_colors/font_color = Color(0.88, 0.65, 1, 1)
 theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("SF_BtnBoss")
-theme_override_styles/hover = SubResource("SF_BtnBossHover")
 theme_override_styles/pressed = SubResource("SF_BtnBoss")
-text = "☠  Boss Hunt (PVE)"
+theme_override_styles/hover = SubResource("SF_BtnBossHover")
+text = "☠  Boss Hunt (4vE)"
 
-[node name="MenuSpacer" type="Control" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+[node name="MenuSpacer" type="Control" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer" unique_id=334231624]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
-; ── Bouton : Quitter ──────────────────────────────────────────────────────────
-[node name="BtnQuit" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer"]
+[node name="BtnQuit" type="Button" parent="MainMenuScreen/MenuCard/MenuMargin/VBoxContainer" unique_id=2092753877]
 custom_minimum_size = Vector2(340, 50)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.90, 0.55, 0.55, 0.90)
+theme_override_colors/font_color = Color(0.9, 0.55, 0.55, 0.9)
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("SF_BtnQuit")
-theme_override_styles/hover = SubResource("SF_BtnQuitHover")
 theme_override_styles/pressed = SubResource("SF_BtnQuit")
+theme_override_styles/hover = SubResource("SF_BtnQuitHover")
 text = "Quitter"
 
-; ── Aperçu avatars en bas du menu ────────────────────────────────────────────
-[node name="AvatarPreviewRow" type="HBoxContainer" parent="MainMenuScreen"]
-layout_mode = 1
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -260.0
-offset_top = -140.0
-offset_right = 260.0
-offset_bottom = -4.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 20
-alignment = 1
-mouse_filter = 2
-
-[node name="AvatarP1Preview" type="TextureRect" parent="MainMenuScreen/AvatarPreviewRow"]
-custom_minimum_size = Vector2(120, 130)
-layout_mode = 2
-texture = ExtResource("2_p1pose")
-expand_mode = 1
-stretch_mode = 5
-self_modulate = Color(1, 1, 1, 0.40)
-mouse_filter = 2
-
-[node name="AvatarP2Preview" type="TextureRect" parent="MainMenuScreen/AvatarPreviewRow"]
-custom_minimum_size = Vector2(120, 130)
-layout_mode = 2
-texture = ExtResource("3_p2pose")
-expand_mode = 1
-stretch_mode = 5
-self_modulate = Color(1, 1, 1, 0.40)
-mouse_filter = 2
-
-; ════════════════════════════════════════════════════════════════════════════
-;  ÉCRAN BATTLE ROYAL (w_by)
-; ════════════════════════════════════════════════════════════════════════════
-[node name="BattleRoyaleScreen" type="Control" parent="."]
+[node name="BattleRoyaleScreen" type="Control" parent="." unique_id=837840498]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -441,35 +375,34 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-; ── Titre ────────────────────────────────────────────────────────────────────
-[node name="TitleBR" type="Label" parent="BattleRoyaleScreen"]
+[node name="TitleBR" type="Label" parent="BattleRoyaleScreen" unique_id=717623361]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 76.0
 offset_bottom = 120.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.55, 0.78, 1.0, 1)
+theme_override_colors/font_color = Color(0.55, 0.78, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "⚡  Salons Battle Royale"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TitleBRSub" type="Label" parent="BattleRoyaleScreen"]
+[node name="TitleBRSub" type="Label" parent="BattleRoyaleScreen" unique_id=495193868]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 122.0
 offset_bottom = 146.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.45, 0.60, 0.90, 0.60)
+theme_override_colors/font_color = Color(0.45, 0.6, 0.9, 0.6)
 theme_override_font_sizes/font_size = 13
 text = "2 à 16 joueurs — Signaling WebRTC"
 horizontal_alignment = 1
 
-; ── Panneau centré contenant liste + boutons ──────────────────────────────────
-[node name="BRPanel" type="PanelContainer" parent="BattleRoyaleScreen"]
+[node name="BRPanel" type="PanelContainer" parent="BattleRoyaleScreen" unique_id=617062084]
 layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -482,74 +415,67 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("SF_PanelBR")
 
-[node name="BRMargin" type="MarginContainer" parent="BattleRoyaleScreen/BRPanel"]
+[node name="BRMargin" type="MarginContainer" parent="BattleRoyaleScreen/BRPanel" unique_id=1194773600]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 18
 
-[node name="BRContent" type="VBoxContainer" parent="BattleRoyaleScreen/BRPanel/BRMargin"]
+[node name="BRContent" type="VBoxContainer" parent="BattleRoyaleScreen/BRPanel/BRMargin" unique_id=1473193874]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="BRRoomsList" type="ItemList" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent"]
+[node name="BRRoomsList" type="ItemList" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent" unique_id=1118930292]
 custom_minimum_size = Vector2(630, 220)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("SF_List")
 theme_override_font_sizes/font_size = 15
+theme_override_styles/panel = SubResource("SF_List")
 
-; ── Ligne status ──────────────────────────────────────────────────────────────
-[node name="BRStatusLabel" type="Label" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.60, 0.70, 1.0, 0.80)
-theme_override_font_sizes/font_size = 13
-horizontal_alignment = 1
-text = ""
-
-; ── Boutons Créer / Rejoindre ─────────────────────────────────────────────────
-[node name="ButtonsHBox" type="HBoxContainer" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent"]
+[node name="ButtonsHBox" type="HBoxContainer" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent" unique_id=1145537665]
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="BtnCreateBR" type="Button" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent/ButtonsHBox"]
+[node name="BtnCreateBR" type="Button" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent/ButtonsHBox" unique_id=1285390423]
 custom_minimum_size = Vector2(220, 54)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.90, 1.0, 1)
+theme_override_colors/font_color = Color(0.75, 0.9, 1, 1)
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("SF_BtnBR")
-theme_override_styles/hover = SubResource("SF_BtnBRHover")
 theme_override_styles/pressed = SubResource("SF_BtnBR")
+theme_override_styles/hover = SubResource("SF_BtnBRHover")
 text = "+ Créer un Salon"
 
-[node name="BtnJoinBR" type="Button" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent/ButtonsHBox"]
+[node name="BtnJoinBR" type="Button" parent="BattleRoyaleScreen/BRPanel/BRMargin/BRContent/ButtonsHBox" unique_id=1076367559]
 custom_minimum_size = Vector2(220, 54)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.90, 1.0, 1)
+theme_override_colors/font_color = Color(0.75, 0.9, 1, 1)
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("SF_BtnBR")
-theme_override_styles/hover = SubResource("SF_BtnBRHover")
 theme_override_styles/pressed = SubResource("SF_BtnBR")
+theme_override_styles/hover = SubResource("SF_BtnBRHover")
 text = "→ Rejoindre Sélection"
 
-; ── Bouton retour ─────────────────────────────────────────────────────────────
-[node name="BtnBackFromBR" type="Button" parent="BattleRoyaleScreen"]
+[node name="BRStatusLabel" type="Label" parent="BattleRoyaleScreen/BRPanel" unique_id=1159267179]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.7, 1, 0.8)
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
+
+[node name="BtnBackFromBR" type="Button" parent="BattleRoyaleScreen" unique_id=1284340867]
 custom_minimum_size = Vector2(160, 46)
 layout_mode = 0
 offset_left = 20.0
 offset_top = 82.0
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("SF_BtnBack")
-theme_override_styles/hover = SubResource("SF_BtnBackHover")
 theme_override_styles/pressed = SubResource("SF_BtnBack")
+theme_override_styles/hover = SubResource("SF_BtnBackHover")
 text = "← Retour"
 
-; ════════════════════════════════════════════════════════════════════════════
-;  ÉCRAN BOSS HUNT (w_1 / w_2 / w_3)
-; ════════════════════════════════════════════════════════════════════════════
-[node name="BossHuntScreen" type="Control" parent="."]
+[node name="BossHuntScreen" type="Control" parent="." unique_id=1911135579]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -558,35 +484,34 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-; ── Titre ────────────────────────────────────────────────────────────────────
-[node name="TitleBoss" type="Label" parent="BossHuntScreen"]
+[node name="TitleBoss" type="Label" parent="BossHuntScreen" unique_id=1358728229]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 76.0
 offset_bottom = 120.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.85, 0.55, 1.0, 1)
+theme_override_colors/font_color = Color(0.85, 0.55, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "☠  Mondes des Boss"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TitleBossSub" type="Label" parent="BossHuntScreen"]
+[node name="TitleBossSub" type="Label" parent="BossHuntScreen" unique_id=203412723]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 122.0
 offset_bottom = 146.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.60, 0.35, 0.80, 0.60)
+theme_override_colors/font_color = Color(0.6, 0.35, 0.8, 0.6)
 theme_override_font_sizes/font_size = 13
 text = "3 boss — 3 mondes uniques — Autorité serveur C++"
 horizontal_alignment = 1
 
-; ── Panneau centré contenant la liste + info boss ─────────────────────────────
-[node name="BHPanel" type="PanelContainer" parent="BossHuntScreen"]
+[node name="BHPanel" type="PanelContainer" parent="BossHuntScreen" unique_id=527966793]
 layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -599,109 +524,105 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("SF_PanelBoss")
 
-[node name="BHMargin" type="MarginContainer" parent="BossHuntScreen/BHPanel"]
+[node name="BHMargin" type="MarginContainer" parent="BossHuntScreen/BHPanel" unique_id=2143699432]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 18
 
-[node name="BHContent" type="HBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin"]
+[node name="BHContent" type="HBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin" unique_id=777990369]
 layout_mode = 2
 theme_override_constants/separation = 22
 
-; ── Colonne gauche : liste des mondes ────────────────────────────────────────
-[node name="BHLeft" type="VBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent"]
+[node name="BHLeft" type="VBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent" unique_id=1554736072]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 14
 
-[node name="BHListTitle" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft"]
+[node name="BHListTitle" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft" unique_id=1666781041]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.55, 1.0, 0.75)
+theme_override_colors/font_color = Color(0.75, 0.55, 1, 0.75)
 theme_override_font_sizes/font_size = 12
 text = "MONDES DISPONIBLES"
 
-[node name="BHRoomsList" type="ItemList" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft"]
+[node name="BHRoomsList" type="ItemList" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft" unique_id=2143253929]
 custom_minimum_size = Vector2(460, 230)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("SF_List")
 theme_override_font_sizes/font_size = 15
+theme_override_styles/panel = SubResource("SF_List")
 
-[node name="BHStatusLabel" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_color = Color(0.70, 0.50, 1.0, 0.75)
-theme_override_font_sizes/font_size = 13
-text = ""
-
-[node name="BtnJoinBossWorld" type="Button" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft"]
+[node name="BtnJoinBossWorld" type="Button" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft" unique_id=878552748]
 custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.65, 1.0, 1)
+theme_override_colors/font_color = Color(0.88, 0.65, 1, 1)
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("SF_BtnBoss")
-theme_override_styles/hover = SubResource("SF_BtnBossHover")
 theme_override_styles/pressed = SubResource("SF_BtnBoss")
+theme_override_styles/hover = SubResource("SF_BtnBossHover")
 text = "→ Rejoindre ce Monde"
 
-; ── Colonne droite : infos du boss ────────────────────────────────────────────
-[node name="BHRight" type="VBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent"]
+[node name="BHStatusLabel" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent" unique_id=848198874]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.7, 0.5, 1, 0.75)
+theme_override_font_sizes/font_size = 13
+
+[node name="BHRight" type="VBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent" unique_id=1076692933]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 14
 
-[node name="BossInfoPanel" type="PanelContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight"]
+[node name="BossInfoPanel" type="PanelContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight" unique_id=1172187018]
 custom_minimum_size = Vector2(260, 290)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("SF_Panel")
 
-[node name="BossInfoMargin" type="MarginContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel"]
+[node name="BossInfoMargin" type="MarginContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel" unique_id=1079644955]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 14
 
-[node name="BossInfoVBox" type="VBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin"]
+[node name="BossInfoVBox" type="VBoxContainer" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin" unique_id=201233007]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="BossInfoTitle" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox"]
+[node name="BossInfoTitle" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox" unique_id=422586269]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.55, 1.0, 1)
+theme_override_colors/font_color = Color(0.85, 0.55, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "☠ Infos du Boss"
 horizontal_alignment = 1
 
-[node name="BossInfoDivider" type="ColorRect" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox"]
+[node name="BossInfoDivider" type="ColorRect" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox" unique_id=422165853]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
-color = Color(0.65, 0.22, 0.90, 0.20)
+color = Color(0.65, 0.22, 0.9, 0.2)
 
-[node name="BossInfoDescription" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox"]
+[node name="BossInfoDescription" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox" unique_id=2126273485]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.72, 0.68, 0.90, 0.80)
+theme_override_colors/font_color = Color(0.72, 0.68, 0.9, 0.8)
 theme_override_font_sizes/font_size = 14
 text = "Sélectionnez un monde pour afficher les détails du boss."
 autowrap_mode = 2
 
-[node name="BossW1Label" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox"]
+[node name="BossW1Label" type="Label" parent="BossHuntScreen/BHPanel/BHMargin/BHContent/BHRight/BossInfoPanel/BossInfoMargin/BossInfoVBox" unique_id=1833132820]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.50, 0.80, 0.60)
+theme_override_colors/font_color = Color(0.55, 0.5, 0.8, 0.6)
 theme_override_font_sizes/font_size = 12
 text = "arena_w1 / arena_w2 / arena_w3 : —"
 
-; ── Bouton retour ─────────────────────────────────────────────────────────────
-[node name="BtnBackFromBoss" type="Button" parent="BossHuntScreen"]
+[node name="BtnBackFromBoss" type="Button" parent="BossHuntScreen" unique_id=460673349]
 custom_minimum_size = Vector2(160, 46)
 layout_mode = 0
 offset_left = 20.0
 offset_top = 82.0
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("SF_BtnBack")
-theme_override_styles/hover = SubResource("SF_BtnBackHover")
 theme_override_styles/pressed = SubResource("SF_BtnBack")
+theme_override_styles/hover = SubResource("SF_BtnBackHover")
 text = "← Retour"

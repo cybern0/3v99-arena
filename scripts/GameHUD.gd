@@ -11,43 +11,43 @@ class_name GameHUD
 #  Noeuds UI (chemins relatifs à GameHUD)
 # ─────────────────────────────────────────────
 
-# ── Barres de statut ──────────────────────────
-@onready var health_bar      : ProgressBar    = get_node_or_null("TopBar/TopBarInner/HPSection/HealthBar")
-@onready var health_label    : Label          = get_node_or_null("TopBar/TopBarInner/HPSection/HealthBar/HealthLabel")
-@onready var stamina_bar     : ProgressBar    = get_node_or_null("TopBar/TopBarInner/StamSection/StaminaBar")
-@onready var energy_bar      : ProgressBar    = get_node_or_null("TopBar/TopBarInner/EnerSection/EnergyBar")
-@onready var xp_bar          : ProgressBar    = get_node_or_null("TopBar/TopBarInner/XPSection/XPBar")
-@onready var level_label     : Label          = get_node_or_null("TopBar/TopBarInner/XPSection/XPBar/LevelLabel")
-@onready var score_label     : Label          = get_node_or_null("TopBar/TopBarInner/ScoreLabel")
-@onready var timer_label     : Label          = get_node_or_null("TopBar/TopBarInner/TimerLabel")
-@onready var pause_button    : Button         = get_node_or_null("TopBar/TopBarInner/PauseButton")
+# ── Barres de statut ────────────────────────
+@onready var health_bar      : ProgressBar    = $TopBar/TopBarInner/HPSection/HealthBar
+@onready var health_label    : Label          = $TopBar/TopBarInner/HPSection/HealthBar/HealthLabel
+@onready var stamina_bar     : ProgressBar    = $TopBar/TopBarInner/StamSection/StaminaBar
+@onready var energy_bar      : ProgressBar    = $TopBar/TopBarInner/EnerSection/EnergyBar
+@onready var xp_bar          : ProgressBar    = $TopBar/TopBarInner/XPSection/XPBar
+@onready var level_label     : Label          = $TopBar/TopBarInner/XPSection/XPBar/LevelLabel
+@onready var score_label     : Label          = $TopBar/TopBarInner/ScoreLabel
+@onready var timer_label     : Label          = $TopBar/TopBarInner/TimerLabel
+@onready var pause_button    : Button         = $TopBar/TopBarInner/PauseButton
 
-# ── Barre Boss ────────────────────────────────
-@onready var boss_bar        : PanelContainer = get_node_or_null("BossBar")
-@onready var boss_hp_bar     : ProgressBar    = get_node_or_null("BossBar/BossBarInner/BossHPBar")
-@onready var boss_hp_label   : Label          = get_node_or_null("BossBar/BossBarInner/BossHPBar/BossHPLabel")
-@onready var boss_name_label : Label          = get_node_or_null("BossBar/BossBarInner/BossNameLabel")
+# ── Barre Boss ──────────────────────────────
+@onready var boss_bar        : PanelContainer = $BossBar
+@onready var boss_hp_bar     : ProgressBar    = $BossBar/BossBarInner/BossHPBar
+@onready var boss_hp_label   : Label          = $BossBar/BossBarInner/BossHPBar/BossHPLabel
+@onready var boss_name_label : Label          = $BossBar/BossBarInner/BossNameLabel
 
-# ── Block Feedback ────────────────────────────
-@onready var block_feedback  : Control        = get_node_or_null("BlockFeedback")
+# ── Block Feedback ──────────────────────────
+@onready var block_feedback  : Control        = $BlockFeedback
 
 # ── AnimationPlayer dédié au block ───────────
 ## Ajouter l'animation "block" dans l'éditeur Godot sur ce node.
-## Elle anime BlockFeedback (visible, modulate, BlockIcon.scale, etc.)
-@onready var animation_player_block : AnimationPlayer = get_node_or_null("AnimationPlayerBlock")
+## Elle anime BlockFeedback (visible, modulate, BlockIcon.scale, etc
+@onready var animation_player_block : AnimationPlayer = $AnimationPlayerBlock
 
-# ── Settings & Minimap ────────────────────────
-@onready var settings_panel  : Control        = get_node_or_null("SettingsPanel")
-@onready var minimap_container: Control       = get_node_or_null("MinimapContainer")
-@onready var minimap_viewport : SubViewport   = get_node_or_null("MinimapContainer/MinimapViewport")
+# ── Settings & Minimap ──────────────────────
+@onready var settings_panel  : Control        = $SettingsPanel
+@onready var minimap_container: Control       = $MinimapContainer
+@onready var minimap_viewport : SubViewport   = $MinimapContainer/MinimapViewport
 
-# ── Boutons mobiles ───────────────────────────
-@onready var mobile_controls : Control = get_node_or_null("MobileControls")
-@onready var jump_button     : Button  = get_node_or_null("MobileControls/JumpButton")
-@onready var punch_button    : Button  = get_node_or_null("MobileControls/PunchButton")
-@onready var kick_button     : Button  = get_node_or_null("MobileControls/KickButton")
-@onready var block_button    : Button  = get_node_or_null("MobileControls/BlockButton")
-@onready var run_button      : Button  = get_node_or_null("MobileControls/RunButton")
+# ── Boutons mobiles ─────────────────────────
+@onready var mobile_controls : Control = $MobileControls
+@onready var jump_button     : Button  = $MobileControls/JumpButton
+@onready var punch_button    : Button  = $MobileControls/PunchButton
+@onready var kick_button     : Button  = $MobileControls/KickButton
+@onready var block_button    : Button  = $MobileControls/BlockButton
+@onready var run_button      : Button  = $MobileControls/RunButton
 
 # ─────────────────────────────────────────────
 #  Etat

@@ -13,7 +13,11 @@ const FASTAPI_BASE := "https://TON_ESPACE.hf.space"
 const WEBRTC_ICE_SERVERS := [
 	{"urls": ["stun:stun.l.google.com:19302"]},
 	{"urls": ["stun:stun1.l.google.com:19302"]},
-	# TURN en production — remplacer par tes propres credentials
+	{
+		"urls":       ["free.expressturn.com:3478"],
+		"username":   "000000002095236706",
+		"credential": "WkD+6ZX/eSrVgYP96hZmTEAwWPs=",
+	},
 	{
 		"urls":       ["turn:free.expressturn.com:3478"],
 		"username":   "000000002095236103",
@@ -40,6 +44,7 @@ var _room_id          : String = ""
 var _my_peer_id       : String = ""
 var _signaling_ready  : bool   = false
 var _webrtc_conns     : Dictionary = {}   # remote_peer_id (String) → WebRTCPeerConnection
+var _my_network_id : int = 0
 
 func _ready() -> void:
 	_my_peer_id = str(randi() % 1000000)
@@ -56,14 +61,18 @@ func _process(_delta: float) -> void:
 ## Appele par MainUI avant de charger w_by.tscn
 func connect_to_matchmaking(room_id: String) -> void:
 	_room_id = room_id
-	## FIX : URL correcte — /ws/signaling/{room_id}/{peer_id}
+	
+	# Générer un ID local temporaire (ou mieux, l'obtenir du serveur)
+	_my_network_id = randi_range(2, 2147483647) 
+	
+	# Créer le Mesh IMMÉDIATEMENT
+	var err = _webrtc_peer.create_mesh(_my_network_id)
+	if err == OK:
+		get_tree().get_multiplayer().multiplayer_peer = _webrtc_peer
+	
 	var base_ws := FASTAPI_BASE.replace("https://", "wss://").replace("http://", "ws://")
-	var url     := base_ws + "/ws/signaling/" + room_id + "/" + _my_peer_id
-	print("[NM] Signaling → ", url)
-	var err := _signaling_ws.connect_to_url(url)
-	if err != OK:
-		push_error("[NM] Echec connexion signaling")
-		join_failed.emit("signaling_connection_failed")
+	var url     := base_ws + "/ws/signaling/" + room_id + "/" + str(_my_network_id)
+	_signaling_ws.connect_to_url(url)
 
 func disconnect_matchmaking() -> void:
 	if _signaling_ws.get_ready_state() != WebSocketPeer.STATE_CLOSED:
@@ -136,23 +145,17 @@ func _get_or_create_conn(remote_peer_id: String) -> WebRTCPeerConnection:
 		return _webrtc_conns[remote_peer_id]
 
 	var conn := WebRTCPeerConnection.new()
-	var err  := conn.initialize({"iceServers": WEBRTC_ICE_SERVERS})
-	if err != OK:
-		push_error("[NM] Echec init WebRTCPeerConnection")
-		return null
-
+	conn.initialize({"iceServers": WEBRTC_ICE_SERVERS})
+	
 	conn.session_description_created.connect(_on_sdp_created.bind(remote_peer_id))
 	conn.ice_candidate_created.connect(_on_ice_created.bind(remote_peer_id))
 
 	_webrtc_conns[remote_peer_id] = conn
-
+	
+	# On ajoute la connexion de ce joueur au Mesh global
 	var numeric_id := absi(remote_peer_id.hash()) % 2147483647 + 1
-	# Premier peer → on se cree en client, les suivants s'ajoutent
-	if not get_tree().get_multiplayer().has_multiplayer_peer():
-		if _webrtc_peer.create_client(numeric_id) == OK:
-			get_tree().get_multiplayer().multiplayer_peer = _webrtc_peer
-
 	_webrtc_peer.add_peer(conn, numeric_id)
+	
 	return conn
 
 func _on_sdp_created(type: String, sdp: String, remote_peer_id: String) -> void:

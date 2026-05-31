@@ -2,113 +2,102 @@
 
 [ext_resource type="Script" uid="uid://dlvd0f5035vhg" path="res://scripts/Login.gd" id="1_1hxp7"]
 
-; ── StyleBoxFlat : fond de la carte principale ──────────────────────────────
 [sub_resource type="StyleBoxFlat" id="SF_Card"]
 bg_color = Color(0.08, 0.07, 0.16, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.3, 0.65, 0.45)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-border_color = Color(0.35, 0.30, 0.65, 0.45)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
 shadow_color = Color(0, 0, 0, 0.55)
 shadow_size = 24
 shadow_offset = Vector2(0, 8)
 
-; ── StyleBoxFlat : bouton principal (SE CONNECTER / CREER LE COMPTE) ────────
-[sub_resource type="StyleBoxFlat" id="SF_BtnPrimary"]
-bg_color = Color(0.20, 0.15, 0.50, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-border_color = Color(0.65, 0.60, 1.0, 0.5)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-shadow_color = Color(0.20, 0.10, 0.50, 0.4)
-shadow_size = 10
-shadow_offset = Vector2(0, 3)
-
-[sub_resource type="StyleBoxFlat" id="SF_BtnPrimaryHover"]
-bg_color = Color(0.28, 0.22, 0.62, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-border_color = Color(0.75, 0.70, 1.0, 0.7)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
-
-[sub_resource type="StyleBoxFlat" id="SF_BtnPrimaryPress"]
-bg_color = Color(0.38, 0.30, 0.75, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-; ── StyleBoxFlat : tab actif ─────────────────────────────────────────────────
 [sub_resource type="StyleBoxFlat" id="SF_TabActive"]
 bg_color = Color(0.15, 0.12, 0.35, 1)
+border_width_bottom = 2
+border_color = Color(0.95, 0.82, 0.35, 0.5)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
-border_color = Color(0.95, 0.82, 0.35, 0.5)
-border_width_bottom = 2
-border_width_left = 0
-border_width_right = 0
-border_width_top = 0
 
 [sub_resource type="StyleBoxFlat" id="SF_TabInactive"]
 bg_color = Color(0.07, 0.06, 0.14, 0.8)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 
-; ── StyleBoxFlat : champ de saisie ───────────────────────────────────────────
 [sub_resource type="StyleBoxFlat" id="SF_Input"]
 bg_color = Color(0.06, 0.06, 0.14, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.3, 0.6, 0.5)
 corner_radius_top_left = 7
 corner_radius_top_right = 7
 corner_radius_bottom_right = 7
 corner_radius_bottom_left = 7
-border_color = Color(0.35, 0.30, 0.60, 0.5)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
 
 [sub_resource type="StyleBoxFlat" id="SF_InputFocus"]
 bg_color = Color(0.07, 0.07, 0.18, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.55, 0.95, 0.8)
 corner_radius_top_left = 7
 corner_radius_top_right = 7
 corner_radius_bottom_right = 7
 corner_radius_bottom_left = 7
-border_color = Color(0.60, 0.55, 0.95, 0.8)
-border_width_bottom = 2
-border_width_left = 2
-border_width_right = 2
-border_width_top = 2
 
-; ── StyleBoxFlat : notice hors-ligne ─────────────────────────────────────────
-[sub_resource type="StyleBoxFlat" id="SF_OfflinePanel"]
-bg_color = Color(0.25, 0.12, 0.03, 0.92)
+[sub_resource type="StyleBoxFlat" id="SF_BtnPrimary"]
+bg_color = Color(0.2, 0.15, 0.5, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.65, 0.6, 1, 0.5)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
-border_color = Color(0.95, 0.55, 0.2, 0.35)
-border_width_bottom = 1
-border_width_left = 1
-border_width_right = 1
-border_width_top = 1
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.2, 0.1, 0.5, 0.4)
+shadow_size = 10
+shadow_offset = Vector2(0, 3)
 
-; ════════════════════════════════════════════════════════════════════════════
-;  RACINE
-; ════════════════════════════════════════════════════════════════════════════
-[node name="Login" type="Control"]
+[sub_resource type="StyleBoxFlat" id="SF_BtnPrimaryPress"]
+bg_color = Color(0.38, 0.3, 0.75, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="SF_BtnPrimaryHover"]
+bg_color = Color(0.28, 0.22, 0.62, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.75, 0.7, 1, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="SF_OfflinePanel"]
+bg_color = Color(0.25, 0.12, 0.03, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95, 0.55, 0.2, 0.35)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[node name="Login" type="Control" unique_id=547559337]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -117,16 +106,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1hxp7")
 
-; ── Fond principal ───────────────────────────────────────────────────────────
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1962379921]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.04, 0.03, 0.10, 1)
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.03, 0.1, 1)
 
-; ── Halos décoratifs ─────────────────────────────────────────────────────────
-[node name="BgGlow" type="ColorRect" parent="."]
+[node name="BgGlow" type="ColorRect" parent="." unique_id=852965091]
 layout_mode = 0
 offset_left = -150.0
 offset_top = 80.0
@@ -134,29 +123,27 @@ offset_right = 650.0
 offset_bottom = 700.0
 color = Color(0.14, 0.06, 0.38, 0.13)
 
-[node name="BgGlow2" type="ColorRect" parent="."]
+[node name="BgGlow2" type="ColorRect" parent="." unique_id=1696686149]
 layout_mode = 0
 offset_left = 650.0
-offset_right = 1480.0
 offset_top = -50.0
+offset_right = 1480.0
 offset_bottom = 600.0
-color = Color(0.05, 0.12, 0.32, 0.10)
+color = Color(0.05, 0.12, 0.32, 0.1)
 
-; ── Lignes déco coin haut-gauche ─────────────────────────────────────────────
-[node name="CornerTL" type="ColorRect" parent="."]
+[node name="CornerTL" type="ColorRect" parent="." unique_id=878947448]
 layout_mode = 0
 offset_right = 70.0
 offset_bottom = 2.0
 color = Color(0.95, 0.82, 0.35, 0.35)
 
-[node name="CornerTL2" type="ColorRect" parent="."]
+[node name="CornerTL2" type="ColorRect" parent="." unique_id=760147713]
 layout_mode = 0
 offset_right = 2.0
 offset_bottom = 70.0
 color = Color(0.95, 0.82, 0.35, 0.35)
 
-; ── Lignes déco coin bas-droit ───────────────────────────────────────────────
-[node name="CornerBR" type="ColorRect" parent="."]
+[node name="CornerBR" type="ColorRect" parent="." unique_id=1545382365]
 layout_mode = 0
 offset_left = 1210.0
 offset_top = 718.0
@@ -164,7 +151,7 @@ offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.95, 0.82, 0.35, 0.35)
 
-[node name="CornerBR2" type="ColorRect" parent="."]
+[node name="CornerBR2" type="ColorRect" parent="." unique_id=70473451]
 layout_mode = 0
 offset_left = 1278.0
 offset_top = 650.0
@@ -172,8 +159,7 @@ offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.95, 0.82, 0.35, 0.35)
 
-; ── Section logo / titre ─────────────────────────────────────────────────────
-[node name="LogoSection" type="VBoxContainer" parent="."]
+[node name="LogoSection" type="VBoxContainer" parent="." unique_id=443072343]
 layout_mode = 0
 offset_top = 52.0
 offset_right = 1280.0
@@ -181,34 +167,33 @@ offset_bottom = 210.0
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="GameIcon" type="Label" parent="LogoSection"]
+[node name="GameIcon" type="Label" parent="LogoSection" unique_id=1023069280]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.90)
+theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 0.9)
 theme_override_font_sizes/font_size = 42
 text = "⚔"
 horizontal_alignment = 1
 
-[node name="GameTitle" type="Label" parent="LogoSection"]
+[node name="GameTitle" type="Label" parent="LogoSection" unique_id=1855530995]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.82, 0.35, 1)
 theme_override_font_sizes/font_size = 54
 text = "ARENA LEGENDS"
 horizontal_alignment = 1
 
-[node name="GameSubtitle" type="Label" parent="LogoSection"]
+[node name="GameSubtitle" type="Label" parent="LogoSection" unique_id=46070737]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.60, 0.55, 0.85, 0.65)
+theme_override_colors/font_color = Color(0.6, 0.55, 0.85, 0.65)
 theme_override_font_sizes/font_size = 12
 text = "MULTIJOUEUR  •  BATTLE ROYAL  •  BOSS HUNT"
 horizontal_alignment = 1
 
-[node name="TitleDivider" type="ColorRect" parent="LogoSection"]
+[node name="TitleDivider" type="ColorRect" parent="LogoSection" unique_id=1060142941]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 color = Color(0.95, 0.82, 0.35, 0.18)
 
-; ── Barre de statut connexion ─────────────────────────────────────────────────
-[node name="StatusBar" type="HBoxContainer" parent="."]
+[node name="StatusBar" type="HBoxContainer" parent="." unique_id=1552362671]
 layout_mode = 0
 offset_top = 210.0
 offset_right = 1280.0
@@ -216,19 +201,18 @@ offset_bottom = 244.0
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="StatusDot" type="ColorRect" parent="StatusBar"]
+[node name="StatusDot" type="ColorRect" parent="StatusBar" unique_id=1084987811]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 color = Color(0.95, 0.82, 0.35, 0.85)
 
-[node name="StatusLabel" type="Label" parent="StatusBar"]
+[node name="StatusLabel" type="Label" parent="StatusBar" unique_id=1440243087]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.60, 0.55, 0.85, 0.80)
+theme_override_colors/font_color = Color(0.6, 0.55, 0.85, 0.8)
 theme_override_font_sizes/font_size = 13
 text = "Vérification de la connexion..."
 
-; ── Carte principale ─────────────────────────────────────────────────────────
-[node name="MainCard" type="PanelContainer" parent="."]
+[node name="MainCard" type="PanelContainer" parent="." unique_id=1359675445]
 layout_mode = 0
 offset_left = 380.0
 offset_top = 255.0
@@ -236,112 +220,108 @@ offset_right = 900.0
 offset_bottom = 660.0
 theme_override_styles/panel = SubResource("SF_Card")
 
-[node name="CardMargin" type="MarginContainer" parent="MainCard"]
+[node name="CardMargin" type="MarginContainer" parent="MainCard" unique_id=1209210295]
 layout_mode = 2
 theme_override_constants/margin_left = 28
 theme_override_constants/margin_top = 22
 theme_override_constants/margin_right = 28
 theme_override_constants/margin_bottom = 22
 
-[node name="CardVBox" type="VBoxContainer" parent="MainCard/CardMargin"]
+[node name="CardVBox" type="VBoxContainer" parent="MainCard/CardMargin" unique_id=211379235]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-; ── Panel auto-login ─────────────────────────────────────────────────────────
-[node name="AutoLoginPanel" type="VBoxContainer" parent="MainCard/CardMargin/CardVBox"]
+[node name="AutoLoginPanel" type="VBoxContainer" parent="MainCard/CardMargin/CardVBox" unique_id=792505648]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="AutoLoginTitle" type="Label" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel"]
+[node name="AutoLoginTitle" type="Label" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel" unique_id=1648103277]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.60, 0.55, 0.85, 0.65)
+theme_override_colors/font_color = Color(0.6, 0.55, 0.85, 0.65)
 theme_override_font_sizes/font_size = 11
 text = "CONNECTÉ EN TANT QUE"
 horizontal_alignment = 1
 
-[node name="AutoLoginName" type="Label" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel"]
+[node name="AutoLoginName" type="Label" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel" unique_id=1022249908]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
 theme_override_font_sizes/font_size = 28
 text = "..."
 horizontal_alignment = 1
 
-[node name="AutoLoginClass" type="Label" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel"]
+[node name="AutoLoginClass" type="Label" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel" unique_id=1339581461]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.70, 0.65, 0.95, 0.75)
+theme_override_colors/font_color = Color(0.7, 0.65, 0.95, 0.75)
 theme_override_font_sizes/font_size = 13
 text = "..."
 horizontal_alignment = 1
 
-[node name="AutoLoginDivider" type="ColorRect" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel"]
+[node name="AutoLoginDivider" type="ColorRect" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel" unique_id=1165840853]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 color = Color(0.95, 0.82, 0.35, 0.14)
 
-[node name="AutoLoginSpinner" type="Label" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel"]
+[node name="AutoLoginSpinner" type="Label" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel" unique_id=586805131]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.35, 0.90, 0.55, 0.9)
+theme_override_colors/font_color = Color(0.35, 0.9, 0.55, 0.9)
 theme_override_font_sizes/font_size = 13
 text = "Connexion en cours..."
 horizontal_alignment = 1
 
-[node name="BtnCancelAuto" type="Button" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel"]
+[node name="BtnCancelAuto" type="Button" parent="MainCard/CardMargin/CardVBox/AutoLoginPanel" unique_id=1909945583]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "Changer de compte"
 
-; ── Panel login manuel ────────────────────────────────────────────────────────
-[node name="ManualLoginPanel" type="VBoxContainer" parent="MainCard/CardMargin/CardVBox"]
+[node name="ManualLoginPanel" type="VBoxContainer" parent="MainCard/CardMargin/CardVBox" unique_id=1787816689]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-; ── Onglets connexion / inscription ──────────────────────────────────────────
-[node name="LoginTabRow" type="HBoxContainer" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel"]
+[node name="LoginTabRow" type="HBoxContainer" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel" unique_id=1563075606]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="TabLogin" type="Button" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginTabRow"]
+[node name="TabLogin" type="Button" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginTabRow" unique_id=1800229360]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("SF_TabActive")
-theme_override_styles/hover = SubResource("SF_TabActive")
 theme_override_styles/pressed = SubResource("SF_TabActive")
+theme_override_styles/hover = SubResource("SF_TabActive")
 toggle_mode = true
 button_pressed = true
 text = "Connexion"
 
-[node name="TabRegister" type="Button" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginTabRow"]
+[node name="TabRegister" type="Button" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginTabRow" unique_id=1696839808]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("SF_TabInactive")
-theme_override_styles/hover = SubResource("SF_TabActive")
 theme_override_styles/pressed = SubResource("SF_TabActive")
+theme_override_styles/hover = SubResource("SF_TabActive")
 toggle_mode = true
 text = "Inscription"
 
-[node name="TabDivider" type="ColorRect" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel"]
+[node name="TabDivider" type="ColorRect" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel" unique_id=1932369701]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 color = Color(0.95, 0.82, 0.35, 0.14)
 
-; ── Formulaire connexion ──────────────────────────────────────────────────────
-[node name="LoginForm" type="VBoxContainer" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel"]
+[node name="LoginForm" type="VBoxContainer" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel" unique_id=1365506801]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="UsernameLabel" type="Label" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm"]
+[node name="UsernameLabel" type="Label" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm" unique_id=136801797]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.65, 0.60, 0.90, 0.75)
+theme_override_colors/font_color = Color(0.65, 0.6, 0.9, 0.75)
 theme_override_font_sizes/font_size = 11
 text = "NOM D'UTILISATEUR"
 
-[node name="UsernameEdit" type="LineEdit" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm"]
+[node name="UsernameEdit" type="LineEdit" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm" unique_id=931292348]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -349,13 +329,13 @@ theme_override_styles/normal = SubResource("SF_Input")
 theme_override_styles/focus = SubResource("SF_InputFocus")
 placeholder_text = "Votre nom..."
 
-[node name="PasswordLabel" type="Label" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm"]
+[node name="PasswordLabel" type="Label" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm" unique_id=1311282507]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.65, 0.60, 0.90, 0.75)
+theme_override_colors/font_color = Color(0.65, 0.6, 0.9, 0.75)
 theme_override_font_sizes/font_size = 11
 text = "MOT DE PASSE"
 
-[node name="PasswordEdit" type="LineEdit" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm"]
+[node name="PasswordEdit" type="LineEdit" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm" unique_id=1001543084]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -364,48 +344,47 @@ theme_override_styles/focus = SubResource("SF_InputFocus")
 placeholder_text = "Mot de passe..."
 secret = true
 
-[node name="RememberRow" type="HBoxContainer" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm"]
+[node name="RememberRow" type="HBoxContainer" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm" unique_id=334686877]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="RememberCheck" type="CheckBox" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm/RememberRow"]
+[node name="RememberCheck" type="CheckBox" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm/RememberRow" unique_id=1799501359]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 button_pressed = true
 text = "Se souvenir de moi"
 
-[node name="ForgotBtn" type="Button" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm/RememberRow"]
+[node name="ForgotBtn" type="Button" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm/RememberRow" unique_id=1962218727]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.60, 0.55, 0.85, 0.70)
+theme_override_colors/font_color = Color(0.6, 0.55, 0.85, 0.7)
 theme_override_font_sizes/font_size = 12
 text = "Mot de passe oublié ?"
 flat = true
 alignment = 2
 
-[node name="BtnLogin" type="Button" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm"]
+[node name="BtnLogin" type="Button" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/LoginForm" unique_id=1081301609]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("SF_BtnPrimary")
-theme_override_styles/hover = SubResource("SF_BtnPrimaryHover")
 theme_override_styles/pressed = SubResource("SF_BtnPrimaryPress")
+theme_override_styles/hover = SubResource("SF_BtnPrimaryHover")
 text = "SE CONNECTER  →"
 
-; ── Formulaire inscription ────────────────────────────────────────────────────
-[node name="RegisterForm" type="VBoxContainer" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel"]
+[node name="RegisterForm" type="VBoxContainer" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel" unique_id=1396687791]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="RegUsernameLabel" type="Label" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm"]
+[node name="RegUsernameLabel" type="Label" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm" unique_id=2093967294]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.65, 0.60, 0.90, 0.75)
+theme_override_colors/font_color = Color(0.65, 0.6, 0.9, 0.75)
 theme_override_font_sizes/font_size = 11
 text = "NOM D'UTILISATEUR"
 
-[node name="RegUsernameEdit" type="LineEdit" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm"]
+[node name="RegUsernameEdit" type="LineEdit" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm" unique_id=670376151]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -413,13 +392,13 @@ theme_override_styles/normal = SubResource("SF_Input")
 theme_override_styles/focus = SubResource("SF_InputFocus")
 placeholder_text = "Choisir un nom..."
 
-[node name="RegEmailLabel" type="Label" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm"]
+[node name="RegEmailLabel" type="Label" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm" unique_id=1951803078]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.65, 0.60, 0.90, 0.75)
+theme_override_colors/font_color = Color(0.65, 0.6, 0.9, 0.75)
 theme_override_font_sizes/font_size = 11
 text = "EMAIL"
 
-[node name="RegEmailEdit" type="LineEdit" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm"]
+[node name="RegEmailEdit" type="LineEdit" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm" unique_id=827307749]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -427,13 +406,13 @@ theme_override_styles/normal = SubResource("SF_Input")
 theme_override_styles/focus = SubResource("SF_InputFocus")
 placeholder_text = "votre@email.com"
 
-[node name="RegPasswordLabel" type="Label" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm"]
+[node name="RegPasswordLabel" type="Label" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm" unique_id=2034857372]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.65, 0.60, 0.90, 0.75)
+theme_override_colors/font_color = Color(0.65, 0.6, 0.9, 0.75)
 theme_override_font_sizes/font_size = 11
 text = "MOT DE PASSE (min. 8 caractères)"
 
-[node name="RegPasswordEdit" type="LineEdit" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm"]
+[node name="RegPasswordEdit" type="LineEdit" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm" unique_id=764592938]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -442,26 +421,24 @@ theme_override_styles/focus = SubResource("SF_InputFocus")
 placeholder_text = "Minimum 8 caractères..."
 secret = true
 
-[node name="BtnRegister" type="Button" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm"]
+[node name="BtnRegister" type="Button" parent="MainCard/CardMargin/CardVBox/ManualLoginPanel/RegisterForm" unique_id=1248054534]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("SF_BtnPrimary")
-theme_override_styles/hover = SubResource("SF_BtnPrimaryHover")
 theme_override_styles/pressed = SubResource("SF_BtnPrimaryPress")
+theme_override_styles/hover = SubResource("SF_BtnPrimaryHover")
 text = "CRÉER LE COMPTE  →"
 
-; ── Label d'erreur ────────────────────────────────────────────────────────────
-[node name="ErrorLabel" type="Label" parent="MainCard/CardMargin/CardVBox"]
+[node name="ErrorLabel" type="Label" parent="MainCard/CardMargin/CardVBox" unique_id=1391781751]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.30, 0.30, 1)
+theme_override_colors/font_color = Color(0.95, 0.3, 0.3, 1)
 theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
 autowrap_mode = 3
 
-; ── Notice hors-ligne ─────────────────────────────────────────────────────────
-[node name="OfflineNotice" type="PanelContainer" parent="."]
+[node name="OfflineNotice" type="PanelContainer" parent="." unique_id=1772765015]
 visible = false
 layout_mode = 0
 offset_left = 20.0
@@ -470,27 +447,26 @@ offset_right = 1260.0
 offset_bottom = 714.0
 theme_override_styles/panel = SubResource("SF_OfflinePanel")
 
-[node name="OfflineInner" type="HBoxContainer" parent="OfflineNotice"]
+[node name="OfflineInner" type="HBoxContainer" parent="OfflineNotice" unique_id=1861036402]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="OfflineIcon" type="Label" parent="OfflineNotice/OfflineInner"]
+[node name="OfflineIcon" type="Label" parent="OfflineNotice/OfflineInner" unique_id=856544515]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.55, 0.20, 1)
+theme_override_colors/font_color = Color(0.95, 0.55, 0.2, 1)
 theme_override_font_sizes/font_size = 16
 text = "⚠"
 vertical_alignment = 1
 
-[node name="OfflineLabel" type="Label" parent="OfflineNotice/OfflineInner"]
+[node name="OfflineLabel" type="Label" parent="OfflineNotice/OfflineInner" unique_id=671297425]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.70, 0.40, 0.90)
+theme_override_colors/font_color = Color(0.95, 0.7, 0.4, 0.9)
 theme_override_font_sizes/font_size = 13
 text = "Aucune connexion — Les modes multijoueurs nécessitent Internet"
 vertical_alignment = 1
 
-; ── Bouton hors-ligne ─────────────────────────────────────────────────────────
-[node name="BtnPlayOffline" type="Button" parent="."]
+[node name="BtnPlayOffline" type="Button" parent="." unique_id=1992872105]
 visible = false
 layout_mode = 0
 offset_left = 465.0

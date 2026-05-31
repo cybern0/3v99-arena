@@ -13,14 +13,14 @@ const BOSS_SERVER_WS := "ws://127.0.0.1:9099"         # <— serveur Godot C++ e
 @onready var bh_scr     : Control = $BossHuntScreen
 
 # Battle Royal
-@onready var br_rooms_list : ItemList = $BattleRoyaleScreen/BRContent/BRRoomsList
-@onready var btn_create_br : Button   = $BattleRoyaleScreen/BRContent/BtnCreateBR
-@onready var btn_join_br   : Button   = $BattleRoyaleScreen/BRContent/BtnJoinBR
-@onready var br_status_lbl : Label    = $BattleRoyaleScreen/BRContent/BRStatusLabel
+@onready var br_rooms_list : ItemList = $BattleRoyaleScreen/BRPanel/BRMargin/BRContent/BRRoomsList
+@onready var btn_create_br : Button   = $BattleRoyaleScreen/BRPanel/BRMargin/BRContent/ButtonsHBox/BtnCreateBR
+@onready var btn_join_br   : Button   = $BattleRoyaleScreen/BRPanel/BRMargin/BRContent/ButtonsHBox/BtnJoinBR
+@onready var br_status_lbl : Label    = $BattleRoyaleScreen/BRPanel/BRStatusLabel
 
 # Boss Hunt
-@onready var boss_worlds_list : ItemList = $BossHuntScreen/BHContent/BHLeft/BHRoomsList
-@onready var bh_status_lbl    : Label    = $BossHuntScreen/BHContent/BHStatusLabel
+@onready var boss_worlds_list : ItemList = $BossHuntScreen/BHPanel/BHMargin/BHContent/BHLeft/BHRoomsList
+@onready var bh_status_lbl    : Label    = $BossHuntScreen/BHPanel/BHMargin/BHContent/BHStatusLabel
 
 # ── Clients reseau ─────────────────────────────────────────────────────────────
 var _http_br     : HTTPRequest      # requetes FastAPI pour BR
@@ -29,7 +29,8 @@ var _boss_ws_connected : bool = false
 
 func _ready() -> void:
 	if not SessionManager.is_logged_in:
-		get_tree().change_scene_to_file("res://scenes/Login.tscn")
+		# On utilise call_deferred pour différer le changement de scène
+		get_tree().change_scene_to_file.call_deferred("res://scenes/Login.tscn")
 		return
 
 	# Requetes HTTP (Battle Royal / FastAPI)
